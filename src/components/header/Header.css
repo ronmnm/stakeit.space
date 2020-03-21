@@ -1,0 +1,9 @@
+.my_header{
+    /* background-color: gray; */
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 1px solid #222;
+    height: 70px;
+}

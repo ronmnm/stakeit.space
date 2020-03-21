@@ -1,0 +1,33 @@
+.my_nav{
+    /* width: 100%; */
+    display: grid;
+
+    grid-template-columns: 130px 130px 130px;
+    
+}
+.my_nav .my_nav_item{
+    text-align: center;
+    padding: 6px 20px;
+    width: 85px;
+    margin: 0 auto;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    transition: 0.5s;
+}
+
+.my_nav .my_nav_item:hover{
+    
+    /* background-color: #222; */
+    color: #eee;
+
+}
+
+.my_nav .active{
+    color: white;
+    background-color: #222;
+}

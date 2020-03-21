@@ -1,0 +1,47 @@
+.my_address {
+  /* background-color: rgb(56, 56, 56); */
+}
+
+.my_address_item {
+  width: 140px;
+  height: 30px;
+  border-radius: 7px;
+  background-color: #222;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: 0.5s;
+}
+.my_address_item:hover {
+
+  background-color: #333;
+  cursor: pointer;
+
+}
+.my_ident_icon {
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+  height: 30px; 
+  width: 30px;
+  border-radius: 7px;
+  /* background-color: green; */
+  /* display: flex; */
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+}
+
+.my_ident_icon canvas {
+  border-radius: 4px;
+  margin: auto
+}
+
+.my_address_text {
+  letter-spacing: .5px;
+  display: flex;
+  font-size: 13px;
+  color: #ddd;
+  justify-content: flex-end;
+  margin-left: 6px;
+
+}
