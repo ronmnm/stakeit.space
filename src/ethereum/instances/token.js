@@ -1,4 +1,4 @@
-import web3 from '../web3'
+// import web3 from '../web3'
 
 const abi = [
   "NuCypherToken",
@@ -165,9 +165,6 @@ const abi = [
   ]
 ];
 
-const tokenAddress = abi[2];
-const tokenAbi = abi[3];
+export const TOKEN_ADDRESS = abi[2];
+export const TOKEN_ABI = abi[3];
 
-const instanceToken = new web3.eth.Contract(tokenAbi, tokenAddress);
-
-export default instanceToken;

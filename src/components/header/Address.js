@@ -7,6 +7,7 @@ export default class Address extends React.Component {
   render() {
     return (
       <div className="my_address">
+        <span>{this.props.network}</span>
         <div className="my_address_item">
           <div className="my_ident_icon">
             <Blockies
@@ -24,7 +25,9 @@ export default class Address extends React.Component {
               42
             )}`}
           </div>
+          
         </div>
+        
       </div>
     );
   }

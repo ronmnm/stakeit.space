@@ -14,10 +14,10 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: #888;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 .my_nav .my_nav_item:hover{

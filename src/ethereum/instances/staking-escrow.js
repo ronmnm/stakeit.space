@@ -1,4 +1,4 @@
-import web3 from '../web3'
+// import web3 from '../web3'
 
 
 const abi = [
@@ -1329,9 +1329,10 @@ const abi = [
   ]
 ];
 
-const stakingEscrowAddress = '0xdC098916291e1ef683A4f469fa32025c872194df';
-const stakingEscrowAbi = abi[3];
+export const STAKING_ESCROW_ADDRESS = '0xdC098916291e1ef683A4f469fa32025c872194df';
+export const STAKING_ESCROW_ABI = abi[3];
 
-const instanceEscrow = new web3.eth.Contract(stakingEscrowAbi, stakingEscrowAddress);
 
-export default instanceEscrow;
+
+
+

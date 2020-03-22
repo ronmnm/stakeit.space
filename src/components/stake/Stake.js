@@ -1,43 +1,71 @@
-import Web3 from 'web3'
-import React from 'react'
+import Web3 from "web3";
+import React from "react";
+import "./Stake.css";
 
 export default class Stake extends React.Component {
-    state = {
-        addr1: '0x000',
-        addr2: '0x000',
-      }
-      
-        componentDidMount() {
-          this.loadBlockchain();
-        }
-        componentWillMount(){
-          this.test()
-        }
-      
-        async loadBlockchain() {
-          const web3 = await new Web3(window.ethereum);
-          const accounts = await web3.eth.getAccounts();
-          const account = accounts[0]
-          console.log(account)
-          this.setState({addr2: account})
-        }
-      
-        async test(){
-          const web3 = await new Web3(window.ethereum);
-          const accounts = await web3.eth.getAccounts();
-          const account = accounts[0]
-          console.log('test', account)
-          this.setState({addr1: account})
-        }
-      
-        render() {
-      
-          return (
-            <div>
-              <h1>addr</h1>
-              <p>{this.state.addr1}</p>
-              <p>{this.props.isAuthed}</p>
-            </div>
-          );
-        }
+  state = {
+    inputAmount: "",
+    inputDuration: ""
+  };
+
+  // handleAmountInput() {
+  //     console.log('this.state.balanceClick')
+  //   }
+
+  render() {
+    const {balance} = this.props;
+    console.log(this.state.inputAmount);
+    return (
+      <div className="my_stake">
+        <h3>add new stake</h3>
+        <div className="stake_info">
+          <span>Amount:</span>
+          <span
+            className="balance_click"
+            onClick={event =>
+              this.setState({ inputAmount: balance })
+            }>
+            Balance: <b>{balance}</b>
+          </span>
+        </div>
+
+        <form action="" className="my_form">
+          <input
+            onChange={event =>
+              this.setState({ inputAmount: event.target.value })
+            }
+            placeholder="15000"
+            className="my_input"
+            autoComplete="off"
+            type="text"
+            name="name"
+            value={this.state.inputAmount}
+            required
+          />
+          <div className="stake_info">
+            <span>Duration:</span>
+          </div>
+          <input
+            onChange={event =>
+              this.setState({ inputAmount: event.target.value })
+            }
+            placeholder="30"
+            className="my_input"
+            autoComplete="off"
+            type="text"
+            name="name"
+            required
+          />
+
+          {/* Button group */}
+          <div className="button_group">
+            <span className="text_above_button">
+              Enter amount and duration to continue.
+            </span>
+            <button className="button_stake_it">Stake It!</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
