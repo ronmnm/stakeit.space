@@ -4,12 +4,12 @@ import Address from "./Address";
 import "./Header.css";
 
 export default props => {
-  let AddressButton = null;
-  if (typeof window.ethereum == 'undefined' || window.ethereum.selectedAddress == null) {
-    console.log('connect a wallet')
-  } else {
-    console.log('thats ok')
-  }
+  // let AddressButton = null;
+  // if (typeof window.ethereum == 'undefined' || window.ethereum.selectedAddress == null) {
+  //   console.log('connect a wallet')
+  // } else {
+  //   console.log('thats ok')
+  // }
   return (
     <div className="my_header">
       <div className="logo">nucypher.com</div>

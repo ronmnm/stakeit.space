@@ -31,7 +31,6 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    
     this.getBlockChainData();
   }
 
@@ -121,9 +120,23 @@ class App extends React.Component {
       10 ** 18
     ).toLocaleString("en-Us");
     // nodes
-    const nodes = await instancePolicy.methods
-    .nodes(accounts[0])
-    .call();
+    const nodes = await instancePolicy.methods.nodes(accounts[0]).call();
+
+    // get worker
+    // const workerAddr = await instanceEscrow.methods
+    //   .getWorkerFromStaker(stakerAddr)
+    //   .call();
+    // // get substake length by substake index
+    // const getSubStakesLength = await instanceEscrow.methods
+    //   .getSubStakesLength(stakerAddr)
+    //   .call();
+
+    // for (let i = 0; i < getSubStakesLength; i++) {
+    //   const list = await instanceEscrow.methods
+    //     .getSubStakeInfo(stakerAddr, i)
+    //     .call();
+    //   // console.log(list);
+    // }
 
     //
     // SET STATE
@@ -167,6 +180,7 @@ class App extends React.Component {
           <div className="my_content_wrapper">
             <Route
               path="/stake"
+              exact
               render={() => (
                 <Stake
                   balance={this.state.nuBalance}
