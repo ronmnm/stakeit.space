@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
 import Manage from "./components/manage/Manage";
 import Withdraw from "./components/withdraw/Withdraw";
+import Loader from "./components/loader/Loader";
 import "./App.css";
 import Web3 from "web3";
 import { TOKEN_ABI, TOKEN_ADDRESS } from "./ethereum/instances/token";
@@ -21,6 +22,7 @@ import {
 //
 class App extends React.Component {
   state = {
+    isLoading: true,
     address: "",
     nuBalance: "",
     currentPeriod: "",
@@ -31,10 +33,13 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
+    // this.setState({isLoading: true})
     this.getBlockChainData();
+    // this.setState({isLoading: false})
   }
 
   async getBlockChainData() {
+    this.setState({ isLoading: true });
     const web3 = new Web3(window.ethereum);
     window.ethereum.enable();
     const accounts = await web3.eth.getAccounts();
@@ -140,6 +145,7 @@ class App extends React.Component {
 
     //
     // SET STATE
+    this.setState({ isLoading: false });
     this.setState({
       address: accounts[0],
       nuBalance: nuBalance,
@@ -173,11 +179,20 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.isLoading);
     return (
       <BrowserRouter>
         <div className="my_wrapper">
-          <Header address={this.state.address} network={this.state.network} />
+          <Header
+            address={this.state.address}
+            network={this.state.network}
+            isLoading={this.state.isLoading}
+          ></Header>
+          
           <div className="my_content_wrapper">
+            <Route path="/" exact>
+              <Redirect to="/stake" />
+            </Route>
             <Route
               path="/stake"
               exact
@@ -197,12 +212,16 @@ class App extends React.Component {
             />
           </div>
 
-          <Footer
-            currentPeriod={this.state.currentPeriod}
-            getActiveStakers={this.state.getActiveStakers}
-            percentOfLockedNu={this.state.percentOfLockedNu}
-            lockedNu={this.state.lockedNu}
-          />
+          {this.state.isLoading ? (
+            <Loader />
+          ) : (
+            <Footer
+              currentPeriod={this.state.currentPeriod}
+              getActiveStakers={this.state.getActiveStakers}
+              percentOfLockedNu={this.state.percentOfLockedNu}
+              lockedNu={this.state.lockedNu}
+            />
+          )}
         </div>
       </BrowserRouter>
     );

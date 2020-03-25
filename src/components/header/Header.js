@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./Nav";
 import Address from "./Address";
 import "./Header.css";
+import LoadingAddress from './loading-address/Address-loading'
 
 export default props => {
   // let AddressButton = null;
@@ -16,7 +17,11 @@ export default props => {
 
       <Nav />
 
-      <Address address={props.address} network={props.network} />
+      {props.isLoading ? (
+            <LoadingAddress />
+          ) : (
+            <Address address={props.address} network={props.network} />
+          )}
     </div>
   );
 };

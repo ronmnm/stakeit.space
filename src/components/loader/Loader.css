@@ -1,0 +1,16 @@
+.my_footer_loader {
+  background-color: rgb(27, 27, 27);
+  height: 50px;
+  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-around;
+}
+.my_footer_loader_wrapper{
+  display: flex;
+  align-items: center;
+}
+

@@ -1,0 +1,23 @@
+.my_manage{
+  width: 60%;
+  margin: 50px auto;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.staker_manage {
+
+  /* background-color: rgb(34, 24, 24); */
+}
+.worker_manage {
+
+  
+}
+.big_item{
+  background-color: rgb(22, 22, 22);
+  display: grid;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 30px 0
+}
