@@ -4,13 +4,48 @@
     <meta charset="utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" src="../img//favicon.png"> 
 
-    <title>React App</title>
+    <title>Worklock stakeit.space</title>
   </head>
   <body>
-
     <div id="root"></div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC5TnSm2lU5d2TiG-KR6_KXfiULvITIn5U",
+        authDomain: "stakeit-45d38.firebaseapp.com",
+        databaseURL: "https://stakeit-45d38.firebaseio.com",
+        projectId: "stakeit-45d38",
+        storageBucket: "stakeit-45d38.appspot.com",
+        messagingSenderId: "992354349579",
+        appId: "1:992354349579:web:a53b4c3dd0eb7b984e4d0e",
+        measurementId: "G-3WR8LEXVX2"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      firebase.analytics();
+    </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/7.12.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="/__/firebase/7.12.0/firebase-analytics.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
   </body>
 </html>

@@ -2,13 +2,14 @@
     /* width: 100%; */
     display: grid;
 
-    grid-template-columns: 130px 130px 130px;
+    grid-template-columns: 130px 130px 130px 130px;
+    /* grid-template-columns: 1fr; */
     
 }
 .my_nav .my_nav_item{
     text-align: center;
     padding: 6px 20px;
-    width: 85px;
+    /* width: 85px; */
     margin: 0 auto;
     border-radius: 8px;
     text-decoration: none;
@@ -18,6 +19,9 @@
     font-weight: 600;
     color: #888;
     transition: 0.2s;
+}
+.disable{
+    pointer-events: none;
 }
 
 .my_nav .my_nav_item:hover{

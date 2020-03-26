@@ -14,6 +14,7 @@ export default class Stake extends React.Component {
 
   render() {
     const {balance} = this.props;
+    const nuBalance = (parseFloat(balance) / 10 ** 18).toFixed(0)
     console.log(this.state.inputAmount);
     return (
       <div className="my_stake">
@@ -23,9 +24,9 @@ export default class Stake extends React.Component {
           <span
             className="balance_click"
             onClick={event =>
-              this.setState({ inputAmount: balance })
+              this.setState({ inputAmount: nuBalance })
             }>
-            Balance: <b>{balance}</b>
+            Balance: <b>{nuBalance}</b> NU
           </span>
         </div>
 

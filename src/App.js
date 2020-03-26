@@ -4,6 +4,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
 import Manage from "./components/manage/Manage";
+import Worklock from "./components/worklock/worklock";
 import Withdraw from "./components/withdraw/Withdraw";
 import Loader from "./components/loader/Loader";
 import "./App.css";
@@ -17,31 +18,85 @@ import {
   POLICY_MANAGER_ADDRESS,
   POLICY_MANAGER_ABI
 } from "./ethereum/instances/policy-manager";
+import { WORKLOCK_ADDRESS, WORKLOCK_ABI } from "./ethereum/instances/worklock";
 
 //
 //
 class App extends React.Component {
-  state = {
-    isLoading: true,
-    address: "",
-    nuBalance: "",
-    currentPeriod: "",
-    getStakersLength: "",
-    percentOfLockedNu: "",
-    lockedNu: "",
-    nuNitsToWithdraw: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: "",
+      nuNitsBalance: "",
+      currentPeriod: "",
+      getStakersLength: "",
+      percentOfLockedNu: "",
+      lockedNu: "",
+      nuNitsToWithdraw: "",
 
-  async componentDidMount() {
-    // this.setState({isLoading: true})
-    this.getBlockChainData();
-    // this.setState({isLoading: false})
+      hasAccessToMetamask: null,
+      // isConnected: null,
+      // isLoading: null,
+      buttonStatus: 'loading'
+    };
+    this.handleClick = this.handleClick.bind(this);
   }
 
+  async handleClick() {
+    await window.ethereum.enable();
+    // this.setState({ isConnected: true });
+    this.getBlockChainData();
+  }
+  async componentDidMount() {
+    if (typeof window.ethereum !== "undefined") {
+      // Metamask installed
+      // const web3 = new Web3(window.ethereum);
+      console.log("metamask installed");
+
+      // const web3 = new Web3(window.ethereum);
+      // console.log(window.ethereum.selectedAddress)
+      // console.log(account)
+      // (window.ethereum.selectedAddress == null) || (typeof window.ethereum.selectedAddress === undefined)
+      try {
+        await window.ethereum.enable()
+      } catch (error) {
+        console.log("user denied logging")
+        this.setState({buttonStatus: 'connect'})
+      }
+      
+
+      if (window.ethereum.networkVersion === "5") {
+        if (typeof window.ethereum.selectedAddress !== "string") {
+          console.log("акаунт не подключен");
+          this.setState({ buttonStatus: "connect" });
+          console.log(typeof window.ethereum.selectedAddress);
+        } else {
+          this.setState({ buttonStatus: "ok" });
+
+          console.log("подключен аккаунт");
+          console.log(window.ethereum.networkVersion);
+          this.getBlockChainData();
+        }
+      } else {
+        console.log(window.ethereum.networkVersion);
+        this.setState({ buttonStatus: "wrong" });
+      }
+    } else {
+      // Metamask not installed
+      this.setState({ buttonStatus: "install" });
+      console.log("please install metamask");
+      // this.setState({ isLoading: false });
+    }
+  }
+
+
   async getBlockChainData() {
-    this.setState({ isLoading: true });
-    const web3 = new Web3(window.ethereum);
-    window.ethereum.enable();
+    this.setState({ buttonStatus: "loading" });
+
+    const web3 = new Web3(window["ethereum"]);
+
+    // await window.ethereum.enable();
+
     const accounts = await web3.eth.getAccounts();
     const network = await web3.eth.net.getNetworkType();
 
@@ -59,7 +114,6 @@ class App extends React.Component {
       POLICY_MANAGER_ABI,
       POLICY_MANAGER_ADDRESS
     );
-    //
 
     // MAIN DATA
     //
@@ -100,9 +154,9 @@ class App extends React.Component {
     const nuNitsBalance = await instanceToken.methods
       .balanceOf(accounts[0])
       .call();
-    const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toLocaleString(
-      "en-Us"
-    );
+    // const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toLocaleString(
+    //   "en-Us"
+    // );
     // Get all users tokens
     const allUserNuNits = await instanceEscrow.methods
       .getAllTokens(accounts[0])
@@ -145,26 +199,28 @@ class App extends React.Component {
 
     //
     // SET STATE
-    this.setState({ isLoading: false });
+    // this.setState({  });
     this.setState({
       address: accounts[0],
-      nuBalance: nuBalance,
+      nuNitsBalance: nuNitsBalance,
       currentPeriod: currentPeriod,
       getActiveStakers: getActiveStakers.activeStakers.length,
       percentOfLockedNu: percentOfLockedNu,
       lockedNu: lockedNu,
       network: network,
-      nuNitsToWithdraw: nuNitsToWithdraw
+      nuNitsToWithdraw: nuNitsToWithdraw,
+      buttonStatus: "ok"
     });
 
     // console.log(instanceEscrow.methods);
     // console.log(getStakersLength);
 
-    console.log(instancePolicy.methods);
-    console.log(allUserNu);
-    console.log(lockedUserNu);
-    console.log(nuToWithdraw);
-    console.log(nodes);
+    // console.log(instancePolicy.methods);
+    // console.log(allUserNu);
+    // console.log(lockedUserNu);
+    // console.log(nuToWithdraw);
+    // console.log(nodes);
+    // console.log(instanceWorklock.methods)
 
     // console.log(getActiveStakers.activeStakers.length);
     // console.log(
@@ -174,36 +230,36 @@ class App extends React.Component {
     // console.log();
   }
 
-  componentWillUnmount() {
-    this.getBlockChainData();
-  }
+  // componentWillUnmount() {
+  //   this.getBlockChainData();
+  // }
 
   render() {
-    console.log(this.state.isLoading);
     return (
       <BrowserRouter>
         <div className="my_wrapper">
           <Header
             address={this.state.address}
             network={this.state.network}
-            isLoading={this.state.isLoading}
-          ></Header>
-          
+            buttonStatus={this.state.buttonStatus}
+            onClick={this.handleClick}></Header>
+
           <div className="my_content_wrapper">
             <Route path="/" exact>
-              <Redirect to="/stake" />
+              <Redirect to="/worklock" />
             </Route>
             <Route
               path="/stake"
               exact
               render={() => (
                 <Stake
-                  balance={this.state.nuBalance}
+                  balance={this.state.nuNitsBalance}
                   isAuthed={this.state.address}
                 />
               )}
-            />
+            ><Redirect to="/worklock" /></Route>
             <Route path="/manage" component={Manage} />
+            <Route path="/worklock" component={Worklock} />
             <Route
               path="/withdraw"
               render={() => (
@@ -212,7 +268,7 @@ class App extends React.Component {
             />
           </div>
 
-          {this.state.isLoading ? (
+          {this.state.buttonStatus === "loading" ? (
             <Loader />
           ) : (
             <Footer
