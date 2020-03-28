@@ -7,7 +7,7 @@ import {
   ControlLabel,
   FormControl
 } from "rsuite";
-import "rsuite/dist/styles/rsuite-dark.css";
+// import "rsuite/dist/styles/rsuite-dark.css";
 import "./worklock.css";
 import Web3 from "web3";
 import { instanceWorklock } from "../../ethereum/instances/worklock";

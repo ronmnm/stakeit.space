@@ -6,11 +6,9 @@ export default class Footer extends React.Component {
 
   render() {
     const {
-      currentPeriod,
-      getActiveStakers,
-      percentOfLockedNu,
-      lockedNu
-    } = this.props;
+      percentLocked, lockedNu, activeStakers, currentPeriod
+    } = this.props.footerData;
+
     return (
       <div className="my_footer">
         <div className="my_footer_wrapper">
@@ -21,10 +19,10 @@ export default class Footer extends React.Component {
             Total NU Staked <span>{lockedNu}</span>
           </p>
           <p className="my_footer_item">
-            Staking Ratio <span>{percentOfLockedNu} %</span>
+            Staking Ratio <span>{percentLocked} %</span>
           </p>
           <p className="my_footer_item">
-            Active Stakers <span>{getActiveStakers}</span>
+            Active Stakers <span>{activeStakers}</span>
           </p>
         </div>
       </div>

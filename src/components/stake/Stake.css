@@ -24,6 +24,7 @@
 }
 .stake_info span b {
   color: #e7e7e7;
+  letter-spacing: .5px;
 }
 .balance_click b {
   color: rgb(121, 121, 121);
@@ -44,6 +45,8 @@
   /* position: absolute; */
   /* top: 10px;
   left: -10px; */
+  font-family: "Open Sans", sans-serif;
+
   background-color: #1b1b1b;
   border-radius: 10px;
   border: 1px solid #232323;

@@ -1,5 +1,7 @@
 import React from "react";
+import "./App.css";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
@@ -7,24 +9,24 @@ import Manage from "./components/manage/Manage";
 import Worklock from "./components/worklock/worklock";
 import Withdraw from "./components/withdraw/Withdraw";
 import Loader from "./components/loader/Loader";
-import "./App.css";
+
 import ServiceWeb3 from './services/web3-service'
 const serviceWeb3 = new ServiceWeb3();
 
-//
-//
 class App extends React.Component {
   state = {
     manageData: null,
     stakeData: null,
     footerData: null,
-    buttonStatus: 'loading'
+    withdrawData: null, /////
+    buttonStatus: 'loading',
+    footerStatus: 'loading'
   }
 
 
   componentDidMount(){
     serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
-    // serviceWeb3.getFooterData().then(res => console.log(res))
+    serviceWeb3.getFooterData().then(res => this.setState({footerData: res, footerStatus: 'done'}))
     serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
   }
 
@@ -155,7 +157,7 @@ class App extends React.Component {
 
 
   render() {
-    const {stakeData, manageData, footerData} = this.state;
+    const {stakeData, manageData, footerData, footerStatus} = this.state;
     
 
     let manageComp;
@@ -212,16 +214,9 @@ class App extends React.Component {
 
           </div>
 
-          {this.state.buttonStatus === "loading" ? (
-            <Loader />
-          ) : (
-            <Footer
-              currentPeriod={this.state.currentPeriod}
-              getActiveStakers={this.state.getActiveStakers}
-              percentOfLockedNu={this.state.percentOfLockedNu}
-              lockedNu={this.state.lockedNu}
-            />
-          )}
+          {footerStatus === "loading" ? <Loader /> :
+            <Footer footerData={footerData} />
+          }
         </div>
       </BrowserRouter>
     );

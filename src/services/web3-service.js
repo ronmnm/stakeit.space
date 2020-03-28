@@ -95,7 +95,7 @@ export default class ServiceWeb3 {
     // Get Current Period
     const currentPeriod = await instanceEscrow.methods.getCurrentPeriod().call();
     // Get number of stakers (with inactive)
-    const getStakersLength = await instanceEscrow.methods.getStakersLength().call();
+    // const getStakersLength = await instanceEscrow.methods.getStakersLength().call();
     // Get number of active stakers and locked amount
     const getStakersAndTokens = await instanceEscrow.methods.getActiveStakers(1, 0, 0).call();
     // Calculations
@@ -106,7 +106,7 @@ export default class ServiceWeb3 {
     const res = {
       totalNuSupply: totalNuSupply,
       currentPeriod: currentPeriod,
-      totalStakers: getStakersLength,
+      // totalStakers: getStakersLength,
       activeStakers: activeStakers,
       lockedNu: lockedNu,
       percentLocked: percentLocked
