@@ -1,7 +1,5 @@
 import web3 from '../web3'
 
-
-
 const abi = [
   "Dispatcher",
   "v0.0.0",
