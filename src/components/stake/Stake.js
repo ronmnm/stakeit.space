@@ -2,6 +2,7 @@
 import React from "react";
 import "./Stake.css";
 
+
 export default class Stake extends React.Component {
   state = {
     inputAmount: "",
@@ -13,9 +14,12 @@ export default class Stake extends React.Component {
   //   }
 
   render() {
-    const {balance} = this.props;
-    const nuBalance = (parseFloat(balance) / 10 ** 18).toFixed(0)
-    // console.log(this.state.inputAmount);
+    let nuBalance;
+    if(this.props.stakeData !== null){
+      nuBalance = this.props.stakeData.balanceNu
+      console.log(nuBalance);
+    }
+
     return (
       <div className="my_stake">
         <h3>add new stake</h3>

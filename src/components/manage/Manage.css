@@ -1,23 +1,68 @@
-.my_manage{
-  width: 60%;
+.my_manage {
+  width: 100%;
+  max-width: 960px;
   margin: 50px auto;
+  padding: 0 40px;
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: minmax(300px, 400px) minmax(40px, 1fr) minmax(300px, 400px);
+  grid-template-rows: 2fr 1fr;
+  /* grid-gap: 3vh; */
+  justify-content: space-between;
+  background-color: rgb(142, 149, 252);
 }
 
 .staker_manage {
-
-  /* background-color: rgb(34, 24, 24); */
+  /* min-width: 350px; */
+  /* width: 40%; */
+  background-color: rgb(155, 155, 155);
 }
-.worker_manage {
-
-  
+.substake_list {
+  grid-column: 1 / 4;
 }
-.big_item{
-  background-color: rgb(22, 22, 22);
+.list_item {
   display: grid;
-  justify-content: center;
-  border-radius: 10px;
-  margin: 20px;
-  padding: 30px 0
+  grid-gap: 2vh;
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
+}
+.list_item div {
+  background-color: royalblue;
+}
+
+.address_eth {
+  border-bottom: 1px solid white;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+.address_title {
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.worker_manage {
+  /* width: 350px; */
+  background-color: rgb(98, 179, 165);
+}
+
+.staker_content p {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin: 0;
+}
+.worker_content p {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.staker_buttons {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.restake_text,
+.winddown_text {
+  font-weight: 500;
 }

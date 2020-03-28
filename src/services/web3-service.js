@@ -15,7 +15,7 @@ export default class ServiceWeb3 {
     const acc = accounts[0];
     // Get Nu balance
     const nuNitsBalance = await instanceToken.methods.balanceOf(acc).call();
-    const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toFixed(0);
+    const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toFixed(2);
 
     const stakerData = {
       account: acc,

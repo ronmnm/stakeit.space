@@ -9,7 +9,7 @@
 .my_nav .my_nav_item{
     text-align: center;
     padding: 6px 20px;
-    /* width: 85px; */
+    width: 100%;
     margin: 0 auto;
     border-radius: 8px;
     text-decoration: none;

@@ -16,12 +16,14 @@ const serviceWeb3 = new ServiceWeb3();
 class App extends React.Component {
   state = {
     manageData: null,
+    stakeData: null,
+    footerData: null,
     buttonStatus: 'loading'
   }
 
 
   componentDidMount(){
-    // serviceWeb3.getStakerBalAddr().then(res => console.log(res))
+    serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
     // serviceWeb3.getFooterData().then(res => console.log(res))
     serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
   }
@@ -153,38 +155,61 @@ class App extends React.Component {
 
 
   render() {
-    console.log(this.state.manageData);
+    const {stakeData, manageData, footerData} = this.state;
+    
+
+    let manageComp;
+    if(this.state.manageData){
+      manageComp = <Manage manageData={manageData} />
+    } else {
+      manageComp = <Loading />
+    }
+    console.log(stakeData)
     return (
       <BrowserRouter>
         <div className="my_wrapper">
           <Header
-            address={this.state.address}
+            address={this.state.h}
             network={this.state.network}
             buttonStatus={this.state.buttonStatus}
-            onClick={this.handleClick}></Header>
+            onClick={this.handleClick}>
+
+          </Header>
 
           <div className="my_content_wrapper">
+
+            {/* STAKE Component */}
             <Route path="/" exact>
               <Redirect to="/stake" />
             </Route>
             <Route
               path="/stake"
-              exact
-              render={() => (
-                <Stake
-                  balance={this.state.nuNitsBalance}
-                  isAuthed={this.state.address}
-                />
-              )}
-            />
-            <Route path="/manage" component={Manage} />
-            <Route path="/worklock" component={Worklock} />
+              render={ () => <Stake stakeData={stakeData} /> } />
+            {/* END STAKE Component */}
+
+
+            {/* MANAGE Component */}
+            <Route 
+              path="/manage" 
+              render={ () => (manageComp) } />
+            {/* END MANAGE Component */}
+
+
+            {/* WORKLOCK Component */}
+            <Route 
+              path="/worklock" 
+              component={Worklock} />
+            {/* END WORKLOCK Component */}
+
+
+            {/* WITHDRAW Component */}
             <Route
               path="/withdraw"
               render={() => (
                 <Withdraw nuNitsToWithdraw={this.state.nuNitsToWithdraw} />
-              )}
-            />
+              )} />
+            {/* END WITHDRAW Component */}
+
           </div>
 
           {this.state.buttonStatus === "loading" ? (
@@ -204,3 +229,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+const Loading = () => {
+  return <div>Loading ...</div>
+}
