@@ -1,5 +1,6 @@
 import React from "react";
 import "./Manage.css";
+import { NavLink, Route } from "react-router-dom";
 
 export default props => {
   const {
@@ -15,11 +16,11 @@ export default props => {
     reStakeDisabled
   } = props.manageData;
 
-  const setWinddownClick = async (e) => {
+  const setWinddownClick = async e => {
     e.preventDefault();
-    props.setWinddown()
-  } 
-  props.setWinddown()
+    props.setWinddown();
+  };
+  props.setWinddown();
   return (
     <div className="my_manage">
       <div className="staker_manage big_item">
@@ -63,19 +64,45 @@ export default props => {
           </p>
         </div>
       </div>
+
+
+
+      {/* Bottom Nav */}
       <div className="substake_list">
         <div className="nav_manage_bottom">
-          <span>Substake list</span>
-          <span>Action History</span>
-          <div className="list_item">
-            <div>Stake</div>
-            <div>Stake</div>
-            <div>Stake</div>
-            <div>Stake</div>
-            <div>Stake</div>
-          </div>
+          <NavLink className="my_nav_item" to="/manage/substake-list">
+            Substake List
+          </NavLink>
+          <NavLink className="my_nav_item" to="/manage/action-history">
+            Action History
+          </NavLink>
+
+          <Route path='/manage' exact component={SubstakeList} />
+          <Route path='/manage/substake-list' component={SubstakeList} />
+          <Route path='/manage/action-history' component={ActionHistory} />
+
+          
         </div>
       </div>
+      
     </div>
   );
 };
+
+const SubstakeList = () => {
+  return (
+    <div className="list_item">
+      <div>Stake</div>
+      <div>Stake</div>
+      <div>Stake</div>
+      <div>Stake</div>
+      <div>Stake</div>
+    </div>
+  );
+};
+
+const ActionHistory = () => {
+  return(
+    <div>Action History</div>
+  )
+}

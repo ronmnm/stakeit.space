@@ -194,7 +194,7 @@ class App extends React.Component {
             
 
           <div className="my_content_wrapper">
-
+          
             {/* STAKE Component */}
             <Route path="/" exact>
               <Redirect to="/stake" />

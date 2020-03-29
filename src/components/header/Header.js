@@ -54,7 +54,7 @@ export default class Header extends React.Component {
 
     return (
       <div className="my_header">
-        <div className="logo"><span>nucypher.com</span></div>
+        <div className="logo"><span>stakeit.space</span></div>
         <div className="my_nav">
           <NavLink className="my_nav_item" to="/stake">
             Stake

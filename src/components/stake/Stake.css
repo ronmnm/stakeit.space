@@ -1,8 +1,9 @@
 .my_stake {
   width: 400px;
-  height: 400px;
-  margin: 40px auto;
-  /* background-color: rgb(17, 17, 17); */
+  height: 500px;
+  padding-bottom: 50px;
+  border-radius: 15px;
+  background-color: rgb(10, 15, 17);
 }
 .my_stake h3 {
   text-transform: uppercase;

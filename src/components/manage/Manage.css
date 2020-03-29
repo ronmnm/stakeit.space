@@ -1,7 +1,8 @@
 .my_manage {
-  width: 100%;
+  /* width: 100%; */
   max-width: 960px;
-  margin: 50px auto;
+  margin: auto;
+  height: 500px;
   padding: 0 40px;
   display: grid;
   grid-template-columns: minmax(300px, 400px) minmax(40px, 1fr) minmax(300px, 400px);
