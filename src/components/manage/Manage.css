@@ -1,36 +1,99 @@
+
 .my_manage {
-  /* width: 100%; */
-  max-width: 960px;
-  margin: auto;
-  height: 500px;
-  padding: 0 40px;
+
+  margin: 20px;
+  /* height: 1000px; */
+  /* width: 900px; */
+  
   display: grid;
-  grid-template-columns: minmax(300px, 400px) minmax(40px, 1fr) minmax(300px, 400px);
-  grid-template-rows: 2fr 1fr;
+  grid-template-columns: minmax(300px, 600px);
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-flow: column;
   /* grid-gap: 3vh; */
-  justify-content: space-between;
-  background-color: rgb(142, 149, 252);
+  /* justify-content: space-between; */
+  /* background-color: rgb(32, 32, 32); */
+  padding-bottom: 100px;
+  grid-template-areas:
+  "staker"
+  'worker'
+  "list";
+}
+/* Все шо больше 840пх */
+@media (min-width: 740px) {
+  .my_manage {
+    
+    grid-template-columns: minmax(300px, 400px) minmax(300px, 400px);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "staker worker"
+    "list list";
+  }
 }
 
 .staker_manage {
+  grid-area: staker;
   /* min-width: 350px; */
   /* width: 40%; */
-  background-color: rgb(155, 155, 155);
+  padding-right: 20px;
+  height: 300px;
+  /* background-color: rgb(155, 155, 155); */
 }
-.substake_list {
-  grid-column: 1 / 4;
-}
-.list_item {
-  display: grid;
-  grid-gap: 2vh;
-  grid-template-columns: repeat(5, minmax(100px, 1fr));
-}
-.list_item div {
-  background-color: royalblue;
+.worker_manage {
+  padding-left: 20px;
+  grid-area: worker;
+  /* width: 350px; */
+  /* background-color: rgb(98, 179, 165); */
 }
 
+
+
+
+
+.list_items {
+  display: grid;
+  /* grid-gap: 2vh; */
+  /* grid-template-columns: repeat(5, minmax(100px, 1fr)); */
+}
+.substake_items_titles{
+  display: grid;
+  /* grid-gap: 5px; */
+  /* margin: 10px 0; */
+  grid-template-columns: repeat(6, 1fr);
+}
+.substake_items_titles span{
+  text-align: center;
+  font-size: 12px;
+}
+
+.list_items div {
+  
+}
+.substake_item{
+  display: grid;
+  grid-gap: 5px;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: rgb(27, 27, 27);
+  grid-template-columns: repeat(6, 1fr);
+  border-radius: 10px;
+  /* justify-content: center;
+  align-items: center; */
+}
+.substake_item div{
+  /* background-color: royalblue; */
+  display: grid;
+
+  justify-content: center;
+}
+.substake_item div span{
+  text-align: center;
+}
+
+
+
+
 .address_eth {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #222;
   margin-bottom: 15px;
   padding-bottom: 15px;
   letter-spacing: 0.5px;
@@ -38,32 +101,65 @@
 .address_title {
   font-weight: 400;
   margin-bottom: 7px;
+  color: rgb(119, 119, 119);
 }
 
-.worker_manage {
-  /* width: 350px; */
-  background-color: rgb(98, 179, 165);
-}
 
-.staker_content p {
+
+.staker_content p, .worker_content p  {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin: 5px 0;
+  color: rgb(119, 119, 119);
+  font-size: 12px;
+}
+.staker_content p span, .worker_content p span{
+  color: white;
+  font-weight: 600;
+}
+/* .worker_content p {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   margin: 0;
-}
-.worker_content p {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-between;
-  margin: 0;
-}
+} */
+
+
 
 .staker_buttons {
   margin-top: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-top: 1px solid grey;
+}
+.winddown{
+  justify-self: end;
 }
 .restake_text,
 .winddown_text {
   font-weight: 500;
+}
+.restake_status{
+  font-size: 12px;
+  margin: 0 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 2px 5px;
+  /* margin-bottom: 5px; */
+}
+
+/* Navigation Start */
+.substake_list{
+  display: grid;
+  grid-area: list;
+  grid-template-rows: 1fr 5fr;
+  margin-top: 10px;
+}
+.nav_manage_bottom{
+  display: grid;
+  height: 50px;
+  grid-template-columns: repeat(2, 200px);
+  justify-content: center;
+  align-items: center;
 }

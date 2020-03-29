@@ -10,7 +10,7 @@ body {
   padding: 0;
   height: 100%;
   
-  overflow: hidden;
+  /* overflow: hidden; */
   /* background-color: indigo; */
   /* height: 100%; */
   font-family: 'Open Sans', sans-serif;
