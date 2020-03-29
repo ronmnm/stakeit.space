@@ -1,10 +1,8 @@
-
 .my_manage {
-
   margin: 20px;
   /* height: 1000px; */
   /* width: 900px; */
-  
+
   display: grid;
   grid-template-columns: minmax(300px, 600px);
   grid-template-rows: 1fr 1fr 1fr;
@@ -14,19 +12,18 @@
   /* background-color: rgb(32, 32, 32); */
   padding-bottom: 100px;
   grid-template-areas:
-  "staker"
-  'worker'
-  "list";
+    "staker"
+    "worker"
+    "list";
 }
 /* Все шо больше 840пх */
 @media (min-width: 740px) {
   .my_manage {
-    
     grid-template-columns: minmax(300px, 400px) minmax(300px, 400px);
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
-    "staker worker"
-    "list list";
+      "staker worker"
+      "list list";
   }
 }
 
@@ -45,30 +42,25 @@
   /* background-color: rgb(98, 179, 165); */
 }
 
-
-
-
-
 .list_items {
   display: grid;
   /* grid-gap: 2vh; */
   /* grid-template-columns: repeat(5, minmax(100px, 1fr)); */
 }
-.substake_items_titles{
+.substake_items_titles {
   display: grid;
   /* grid-gap: 5px; */
   /* margin: 10px 0; */
   grid-template-columns: repeat(6, 1fr);
 }
-.substake_items_titles span{
+.substake_items_titles span {
   text-align: center;
   font-size: 12px;
 }
 
 .list_items div {
-  
 }
-.substake_item{
+.substake_item {
   display: grid;
   grid-gap: 5px;
   margin: 10px 0;
@@ -79,24 +71,19 @@
   /* justify-content: center;
   align-items: center; */
 }
-.substake_item div{
+.substake_item div {
   /* background-color: royalblue; */
   display: grid;
 
   justify-content: center;
 }
-.substake_item div span{
+.substake_item div span {
   text-align: center;
 }
 
-
-
-
 .address_eth {
-  border-bottom: 1px solid #222;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 .address_title {
   font-weight: 400;
@@ -104,9 +91,16 @@
   color: rgb(119, 119, 119);
 }
 
-
-
-.staker_content p, .worker_content p  {
+.staker_content,
+.worker_content {
+  margin: 10px 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #222;
+  border-top: 1px solid #222;
+}
+.staker_content p,
+.worker_content p {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
@@ -114,10 +108,18 @@
   color: rgb(119, 119, 119);
   font-size: 12px;
 }
-.staker_content p span, .worker_content p span{
-  color: white;
-  font-weight: 600;
+.staker_content p span,
+.worker_content p span {
+  color: grey;
+  /* font-weight: 600; */
 }
+.staker_content p span b,
+.worker_content p span b {
+  color: #eee;
+  letter-spacing: 0.8px;
+  /* font-weight: 600; */
+}
+
 /* .worker_content p {
   display: grid;
   grid-auto-flow: column;
@@ -125,41 +127,94 @@
   margin: 0;
 } */
 
-
-
 .staker_buttons {
-  margin-top: 10px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid grey;
+  /* border-top: 1px solid #222; */
 }
-.winddown{
+.winddown {
   justify-self: end;
 }
 .restake_text,
 .winddown_text {
   font-weight: 500;
 }
-.restake_status{
+.restake_status {
   font-size: 12px;
   margin: 0 10px;
-  border: 1px solid grey;
-  border-radius: 5px;
-  padding: 2px 5px;
+  border: 1px solid #333;
+  color: rgb(161, 161, 161);
+  border-radius: 7px;
+  padding: 2px 8px;
   /* margin-bottom: 5px; */
 }
 
 /* Navigation Start */
-.substake_list{
+.substake_list {
   display: grid;
   grid-area: list;
   grid-template-rows: 1fr 5fr;
   margin-top: 10px;
 }
-.nav_manage_bottom{
+.nav_manage_bottom {
   display: grid;
   height: 50px;
   grid-template-columns: repeat(2, 200px);
   justify-content: center;
   align-items: center;
+}
+
+
+
+
+
+
+
+.btn-group button {
+  background-color: #333; /* Green background */
+  border: none;
+  color: rgb(117, 117, 117); /* White text */
+  padding: 6px 22px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  transition: .4s;
+}
+
+.btn-group button:first-child {
+  /* border-right: none; Prevent double borders */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  /* border-right: 1px solid #2d7430; */
+ 
+}
+.btn-group button:last-child {
+  /* border-right: none; Prevent double borders */
+  
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #4e4e4e;
+  color: white;
+}
+.btn-group button:focus {
+  outline: none;
+}
+
+.restake_active{
+  background-color: rgb(0, 119, 255) !important;
+  pointer-events: none;
+  cursor: none;
+  color: white !important;
 }

@@ -24,7 +24,7 @@ class App extends React.Component {
     withdrawData: null, /////
     buttonStatus: 'loading',
     footerStatus: 'loading',
-    setWinddown: null
+    setters: null
   }
 
 
@@ -32,7 +32,8 @@ class App extends React.Component {
     serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
     serviceWeb3.getFooterData().then(res => this.setState({footerData: res, footerStatus: 'done'}))
     serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
-    serviceSetters.getSetters().then(res => this.setState({setWinddown: res.setWinddown}))
+    serviceSetters.getSetters().then(res => this.setState(
+    {setters: res}))
     
   }
 
@@ -160,7 +161,9 @@ class App extends React.Component {
 
 
   }
-
+ RestakeOn() {
+    alert('Restake on')
+  }
 
   render() {
     const {stakeData, manageData, footerData, footerStatus} = this.state;
@@ -170,6 +173,7 @@ class App extends React.Component {
     if(this.state.manageData){
       manageComp = <Manage 
       manageData={manageData}
+      setters={this.state.setters}
       setWinddown={this.state.setWinddown} />
     } else {
       manageComp = <Loading />

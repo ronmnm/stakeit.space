@@ -1,6 +1,10 @@
 import React from "react";
 import "./Manage.css";
 import { NavLink, Route } from "react-router-dom";
+// import 'rsuite/dist/styles/rsuite-dark.css'
+import { Button } from "semantic-ui-react";
+
+// import { Toggle, Button } from 'rsuite';
 
 export default props => {
   const {
@@ -11,16 +15,24 @@ export default props => {
     stakerNuLocked,
     stakerNuUnlocked,
     workerEthBal,
-    isReStakeLocked,
+    status,
     windDown,
-    reStakeDisabled
+    reStakeDisabled,
+    RestakeOn
   } = props.manageData;
 
-  const setWinddownClick = async e => {
-    e.preventDefault();
-    props.setWinddown();
-  };
-  props.setWinddown();
+  const {
+    setRestake,
+    setWinddown
+  } = props.setters;
+
+  // const setWinddownClick = async e => {
+  //   e.preventDefault();
+  //   props.setWinddown();
+  // };
+  // props.setWinddown();
+  let restakeStatus = "blabla";
+  console.log(windDown);
   return (
     <div className="my_manage">
       {/* Staker Left Side */}
@@ -32,25 +44,68 @@ export default props => {
 
         <div className="staker_content">
           <p>
-            Balance: <span>{stakerNuBal} NU</span>
+            Ether Balance:{" "}
+            <span>
+              <b>{stakerBalEth}</b> ETH
+            </span>
+          </p>
+
+          <p>
+            Balance:{" "}
+            <span>
+              <b>{stakerNuBal.toLocaleString("en-Us")}</b> NU
+            </span>
           </p>
           <p>
-            Locked in stake: <span>{stakerNuLocked} NU</span>
+            Locked in stake:{" "}
+            <span>
+              <b>{stakerNuLocked.toLocaleString("en-Us")}</b> NU
+            </span>
           </p>
           <p>
-            Unlocked: <span>{stakerNuUnlocked} NU</span>
+            Unlocked:{" "}
+            <span>
+              <b>{stakerNuUnlocked.toLocaleString("en-Us")}</b> NU
+            </span>
           </p>
         </div>
         <div className="staker_buttons">
           <div className="restake">
-            <h4 className="restake_text">Re-Stake<span className="restake_status">Unlocked</span></h4>
-            <button onClick={setWinddownClick}>True</button>
-            <button>False</button>
+            <h4 className="restake_text">
+              Re-Stake<span className="restake_status">{status}</span>
+            </h4>
+
+
+            {/* <Button.Group size="tiny">
+              <Button disabled onClick={() => props.setters.RestakeOn(true)}>On</Button>
+              <Button onClick={() => props.setters.RestakeOn(false)}>Off</Button>
+            </Button.Group> */}
+
+
+            <div className="btn-group">
+              <button 
+                className={!reStakeDisabled ? 'restake_active' : null}
+                onClick={() => setRestake(true)}>On</button>
+              <button 
+                className={reStakeDisabled ? 'restake_active' : null}
+                onClick={() => setRestake(false)}>Off</button>           
+            </div>
+
+
           </div>
           <div className="winddown">
             <h4 className="winddown_text">Wind-Down</h4>
-            <button onClick={setWinddownClick}>True</button>
-            <button>False</button>
+
+            <div className="btn-group">
+              <button 
+                className={windDown ? 'restake_active' : null}
+                onClick={() => setWinddown(true)}>On</button>
+              <button 
+                className={!windDown ? 'restake_active' : null}
+                onClick={() => setWinddown(false)}>Off</button>           
+            </div>
+
+
           </div>
         </div>
       </div>
@@ -68,8 +123,6 @@ export default props => {
           </p>
         </div>
       </div>
-
-
 
       {/* Bottom Nav */}
       <div className="substake_list">
@@ -89,8 +142,6 @@ export default props => {
     </div>
   );
 };
-
-
 
 const SubstakeList = () => {
   return (
@@ -129,7 +180,6 @@ const SubstakeList = () => {
             <span>№0</span>
             <span>STAKE</span>
           </div>
-          
         </div>
         <div className="substake_item">
           <div>Stake</div>

@@ -30,7 +30,7 @@ export default class Stake extends React.Component {
             onClick={event =>
               this.setState({ inputAmount: nuBalance })
             }>
-            Balance: <b>{nuBalance}</b> NU
+            Balance: <b>{parseFloat(nuBalance).toFixed(2)}</b> NU
           </span>
         </div>
 

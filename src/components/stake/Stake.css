@@ -1,9 +1,10 @@
 .my_stake {
   width: 400px;
   height: 500px;
-  padding-bottom: 50px;
+  margin-bottom: 20%;
+  padding-top: 10px;
   border-radius: 15px;
-  background-color: rgb(10, 15, 17);
+  /* background-color: rgb(10, 15, 17); */
 }
 .my_stake h3 {
   text-transform: uppercase;

@@ -10,8 +10,9 @@ body {
   padding: 0;
   height: 100%;
   
-  /* overflow: hidden; */
-  /* background-color: indigo; */
+  overflow: hidden;
+
+  border-top: 4px solid rgb(46, 67, 190);
   /* height: 100%; */
   font-family: 'Open Sans', sans-serif;
   background-color: black;

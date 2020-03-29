@@ -15,7 +15,7 @@ export default class ServiceWeb3 {
     const acc = accounts[0];
     // Get Nu balance
     const nuNitsBalance = await instanceToken.methods.balanceOf(acc).call();
-    const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toFixed(2);
+    const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18);
     // nodes (Policy fee)
     const policyFee = await instancePolicy.methods.nodes(acc).call();
 
@@ -55,14 +55,21 @@ export default class ServiceWeb3 {
     const lockedStakerNits = await instanceEscrow.methods
       .getLockedTokens(account, 0)
       .call();
-    const lockedStakerNu = (lockedStakerNits / 10**18).toFixed(0)
+    const lockedStakerNu = (lockedStakerNits / 10**18)
     // Calculate Stakers unlocked NU
     const stakerUnlockedNits = allStakersNits - lockedStakerNits;
-    const stakerNuUnlocked = (stakerUnlockedNits / 10**18).toFixed(0)
+    const stakerNuUnlocked = (stakerUnlockedNits / 10**18)
     // Checks if `reStake` parameter is available for changing
-    const isReStakeLocked = await instanceEscrow.methods
+    const isReStakeLockedBool = await instanceEscrow.methods
       .isReStakeLocked(account)
       .call();
+    let isRestakeLocked;
+    if(isReStakeLockedBool){
+      isRestakeLocked = "Locked"
+    } else {
+      isRestakeLocked = "Unlocked"
+    }
+
 
     const StakerInfo = await instanceEscrow.methods
     .stakerInfo(account)
@@ -80,7 +87,7 @@ export default class ServiceWeb3 {
       workerEthBal: workerBal,
       staker: account,
       worker: StakerInfo.worker,
-      isReStakeLocked: isReStakeLocked,
+      status: isRestakeLocked,
       windDown: StakerInfo.windDown,
       reStakeDisabled: StakerInfo.reStakeDisabled,
       // StakerInfo: StakerInfo,
