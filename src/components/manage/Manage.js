@@ -15,8 +15,11 @@ export default props => {
     reStakeDisabled
   } = props.manageData;
 
-  if (staker) {
-  }
+  const setWinddownClick = async (e) => {
+    e.preventDefault();
+    props.setWinddown()
+  } 
+  props.setWinddown()
   return (
     <div className="my_manage">
       <div className="staker_manage big_item">
@@ -39,6 +42,8 @@ export default props => {
         <div className="staker_buttons">
           <div className="restake">
             <h5 className="restake_text">Re-Stake</h5>
+            <button onClick={setWinddownClick}>True</button>
+            <button>False</button>
           </div>
           <div className="winddown">
             <h5 className="winddown_text">Wind-Down</h5>

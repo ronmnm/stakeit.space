@@ -16,10 +16,13 @@ export default class ServiceWeb3 {
     // Get Nu balance
     const nuNitsBalance = await instanceToken.methods.balanceOf(acc).call();
     const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toFixed(2);
+    // nodes (Policy fee)
+    const policyFee = await instancePolicy.methods.nodes(acc).call();
 
     const stakerData = {
       account: acc,
-      balanceNu: nuBalance
+      balanceNu: nuBalance,
+      policyFee: policyFee
     }
     return stakerData;
   }

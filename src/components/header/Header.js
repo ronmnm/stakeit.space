@@ -1,11 +1,14 @@
 import React from "react";
-import Nav from "./Nav";
+// import Nav from "./Nav";
 import Address from "./address/Address";
 import "./Header.css";
 import LoadingAddress from "./address/loading-address/Address-loading";
 import ConnectWallet from "./address/connect-a-wallet/connect-a-wallet";
 import WrongNetwork from "./address/wrong-network/wrong-network";
-import InstallMetamask from './address/install-metamask/install-metamask'
+import InstallMetamask from "./address/install-metamask/install-metamask";
+
+import { NavLink } from "react-router-dom";
+// import "./Nav.css";
 
 export default class Header extends React.Component {
   // state = {
@@ -27,7 +30,7 @@ export default class Header extends React.Component {
     //   addressButton = <ConnectWallet onClick={this.props.onClick} />;
     // }
 
-    switch (this.props.buttonStatus) {
+    switch ('ok') {
       case "loading":
         addressButton = <LoadingAddress />;
         break;
@@ -36,7 +39,7 @@ export default class Header extends React.Component {
         break;
       case "ok":
         addressButton = (
-          <Address address={this.props.address} network={this.props.network} />
+          <Address address={this.props.account} network={this.props.network} />
         );
         break;
       case "connect":
@@ -45,14 +48,29 @@ export default class Header extends React.Component {
       case "install":
         addressButton = <InstallMetamask />;
         break;
-      default: console.log('deaulf case switch')
+      default:
+        console.log("deaulf case switch");
     }
 
     return (
       <div className="my_header">
-        <div className="logo">nucypher.com</div>
-        <Nav />
-        {addressButton}
+        <div className="logo"><span>nucypher.com</span></div>
+        <div className="my_nav">
+          <NavLink className="my_nav_item" to="/stake">
+            Stake
+          </NavLink>
+          <NavLink className="my_nav_item" to="/manage">
+            Manage
+          </NavLink>
+          <NavLink className="my_nav_item" to="/withdraw">
+            Withdraw
+          </NavLink>
+          <NavLink className="my_nav_item" to="/worklock">
+            Worklock
+          </NavLink>
+        </div>
+        
+        <div className="my_address">{addressButton}</div>
       </div>
     );
   }

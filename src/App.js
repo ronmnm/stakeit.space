@@ -11,7 +11,10 @@ import Withdraw from "./components/withdraw/Withdraw";
 import Loader from "./components/loader/Loader";
 
 import ServiceWeb3 from './services/web3-service'
+import ServiceWeb3Setters from "./services/web3-service-setters";
+
 const serviceWeb3 = new ServiceWeb3();
+const serviceSetters = new ServiceWeb3Setters();
 
 class App extends React.Component {
   state = {
@@ -20,7 +23,8 @@ class App extends React.Component {
     footerData: null,
     withdrawData: null, /////
     buttonStatus: 'loading',
-    footerStatus: 'loading'
+    footerStatus: 'loading',
+    setWinddown: null
   }
 
 
@@ -28,6 +32,8 @@ class App extends React.Component {
     serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
     serviceWeb3.getFooterData().then(res => this.setState({footerData: res, footerStatus: 'done'}))
     serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
+    serviceSetters.getSetters().then(res => this.setState({setWinddown: res.setWinddown}))
+    
   }
 
 
@@ -162,11 +168,19 @@ class App extends React.Component {
 
     let manageComp;
     if(this.state.manageData){
-      manageComp = <Manage manageData={manageData} />
+      manageComp = <Manage 
+      manageData={manageData}
+      setWinddown={this.state.setWinddown} />
     } else {
       manageComp = <Loading />
     }
-    console.log(stakeData)
+
+    if(this.state.setWinddown){
+      this.state.setWinddown();
+      console.log(this.state.setWinddown())
+    }
+    
+    
     return (
       <BrowserRouter>
         <div className="my_wrapper">
@@ -174,9 +188,10 @@ class App extends React.Component {
             address={this.state.h}
             network={this.state.network}
             buttonStatus={this.state.buttonStatus}
-            onClick={this.handleClick}>
-
-          </Header>
+            onClick={this.handleClick}
+            // account={this.stakeData.account}
+            />
+            
 
           <div className="my_content_wrapper">
 

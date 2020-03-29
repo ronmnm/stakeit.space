@@ -1,9 +1,9 @@
-.my_address {
+/* .my_address {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 200px;
-}
+} */
 .my_address span {
   /* color: grey; */
   /* margin-right: 10px; */
