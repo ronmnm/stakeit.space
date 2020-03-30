@@ -122,7 +122,7 @@ export default props => {
 
         <div className="worker_content">
           <p>
-            Balance: <span><b>{workerEthBal}</b> ETH</span>
+            Ether Balance: <span><b>{workerEthBal}</b> ETH</span>
           </p>
         </div>
 

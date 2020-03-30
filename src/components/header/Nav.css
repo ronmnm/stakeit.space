@@ -33,5 +33,5 @@
 
 .my_nav .active{
     color: white;
-    background-color: #222;
+    background-color: #111 !important;
 }

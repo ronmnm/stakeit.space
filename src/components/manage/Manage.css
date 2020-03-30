@@ -5,7 +5,7 @@
 
   display: grid;
   grid-template-columns: minmax(250px, 600px);
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 330px 330px 1fr;
   grid-auto-flow: column;
   grid-gap: 60px;
   /* justify-content: space-between; */
@@ -25,6 +25,7 @@
       "staker worker"
       "list list";
   }
+  
 }
 
 .staker_manage {
@@ -78,11 +79,11 @@
   grid-gap: 5px;
   margin: 5px 0;
   padding: 14px;
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(15, 15, 15);
   grid-template-columns: 1.5fr 2fr 1.5fr 2fr 2fr;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border-right: 2px solid rgb(39, 39, 39);
+  border-right: 2px solid rgb(29, 29, 29);
   /* justify-content: center;
   align-items: center; */
 }
@@ -113,7 +114,7 @@
   
 /* } */
 .prolong_devide{
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(15, 15, 15);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   margin: 5px 0;
@@ -266,10 +267,15 @@
   /* height: 50px; */
   grid-template-columns: repeat(2, 150px);
   justify-content: center;
+  column-gap: 10px;
   align-items: center;
+  transition: .4s;
 }
-
-
+.nav_manage_bottom .active{
+  color: #eee;
+  background-color: #111;
+  transition: .4s;
+}
 
 
 

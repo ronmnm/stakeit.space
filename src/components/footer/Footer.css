@@ -1,5 +1,5 @@
 .my_footer {
-  background-color: rgb(27, 27, 27);
+  background-color: black;
   height: 50px;
   margin-top: auto;
   position: fixed;
@@ -8,6 +8,7 @@
   font-size: 12px;
   display: flex;
   justify-content: space-around;
+  border-top: 1px solid #222;
 }
 .my_footer_wrapper{
   display: flex;

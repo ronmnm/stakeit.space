@@ -28,7 +28,7 @@ html{
 body {
 
   /* font-size: 12px; */
-  min-width: 500px;
+  
   margin: 0;
   padding: 0;
   height: 100%;
@@ -56,6 +56,6 @@ body {
   display: grid;
   height: 100%;
   /* grid-template-rows: 1fr; */
-  align-content: center;
+  /* align-content: center; */
   justify-content: center;
 }

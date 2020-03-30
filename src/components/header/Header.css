@@ -39,7 +39,7 @@ padding: 0 20px;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  grid-template-columns: repeat(4, minmax(110px, 130px));
+  grid-template-columns: repeat(4, minmax(100px, 120px));
 }
 .my_nav_item {
   text-align: center;
@@ -49,8 +49,8 @@ padding: 0 20px;
   border-radius: 8px;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 13px;
+  letter-spacing: .6px;
+  font-size: 12px;
   font-weight: 600;
   color: #888;
   transition: 0.4s;
@@ -64,7 +64,7 @@ padding: 0 20px;
 }
 .my_nav .active {
   color: white;
-  background-color: #222;
+  background-color: #111;
 }
 /* Navigation END */
 
