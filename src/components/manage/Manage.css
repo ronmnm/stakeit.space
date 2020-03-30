@@ -199,6 +199,22 @@
 .change_wrkr_button:focus{
   outline: none;
 }
+.change_wrkr_input{
+  background-color: black;
+  border: 1px solid #333;
+  border-radius: 5px;
+  height: 30px;
+  color: #eee;
+  padding: 10px;
+}
+.change_wrkr_input:focus{
+  outline: none;
+}
+.change_wrkr_input:hover{
+  border: 1px solid #444;
+}
+
+
 
 /* .worker_content p {
   display: grid;
@@ -305,5 +321,6 @@
 
 .worker_buttons{
   display: grid;
-  grid-template-columns: 150px 150px;
+  grid-template-columns: 150px 1fr;
+  column-gap: 20px;
 }

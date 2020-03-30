@@ -126,7 +126,7 @@ export default props => {
           </p>
         </div>
 
-        <div className="worker_buttons">
+        <div>
           {/* <div className="btn-group">
             <p>Detach Worker</p>
             <button>Detach</button>
@@ -242,13 +242,25 @@ const ActionHistory = () => {
 
 
 class ChangeWorkerField extends React.Component{
-  
+  state = {
+    inputAddr: '',
+    valid: false,
+    touched: false
+  }
+
+  submitHandle(e){
+    e.preventDefault()
+    alert('hi')
+  }
+
   render() {
     return (
       <div>
         <p>Set New Worker</p>
-        <button className="change_wrkr_button">Change Worker</button>
-        <input type="text"/>
+        <form onSubmit={this.submitHandle} className="worker_buttons" action="#">
+          <button className="change_wrkr_button">Change Worker</button>
+          <input placeholder="Enter new ETH address" className="change_wrkr_input" type="text"/>
+        </form>
       </div>
     )
   }
