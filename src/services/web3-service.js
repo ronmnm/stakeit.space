@@ -86,14 +86,15 @@ export default class ServiceWeb3 {
       .call();
 
 
-   
+   // getting an array with all substakes
     const getAllSubstakes = await (async () => {
         if(getSubStakesLength !== "0"){
           let substakeList = [];
           for (let i = 0; i < getSubStakesLength; i++) {
-            const list = await instanceEscrow.methods
+            let list = await instanceEscrow.methods
               .getSubStakeInfo(account, i)
               .call();
+            list.id = i.toString();
             substakeList.push(list)
           }
           return substakeList;
@@ -101,7 +102,6 @@ export default class ServiceWeb3 {
           let substakeList = null;
           return substakeList;
         }
-        
       })();
      
     
@@ -132,6 +132,7 @@ export default class ServiceWeb3 {
       
       
     };
+
     return res;
   }
 

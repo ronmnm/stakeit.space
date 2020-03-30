@@ -20,7 +20,7 @@
 @media (min-width: 740px) {
   .my_manage {
     grid-template-columns: minmax(300px, 450px) minmax(300px, 450px);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 250px auto;
     grid-template-areas:
       "staker worker"
       "list list";
@@ -52,7 +52,7 @@
   /* grid-gap: 5px; */
   color: grey;
   margin: 0 15px;
-  grid-template-columns: repeat(5, 1fr) 2fr;
+  grid-template-columns: repeat(5, 1fr) 2.5fr;
 }
 .substake_items_titles span {
   text-align: center;
@@ -61,49 +61,79 @@
 
 .list_items div {
 }
+.substake_and_prdvd{
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  /* column-gap: 0px; */
+}
 .substake_item {
   display: grid;
   grid-gap: 5px;
   margin: 5px 0;
-  padding: 15px;
+  padding: 14px;
   background-color: rgb(27, 27, 27);
-  grid-template-columns: repeat(5, 1fr) 2fr;
-  border-radius: 10px;
+  grid-template-columns: repeat(5, 1fr);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 2px solid rgb(39, 39, 39);
   /* justify-content: center;
   align-items: center; */
 }
-.substake_item .substake_item_bottom_text{
+.substake_item div span:last-child{
   font-size: 12px;
   color: grey;
+}
+.substake_item div span:first-child{
+  font-size: 16px;
+  letter-spacing: .7px;
+  /* color: grey; */
+  padding-top: 3px;
 }
 .substake_item div {
   /* background-color: royalblue; */
   display: grid;
+  
   justify-content: center;
 }
-.substake_item div:last-child {
+/* .substake_item div:last-child {
   grid-template-columns: 80px 80px;
   grid-gap: 10px;
 
   /* justify-content: space-between; */
-  grid-auto-flow: row;
+  /* grid-auto-flow: row; */
   /* justify-content: center; */
-  align-content: center;
-  /* padding: 0 7px; */
+  /* align-content: center; */
+  
+/* } */
+.prolong_devide{
+  background-color: rgb(27, 27, 27);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: 5px 0;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: 100px 100px;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
-.prolong_devide button{
-  color: #eee;
+.prolong_devide button {
+  color: rgb(182, 182, 182);
+  font-family: Arial, sans-serif;
   display: inline-block;
   height: 28px;
   border-radius: 5px;
-  background-color: #666;
+  background-color: #333;
   border: none;
+  transition: .3s;
 }
 .prolong_devide button:focus{
   outline: none;
 }
 .prolong_devide button:hover{
   cursor: pointer;
+  color: #eee;
+  background-color: #444;
 }
 
 
@@ -126,8 +156,8 @@
   margin: 10px 0;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #222;
-  border-top: 1px solid #222;
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
 }
 .staker_content p,
 .worker_content p {
@@ -149,6 +179,25 @@
   font-weight: 500;
   letter-spacing: 0.8px;
   /* font-weight: 600; */
+}
+.change_wrkr_button{
+  color: rgb(182, 182, 182);
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  height: 28px;
+  border-radius: 5px;
+  background-color: #333;
+  border: none;
+  transition: .3s;
+  padding: 0 15px;
+}
+.change_wrkr_button:hover{
+  cursor: pointer;
+  color: #eee;
+  background-color: #444;
+}
+.change_wrkr_button:focus{
+  outline: none;
 }
 
 /* .worker_content p {
@@ -185,7 +234,7 @@
 .substake_list {
   display: grid;
   grid-area: list;
-  grid-template-rows: 1fr 3fr;
+  grid-template-rows: 100px auto;
   /* margin-top: 20px; */
 
 }

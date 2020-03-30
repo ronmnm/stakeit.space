@@ -1,6 +1,6 @@
 import React from "react";
 import "./Manage.css";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Redirect } from "react-router-dom";
 // import 'rsuite/dist/styles/rsuite-dark.css'
 import { Button } from "semantic-ui-react";
 
@@ -22,7 +22,7 @@ export default props => {
     subStakesLength,
     substakeList
   } = props.manageData;
-
+  
   const { setRestake, setWinddown } = props.setters;
 
 
@@ -122,19 +122,16 @@ export default props => {
 
         <div className="worker_content">
           <p>
-            Balance: <span>{workerEthBal} ETH</span>
+            Balance: <span><b>{workerEthBal}</b> ETH</span>
           </p>
         </div>
 
         <div className="worker_buttons">
-          <div className="btn-group">
+          {/* <div className="btn-group">
             <p>Detach Worker</p>
             <button>Detach</button>
-          </div>
-          <div className="btn-group">
-            <p>Set New Worker</p>
-            <button>Detach</button>
-          </div>
+          </div> */}
+          <ChangeWorkerField />
         </div>
       </div>
 
@@ -149,15 +146,76 @@ export default props => {
           </NavLink>
         </div>
 
-        <Route path="/manage" exact component={SubstakeList} />
-        <Route path="/manage/substake-list" component={SubstakeList} />
+
+
+        <Route path="/manage" exact>
+          <Redirect to="/manage/substake-list" />
+        </Route>
+        <Route path="/manage/substake-list" render={() => 
+          <SubstakeList substakeList={substakeList} />
+        } />
         <Route path="/manage/action-history" component={ActionHistory} />
       </div>
     </div>
   );
 };
 
-const SubstakeList = () => {
+
+
+const SubstakeList = (props) => {
+  // const {substakeList} = props.substakeList;
+  console.log(props.substakeList)
+
+  let substake_item;
+
+  if(props.substakeList !== null){
+    substake_item = props.substakeList.map((obj) => {
+      const value = (obj.lockedValue / 10**18).toLocaleString("en-Us")
+      const startDay = new Date(obj.firstPeriod*86400000).toUTCString().slice(0, 11);
+      const startYear = new Date(obj.firstPeriod*86400000).toDateString().slice(-4);
+      const endDay = new Date((+obj.firstPeriod + +obj.periods)*86400000).toUTCString().slice(0, 11);
+      const endYear = new Date((+obj.firstPeriod + +obj.periods)*86400000).toDateString().slice(-4);
+
+      console.log('obj.firstPeriod', typeof obj.firstPeriod)
+      console.log('obj.periods', typeof obj.periods)
+
+      return (
+        <div key={obj.id} className="substake_and_prdvd">
+          <div className="substake_item">
+            <div>
+              <span>№ {obj.id}</span>
+              <span>STAKE</span>
+            </div>
+            <div>
+              <span>{value}</span>
+              <span>NU</span>
+            </div>
+            <div>
+              <span>{obj.periods}</span>
+              <span>DAYS</span>
+            </div>
+            <div>
+              <span>{startDay}</span>
+              <span>{startYear}</span>
+            </div>
+            <div>
+              <span>{endDay}</span>
+              <span>{endYear}</span>
+            </div>
+            
+          </div>
+          <div className="prolong_devide">
+            <button>Prolong</button>
+            <button>Devide</button>
+          </div>
+        </div>
+      )
+    })
+  } else {
+    return substake_item = <div>no stakes</div>
+  }
+
+
   return (
     <div>
       <div className="substake_items_titles">
@@ -169,40 +227,9 @@ const SubstakeList = () => {
         <span>Modify</span>
       </div>
       <div className="list_items">
-        <div className="substake_item">
-          <div>
-            <span>№0</span>
-            <span className="substake_item_bottom_text">STAKE</span>
-          </div>
-          <div>
-            <span>956,000.55</span>
-            <span className="substake_item_bottom_text">NU</span>
-          </div>
-          <div>
-            <span>365</span>
-            <span className="substake_item_bottom_text">DAYS</span>
-          </div>
-          <div>
-            <span>21 FEB</span>
-            <span className="substake_item_bottom_text">2020</span>
-          </div>
-          <div>
-            <span>21 FEB</span>
-            <span className="substake_item_bottom_text">2021</span>
-          </div>
-          <div className="prolong_devide">
-            <button>Prolong</button>
-            <button>Devide</button>
-          </div>
-        </div>
-        <div className="substake_item">
-          <div>Stake</div>
-          <div>Stake</div>
-          <div>Stake</div>
-          <div>Stake</div>
-          <div>Stake</div>
-          <div>Stake</div>
-        </div>
+
+        {substake_item}
+
       </div>
     </div>
   );
@@ -211,3 +238,18 @@ const SubstakeList = () => {
 const ActionHistory = () => {
   return <div>Action History</div>;
 };
+
+
+
+class ChangeWorkerField extends React.Component{
+  
+  render() {
+    return (
+      <div>
+        <p>Set New Worker</p>
+        <button className="change_wrkr_button">Change Worker</button>
+        <input type="text"/>
+      </div>
+    )
+  }
+}
