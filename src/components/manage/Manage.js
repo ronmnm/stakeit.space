@@ -23,7 +23,7 @@ export default props => {
     substakeList
   } = props.manageData;
   
-  const { setRestake, setWinddown } = props.setters;
+  const { setRestake, setWinddown, setWorker } = props.setters;
 
 
   
@@ -131,7 +131,7 @@ export default props => {
             <p>Detach Worker</p>
             <button>Detach</button>
           </div> */}
-          <ChangeWorkerField />
+          <ChangeWorkerField setWorker={setWorker} />
         </div>
       </div>
 
@@ -242,25 +242,45 @@ const ActionHistory = () => {
 
 
 class ChangeWorkerField extends React.Component{
-  state = {
-    inputAddr: '',
-    valid: false,
-    touched: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  submitHandle(e){
-    e.preventDefault()
-    alert('hi')
+  handleChange(event) {
+    this.setState({address: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.setWorker(this.state.address)
   }
 
   render() {
+    console.log(this.state.address)
     return (
       <div>
+
         <p>Set New Worker</p>
-        <form onSubmit={this.submitHandle} className="worker_buttons" action="#">
+        
+        <form onSubmit={this.handleSubmit} className="worker_buttons">
+
           <button className="change_wrkr_button">Change Worker</button>
-          <input placeholder="Enter new ETH address" className="change_wrkr_input" type="text"/>
+          <input 
+            placeholder="Enter new ETH address" 
+            className="change_wrkr_input" 
+            type="text"
+            value={this.state.address}
+            onChange={this.handleChange}
+            />
+            
         </form>
+
       </div>
     )
   }

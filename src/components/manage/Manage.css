@@ -72,7 +72,7 @@
   margin: 5px 0;
   padding: 14px;
   background-color: rgb(27, 27, 27);
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1.5fr 2fr 1.5fr 2fr 2fr;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border-right: 2px solid rgb(39, 39, 39);

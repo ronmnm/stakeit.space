@@ -38,7 +38,17 @@ export default class ServiceWeb3Setters {
       }
     }
 
-    
+    // Set Worker
+    const setWorker = async (address) => {
+      try {
+        const accounts = await web3.eth.getAccounts();
+        await instanceEscrow.methods
+          .setWorker(address)
+          .send({ from: accounts[0] });
+      } catch (err) {
+        console.error('Oh no', err)
+      }
+    }
 
 
 
@@ -46,7 +56,8 @@ export default class ServiceWeb3Setters {
     // Return Data
     const setters = {
       setRestake: setRestake,
-      setWinddown: setWinddown
+      setWinddown: setWinddown,
+      setWorker: setWorker
     }
     return setters;
   }
