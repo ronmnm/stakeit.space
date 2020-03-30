@@ -27,11 +27,11 @@ export default props => {
 
 
   
-  console.log('winddown',windDown);
-  console.log('restake disabled?', reStakeDisabled);
-  console.log('consnt stakersNuAll = ', stakersNuAll);
-  console.log(typeof subStakesLength);
-  console.log('substakeList = ', substakeList);
+  // console.log('winddown',windDown);
+  // console.log('restake disabled?', reStakeDisabled);
+  // console.log('consnt stakersNuAll = ', stakersNuAll);
+  // console.log(typeof subStakesLength);
+  // console.log('substakeList = ', substakeList);
 
 
   return (
@@ -164,7 +164,7 @@ export default props => {
 
 const SubstakeList = (props) => {
   // const {substakeList} = props.substakeList;
-  console.log(props.substakeList)
+  // console.log(props.substakeList)
 
   let substake_item;
 
@@ -176,8 +176,8 @@ const SubstakeList = (props) => {
       const endDay = new Date((+obj.firstPeriod + +obj.periods)*86400000).toUTCString().slice(0, 11);
       const endYear = new Date((+obj.firstPeriod + +obj.periods)*86400000).toDateString().slice(-4);
 
-      console.log('obj.firstPeriod', typeof obj.firstPeriod)
-      console.log('obj.periods', typeof obj.periods)
+      // console.log('obj.firstPeriod', typeof obj.firstPeriod)
+      // console.log('obj.periods', typeof obj.periods)
 
       return (
         <div key={obj.id} className="substake_and_prdvd">
@@ -264,7 +264,7 @@ class ChangeWorkerField extends React.Component{
   }
 
   render() {
-    console.log(this.state.address)
+
     return (
       <div>
 

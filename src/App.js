@@ -12,9 +12,11 @@ import Loader from "./components/loader/Loader";
 
 import ServiceWeb3 from './services/web3-service'
 import ServiceWeb3Setters from "./services/web3-service-setters";
+import WorklockService from './services/worklock-service'
 
 const serviceWeb3 = new ServiceWeb3();
 const serviceSetters = new ServiceWeb3Setters();
+const worklockService = new WorklockService();
 
 class App extends React.Component {
   state = {
@@ -24,7 +26,8 @@ class App extends React.Component {
     withdrawData: null, /////
     buttonStatus: 'loading',
     footerStatus: 'loading',
-    setters: null
+    setters: null,
+    worklockData: null
   }
 
 
@@ -32,8 +35,8 @@ class App extends React.Component {
     serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
     serviceWeb3.getFooterData().then(res => this.setState({footerData: res, footerStatus: 'done'}))
     serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
-    serviceSetters.getSetters().then(res => this.setState(
-    {setters: res}))
+    serviceSetters.getSetters().then(res => this.setState({setters: res}))
+    worklockService.getWorklockData().then(res => this.setState({worklockData: res}))
     
   }
 
@@ -163,7 +166,13 @@ class App extends React.Component {
   }
 
   render() {
-    const {stakeData, manageData, footerData, footerStatus} = this.state;
+    const {
+      stakeData,
+      manageData,
+      footerData,
+      footerStatus,
+      worklockData
+    } = this.state;
     
 
     let manageComp;
@@ -181,6 +190,9 @@ class App extends React.Component {
       console.log(this.state.setWinddown())
     }
     
+    console.log(worklockData)
+    
+    worklockData ? console.log(worklockData.methods) : console.log('hi');
     
     return (
       <BrowserRouter>

@@ -9,9 +9,9 @@ import {
 } from "rsuite";
 // import "rsuite/dist/styles/rsuite-dark.css";
 import "./worklock.css";
-import Web3 from "web3";
-import { instanceWorklock } from "../../ethereum/instances/worklock";
-const web3 = new Web3(window.ethereum);
+// import Web3 from "web3";
+// import { instanceWorklock } from "../../ethereum/instances/worklock";
+
 
 export default class Worklock extends React.Component {
   state = {
@@ -28,121 +28,9 @@ export default class Worklock extends React.Component {
     remainingCancelationTimeHuman: "0"
   };
 
-  async componentDidMount() {
-    const accounts = await web3.eth.getAccounts();
-    const address = accounts[0];
-    const getBiddersLength = await instanceWorklock.methods
-      .getBiddersLength()
-      .call();
-    //start bid date
-    const startBidDate = await instanceWorklock.methods.startBidDate().call();
-    const startBidDateHuman = new Date(startBidDate * 1000).toUTCString();
-    //end bid date
-    const endBidDate = await instanceWorklock.methods.endBidDate().call();
-    const endBidDateHuman = new Date(endBidDate * 1000).toUTCString();
-    // cancel bin date
-    const endCancellationDate = await instanceWorklock.methods
-      .endCancellationDate()
-      .call();
-    const endCancellationDateHuman = new Date(
-      endCancellationDate * 1000
-    ).toUTCString();
-    const currentDateUnix = Date.now();
-    const remainingCancelationTime =
-      endCancellationDate * 1000 - currentDateUnix;
-
-    function convertMS(milliseconds) {
-      var day, hour, minute, seconds;
-      seconds = Math.floor(milliseconds / 1000);
-      minute = Math.floor(seconds / 60);
-      seconds = seconds % 60;
-      hour = Math.floor(minute / 60);
-      minute = minute % 60;
-      day = Math.floor(hour / 24);
-      hour = hour % 24;
-      return {
-        day: day,
-        hour: hour,
-        minute: minute,
-        seconds: seconds
-      };
-    }
-    const dateObj = convertMS(remainingCancelationTime);
-    const remainingCancelationTimeHuman = `${dateObj.day} days, ${dateObj.hour} hours, ${dateObj.minute} minutes`;
-    // console.log(remainingCancelationTimeHuman);
-
-    // const humanDateFormat = dateObject.toLocaleString()
-    const isClaimingAvailable = await instanceWorklock.methods
-      .isClaimingAvailable()
-      .call();
-    //getting balance
-    const worklockBal = await web3.eth.getBalance(
-      instanceWorklock.options.address
-    );
-    const worklockBalETH = parseFloat(
-      web3.utils.fromWei(worklockBal, "ether")
-    ).toFixed(2);
-    // min allowed bid minAllowedBid
-    const minAllowedBid = await instanceWorklock.methods.minAllowedBid().call();
-    const minAllowedBidETH = parseFloat(
-      web3.utils.fromWei(minAllowedBid, "ether")
-    ).toFixed(2);
-
-    const getRemainingWork = await instanceWorklock.methods
-      .getRemainingWork(address)
-      .call();
-    // get current bid
-    const workInfo = await instanceWorklock.methods.workInfo(address).call();
-    const currentBid = web3.utils.fromWei(workInfo[0], "ether");
-    // console.log(instanceWorklock.methods);
-    // console.log(getRemainingWork);
-    // console.log(workInfo2);
-
-    let isClaimingAvailableHuman;
-    if (isClaimingAvailable) {
-      isClaimingAvailableHuman = "Yes";
-    } else {
-      isClaimingAvailableHuman = "No";
-    }
-
-    // console.log(instanceWorklock.methods);
-    // console.log(isClaimingAvailable);
-    this.setState({
-      address,
-      getBiddersLength,
-      startBidDateHuman,
-      endBidDateHuman,
-      isClaimingAvailableHuman,
-      worklockBalETH,
-      minAllowedBidETH,
-      currentBid,
-      endCancellationDateHuman,
-      remainingCancelationTimeHuman
-    });
-  }
-
-  makeBid = async e => {
-    e.preventDefault();
-    console.log("blabla");
-    const accounts = await web3.eth.getAccounts();
-    console.log(this.state.inputAmount);
-    const toNum = +this.state.inputAmount;
-
-    await instanceWorklock.methods.bid().send({
-      from: accounts[0],
-      value: web3.utils.toWei(this.state.inputAmount, "ether")
-    });
-  };
-
-  cancelBid = async e => {
-    e.preventDefault();
-    const accounts = await web3.eth.getAccounts();
-    await instanceWorklock.methods.cancelBid().send({
-      from: accounts[0]
-    });
-  };
-
+  
   render() {
+    return <div>hi</div>
     // console.log(web3.utils.toWei(this.state.inputAmount, "ether"));
     return (
       <div>

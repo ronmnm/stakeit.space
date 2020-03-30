@@ -1,6 +1,3 @@
-import Web3 from 'web3'
-
-const web3 = new Web3(window.ethereum);
 
 const abi =   [
   "WorkLock",
@@ -636,11 +633,8 @@ const abi =   [
   ]
 ];
 
-const WORKLOCK_ADDRESS = abi[2];
-const WORKLOCK_ABI = abi[3];
+export const WORKLOCK_ADDRESS = abi[2];
+export const WORKLOCK_ABI = abi[3];
 
-export const instanceWorklock = new web3.eth.Contract(
-  WORKLOCK_ABI,
-  WORKLOCK_ADDRESS
-);
+
 
