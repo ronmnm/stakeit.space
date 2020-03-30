@@ -11,6 +11,7 @@ export default props => {
     staker,
     worker,
     stakerBalEth,
+    stakersNuAll,
     stakerNuBal,
     stakerNuLocked,
     stakerNuUnlocked,
@@ -18,21 +19,21 @@ export default props => {
     status,
     windDown,
     reStakeDisabled,
-    RestakeOn
+    subStakesLength,
+    substakeList
   } = props.manageData;
 
-  const {
-    setRestake,
-    setWinddown
-  } = props.setters;
+  const { setRestake, setWinddown } = props.setters;
 
-  // const setWinddownClick = async e => {
-  //   e.preventDefault();
-  //   props.setWinddown();
-  // };
-  // props.setWinddown();
-  let restakeStatus = "blabla";
-  console.log(windDown);
+
+  
+  console.log('winddown',windDown);
+  console.log('restake disabled?', reStakeDisabled);
+  console.log('consnt stakersNuAll = ', stakersNuAll);
+  console.log(typeof subStakesLength);
+  console.log('substakeList = ', substakeList);
+
+
   return (
     <div className="my_manage">
       {/* Staker Left Side */}
@@ -44,26 +45,26 @@ export default props => {
 
         <div className="staker_content">
           <p>
-            Ether Balance:{" "}
+            <span>Ether Balance:</span>
             <span>
               <b>{stakerBalEth}</b> ETH
             </span>
           </p>
 
           <p>
-            Balance:{" "}
+            <span>Balance:</span>
             <span>
               <b>{stakerNuBal.toLocaleString("en-Us")}</b> NU
             </span>
           </p>
           <p>
-            Locked in stake:{" "}
+            <span>Locked in stake:</span>
             <span>
               <b>{stakerNuLocked.toLocaleString("en-Us")}</b> NU
             </span>
           </p>
           <p>
-            Unlocked:{" "}
+            <span>Unlocked <i>(Available to withdraw):</i></span>
             <span>
               <b>{stakerNuUnlocked.toLocaleString("en-Us")}</b> NU
             </span>
@@ -75,37 +76,39 @@ export default props => {
               Re-Stake<span className="restake_status">{status}</span>
             </h4>
 
-
             {/* <Button.Group size="tiny">
               <Button disabled onClick={() => props.setters.RestakeOn(true)}>On</Button>
               <Button onClick={() => props.setters.RestakeOn(false)}>Off</Button>
             </Button.Group> */}
 
-
             <div className="btn-group">
-              <button 
-                className={!reStakeDisabled ? 'restake_active' : null}
-                onClick={() => setRestake(true)}>On</button>
-              <button 
-                className={reStakeDisabled ? 'restake_active' : null}
-                onClick={() => setRestake(false)}>Off</button>           
+              <button
+                className={!reStakeDisabled ? "restake_active" : null}
+                onClick={() => setRestake(true)}>
+                On
+              </button>
+              <button
+                className={reStakeDisabled ? "restake_active" : null}
+                onClick={() => setRestake(false)}>
+                Off
+              </button>
             </div>
-
-
           </div>
           <div className="winddown">
             <h4 className="winddown_text">Wind-Down</h4>
 
             <div className="btn-group">
-              <button 
-                className={windDown ? 'restake_active' : null}
-                onClick={() => setWinddown(true)}>On</button>
-              <button 
-                className={!windDown ? 'restake_active' : null}
-                onClick={() => setWinddown(false)}>Off</button>           
+              <button
+                className={windDown ? "restake_active" : null}
+                onClick={() => setWinddown(true)}>
+                On
+              </button>
+              <button
+                className={!windDown ? "restake_active" : null}
+                onClick={() => setWinddown(false)}>
+                Off
+              </button>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -121,6 +124,17 @@ export default props => {
           <p>
             Balance: <span>{workerEthBal} ETH</span>
           </p>
+        </div>
+
+        <div className="worker_buttons">
+          <div className="btn-group">
+            <p>Detach Worker</p>
+            <button>Detach</button>
+          </div>
+          <div className="btn-group">
+            <p>Set New Worker</p>
+            <button>Detach</button>
+          </div>
         </div>
       </div>
 
@@ -158,27 +172,27 @@ const SubstakeList = () => {
         <div className="substake_item">
           <div>
             <span>№0</span>
-            <span>STAKE</span>
+            <span className="substake_item_bottom_text">STAKE</span>
           </div>
           <div>
             <span>956,000.55</span>
-            <span>NU</span>
+            <span className="substake_item_bottom_text">NU</span>
           </div>
           <div>
             <span>365</span>
-            <span>DAYS</span>
+            <span className="substake_item_bottom_text">DAYS</span>
           </div>
           <div>
             <span>21 FEB</span>
-            <span>2020</span>
+            <span className="substake_item_bottom_text">2020</span>
           </div>
           <div>
             <span>21 FEB</span>
-            <span>2021</span>
+            <span className="substake_item_bottom_text">2021</span>
           </div>
-          <div>
-            <span>№0</span>
-            <span>STAKE</span>
+          <div className="prolong_devide">
+            <button>Prolong</button>
+            <button>Devide</button>
           </div>
         </div>
         <div className="substake_item">

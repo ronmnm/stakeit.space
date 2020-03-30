@@ -12,15 +12,15 @@ export default class ServiceWeb3 {
 
   async getStakerBalAddr(){
     const accounts = await web3.eth.getAccounts();
-    const acc = accounts[0];
+    const account = accounts[0];
     // Get Nu balance
-    const nuNitsBalance = await instanceToken.methods.balanceOf(acc).call();
+    const nuNitsBalance = await instanceToken.methods.balanceOf(account).call();
     const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18);
     // nodes (Policy fee)
-    const policyFee = await instancePolicy.methods.nodes(acc).call();
+    const policyFee = await instancePolicy.methods.nodes(account).call();
 
     const stakerData = {
-      account: acc,
+      account: account,
       balanceNu: nuBalance,
       policyFee: policyFee
     }
@@ -34,30 +34,37 @@ export default class ServiceWeb3 {
     // Get Staker ETH balance
     const balanceEth = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account), 'ether')).toFixed(2);
 
-    // get Worker address
-    const workerAddr = await instanceEscrow.methods
-      .getWorkerFromStaker(account).call();
+    // get Worker address    Беру из StakerInfo
+    // const workerAddr = await instanceEscrow.methods
+    //   .getWorkerFromStaker(account).call();
+
+    // Много данных беру от сюда, зарефакторить потом код вверху
+    const StakerInfo = await instanceEscrow.methods
+    .stakerInfo(account)
+    .call();
+
 
     // get Worker balance ETH
     let workerBal;
-    if(workerAddr !== '0x0000000000000000000000000000000000000000'){
-      workerBal = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(workerAddr), 'ether')).toFixed(2);
+    if(StakerInfo.worker !== '0x0000000000000000000000000000000000000000'){
+      workerBal = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(StakerInfo.worker), 'ether')).toFixed(2);
     } else {
       workerBal = 0;
     }
 
     // Get all tokens belonging to the staker
-    const allStakersNits = await instanceEscrow.methods
-      .getAllTokens(account)
-      .call();
-    const allStakersNu = (allStakersNits / 10**18).toFixed(0)
+    // const allStakersNits = await instanceEscrow.methods
+    //   .getAllTokens(account)
+    //   .call();
+    // const allStakersNu = (StakerInfo.value / 10**18).toFixed(0)
+
     // Get users locked tokens
     const lockedStakerNits = await instanceEscrow.methods
       .getLockedTokens(account, 0)
       .call();
     const lockedStakerNu = (lockedStakerNits / 10**18)
     // Calculate Stakers unlocked NU
-    const stakerUnlockedNits = allStakersNits - lockedStakerNits;
+    const stakerUnlockedNits = StakerInfo.value - lockedStakerNits;
     const stakerNuUnlocked = (stakerUnlockedNits / 10**18)
     // Checks if `reStake` parameter is available for changing
     const isReStakeLockedBool = await instanceEscrow.methods
@@ -70,11 +77,38 @@ export default class ServiceWeb3 {
       isRestakeLocked = "Unlocked"
     }
 
+    
 
-    const StakerInfo = await instanceEscrow.methods
-    .stakerInfo(account)
-    .call();
 
+    // get substake length by substake index
+    const getSubStakesLength = await instanceEscrow.methods
+      .getSubStakesLength(account)
+      .call();
+
+
+   
+    const getAllSubstakes = await (async () => {
+        if(getSubStakesLength !== "0"){
+          let substakeList = [];
+          for (let i = 0; i < getSubStakesLength; i++) {
+            const list = await instanceEscrow.methods
+              .getSubStakeInfo(account, i)
+              .call();
+            substakeList.push(list)
+          }
+          return substakeList;
+        } else {
+          let substakeList = null;
+          return substakeList;
+        }
+        
+      })();
+     
+    
+    
+    
+
+    // const getAllSubstakes2 = await getAllSubstakes();
 
 
     // Create object to return
@@ -90,6 +124,8 @@ export default class ServiceWeb3 {
       status: isRestakeLocked,
       windDown: StakerInfo.windDown,
       reStakeDisabled: StakerInfo.reStakeDisabled,
+      subStakesLength: getSubStakesLength,
+      substakeList: getAllSubstakes
       // StakerInfo: StakerInfo,
       // methods: await instanceEscrow.methods
       

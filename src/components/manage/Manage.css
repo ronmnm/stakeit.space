@@ -4,10 +4,10 @@
   /* width: 900px; */
 
   display: grid;
-  grid-template-columns: minmax(300px, 600px);
+  grid-template-columns: minmax(250px, 600px);
   grid-template-rows: 1fr 1fr 1fr;
   grid-auto-flow: column;
-  /* grid-gap: 3vh; */
+  grid-gap: 60px;
   /* justify-content: space-between; */
   /* background-color: rgb(32, 32, 32); */
   padding-bottom: 100px;
@@ -19,7 +19,7 @@
 /* Все шо больше 840пх */
 @media (min-width: 740px) {
   .my_manage {
-    grid-template-columns: minmax(300px, 400px) minmax(300px, 400px);
+    grid-template-columns: minmax(300px, 450px) minmax(300px, 450px);
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "staker worker"
@@ -31,12 +31,12 @@
   grid-area: staker;
   /* min-width: 350px; */
   /* width: 40%; */
-  padding-right: 20px;
+  /* padding-right: 30px; */
   height: 300px;
   /* background-color: rgb(155, 155, 155); */
 }
 .worker_manage {
-  padding-left: 20px;
+  /* padding-left: 30px; */
   grid-area: worker;
   /* width: 350px; */
   /* background-color: rgb(98, 179, 165); */
@@ -50,8 +50,9 @@
 .substake_items_titles {
   display: grid;
   /* grid-gap: 5px; */
-  /* margin: 10px 0; */
-  grid-template-columns: repeat(6, 1fr);
+  color: grey;
+  margin: 0 15px;
+  grid-template-columns: repeat(5, 1fr) 2fr;
 }
 .substake_items_titles span {
   text-align: center;
@@ -63,20 +64,49 @@
 .substake_item {
   display: grid;
   grid-gap: 5px;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 15px;
   background-color: rgb(27, 27, 27);
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr) 2fr;
   border-radius: 10px;
   /* justify-content: center;
   align-items: center; */
 }
+.substake_item .substake_item_bottom_text{
+  font-size: 12px;
+  color: grey;
+}
 .substake_item div {
   /* background-color: royalblue; */
   display: grid;
-
   justify-content: center;
 }
+.substake_item div:last-child {
+  grid-template-columns: 80px 80px;
+  grid-gap: 10px;
+
+  /* justify-content: space-between; */
+  grid-auto-flow: row;
+  /* justify-content: center; */
+  align-content: center;
+  /* padding: 0 7px; */
+}
+.prolong_devide button{
+  color: #eee;
+  display: inline-block;
+  height: 28px;
+  border-radius: 5px;
+  background-color: #666;
+  border: none;
+}
+.prolong_devide button:focus{
+  outline: none;
+}
+.prolong_devide button:hover{
+  cursor: pointer;
+}
+
+
 .substake_item div span {
   text-align: center;
 }
@@ -104,9 +134,9 @@
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 7px 0;
   color: rgb(119, 119, 119);
-  font-size: 12px;
+  font-size: 13px;
 }
 .staker_content p span,
 .worker_content p span {
@@ -116,6 +146,7 @@
 .staker_content p span b,
 .worker_content p span b {
   color: #eee;
+  font-weight: 500;
   letter-spacing: 0.8px;
   /* font-weight: 600; */
 }
@@ -154,13 +185,14 @@
 .substake_list {
   display: grid;
   grid-area: list;
-  grid-template-rows: 1fr 5fr;
-  margin-top: 10px;
+  grid-template-rows: 1fr 3fr;
+  /* margin-top: 20px; */
+
 }
 .nav_manage_bottom {
   display: grid;
-  height: 50px;
-  grid-template-columns: repeat(2, 200px);
+  /* height: 50px; */
+  grid-template-columns: repeat(2, 150px);
   justify-content: center;
   align-items: center;
 }
@@ -174,11 +206,13 @@
 .btn-group button {
   background-color: #333; /* Green background */
   border: none;
-  color: rgb(117, 117, 117); /* White text */
+  color: rgb(182, 182, 182); /* White text */
   padding: 6px 22px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
   transition: .4s;
+  font-family: 'Arial', sans-serif;
+  
 }
 
 .btn-group button:first-child {
@@ -213,8 +247,14 @@
 }
 
 .restake_active{
-  background-color: rgb(0, 119, 255) !important;
+  background-color: #0077FF !important;
   pointer-events: none;
   cursor: none;
   color: white !important;
+}
+
+
+.worker_buttons{
+  display: grid;
+  grid-template-columns: 150px 150px;
 }

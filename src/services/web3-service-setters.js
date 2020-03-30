@@ -8,11 +8,13 @@ import {
 
 const web3 = new Web3(window.ethereum);
 
-export default class ServiceWeb3Setters {
 
+
+// Class Start
+export default class ServiceWeb3Setters {
   async getSetters(){
     
-
+    // Set Restake
     const setRestake = async (value) => {
       try {
         const accounts = await web3.eth.getAccounts();
@@ -20,10 +22,11 @@ export default class ServiceWeb3Setters {
           .setReStake(value)
           .send({ from: accounts[0] });
       } catch (err) {
-        console.error('blabla', err)
+        console.error('Oh no', err)
       }
     }
 
+    // Set Winddown
     const setWinddown = async (value) => {
       try {
         const accounts = await web3.eth.getAccounts();
@@ -31,14 +34,14 @@ export default class ServiceWeb3Setters {
           .setWindDown(value)
           .send({ from: accounts[0] });
       } catch (err) {
-        console.error('blabla', err)
+        console.error('Oh no', err)
       }
     }
 
 
 
 
-
+    // Return Data
     const setters = {
       setRestake: setRestake,
       setWinddown: setWinddown

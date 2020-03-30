@@ -161,9 +161,6 @@ class App extends React.Component {
 
 
   }
- RestakeOn() {
-    alert('Restake on')
-  }
 
   render() {
     const {stakeData, manageData, footerData, footerStatus} = this.state;

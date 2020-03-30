@@ -2,13 +2,13 @@
     /* width: 100%; */
     display: grid;
 
-    grid-template-columns: 130px 130px 130px 130px;
+    grid-template-columns: 100px 100px 100px 100px;
     /* grid-template-columns: 1fr; */
     
 }
 .my_nav .my_nav_item{
     text-align: center;
-    padding: 6px 20px;
+    padding: 6px 10px;
     width: 100%;
     margin: 0 auto;
     border-radius: 8px;
