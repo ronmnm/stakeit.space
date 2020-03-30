@@ -219,11 +219,13 @@ const SubstakeList = (props) => {
   return (
     <div>
       <div className="substake_items_titles">
-        <span>Substake</span>
-        <span>Amount</span>
-        <span>Duration</span>
-        <span>Created</span>
-        <span>Ends</span>
+        <div>
+          <span>Substake</span>
+          <span>Amount</span>
+          <span>Duration</span>
+          <span>Created</span>
+          <span>Ends</span>
+        </div>
         <span>Modify</span>
       </div>
       <div className="list_items">

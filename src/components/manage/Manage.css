@@ -51,16 +51,23 @@
   display: grid;
   /* grid-gap: 5px; */
   color: grey;
-  margin: 0 15px;
-  grid-template-columns: repeat(5, 1fr) 2.5fr;
+
+  grid-template-columns: 2.4fr 1fr;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.substake_items_titles div{
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1.5fr 2fr 2fr;
+  grid-auto-flow: column;
+  margin: 0 12px;
 }
 .substake_items_titles span {
   text-align: center;
   font-size: 12px;
 }
 
-.list_items div {
-}
 .substake_and_prdvd{
   display: grid;
   grid-template-columns: 3fr 1fr;
