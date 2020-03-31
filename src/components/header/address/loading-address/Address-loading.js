@@ -1,15 +1,17 @@
 import React from "react";
-// import Web3 from "web3";
-import "./Address-loading.css";
+import s from "./Address-loading.module.css";
+import RoudLoader from '../../../loader/round-loader'
+import RoundSpinner from '../../../loader/7.svg';
 
 export default class Address extends React.Component {
   render() {
     return (
-      <div className="my_address">
-        <span></span>
-        <div className="my_address_item">
+      <div className={s.my_address}>
+        
+        <div className={s.my_address_item}>
           
-          <div className="loader">Loading...</div>
+          <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" />
+          
           
         </div>
         

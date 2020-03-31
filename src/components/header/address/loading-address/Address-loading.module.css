@@ -1,9 +1,9 @@
-.my_address {
-  /* display: flex;
+/* .my_address {
+  display: flex;
   justify-content: space-between;
-  align-items: center; */
+  align-items: center;
   width: 200px;
-}
+} */
 .my_address span {
   color: grey;
   /* margin-right: 10px; */
@@ -53,4 +53,9 @@
   color: #ddd;
   justify-content: flex-end;
   margin: 0 auto;
+}
+
+
+.round_spinner{
+  margin: auto;
 }

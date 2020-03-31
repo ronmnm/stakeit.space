@@ -1,100 +1,43 @@
 .worklock_wrapper{
   display: grid;
-  margin: 0 auto;
-  grid-template-columns: 400px 400px;
-  justify-content: center;
-  
-}
-.worklock_wrapper p{
-  font-size: 12px;
-  color: rgb(148, 148, 148);
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.worklock_wrapper span {
-  color: white !important;
-  display: block;
-  font-size: 20px;
 
-}
-
-.worklock_button_wrappe{
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: minmax(400px, 1000px);
+  grid-template-rows: 200px 200px 200px;
   justify-content: center;
+  margin-top: 30px;
+}
+.worklock_timeline{
+  /* background-color: indigo; */
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  /* justify-content: center; */
+  align-content: center;
   align-items: center;
 }
-.worklock_button_wrappe .participant{
-  font-size: 14px;
-  color: rgb(148, 148, 148);
-  margin-bottom: 10px;
-  border-top: 1px solid rgb(58, 58, 58);
-  padding-top: 20px;
+.worklock_timeline h3{
+  border-bottom: 1px solid #444;
+  margin: 0;
+  padding-bottom: 10px;
+}
+.timeline_container{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 30px;
   margin-bottom: 40px;
-  text-align: center;
-}
-.worklock_button_wrappe .participant b{
-  letter-spacing: .5px;
-
-}
-.worklock_button{
-  letter-spacing: 1px;
-  font-size: 16px;
-  color: white;
-  padding: 10px 40px;
-  background-color: rgb(9, 75, 255);
-  border: none;
-  border-radius: 10px;
-  transition: .5s;
-}
-.worklock_button:hover{
-  background-color: rgb(17, 71, 221);
-  cursor: pointer;
-}
-.worklock_button:active{
-  border: none;
-}
-.worklock_bid_form{
-  display: flex;
-  flex-direction: column;
 }
 
-.my_worklock_input {
-  /* position: absolute; */
-  /* top: 10px;
-  left: -10px; */
-  background-color: #1b1b1b;
-  border-radius: 10px;
-  border: 1px solid #232323;
-  height: 53px;
-  width: 200px;
-  margin: 10px auto 30px auto;
-  color: rgb(240, 240, 240);
-  padding-left: 20px;
-  font-size: 26px;
-  font-weight: 300;
-  outline: none;
-  letter-spacing: 0.5px;
-  transition: 0.3s;
-}
-.my_worklock_input:hover {
-  border: 1px solid rgb(80, 80, 80);
-}
 
-.my_worklock_input:focus {
-  border: 1px solid rgb(85, 85, 85);
+
+
+.worklock_economics{
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  /* justify-content: center; */
+  align-content: center;
+  align-items: center;
+
 }
-.my_worklock_input::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgb(100, 100, 100);
-  letter-spacing: 0.5px;
-  font-weight: 300;
-  opacity: 1; /* Firefox */
+.worklock_participant{
+  background-color: lightseagreen;
 }
-.my_worklock_input:focus::placeholder {
-  opacity: 0;
-}
+/* repeat(3, minmax(100px, 200px)) */

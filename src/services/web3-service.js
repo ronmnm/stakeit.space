@@ -13,6 +13,8 @@ export default class ServiceWeb3 {
   async getStakerBalAddr(){
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
+    const network = window.ethereum.networkVersion;
+   
     // Get Nu balance
     const nuNitsBalance = await instanceToken.methods.balanceOf(account).call();
     const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18);
@@ -21,6 +23,7 @@ export default class ServiceWeb3 {
 
     const stakerData = {
       account: account,
+      network: network,
       balanceNu: nuBalance,
       policyFee: policyFee
     }

@@ -30,7 +30,7 @@ export default class Header extends React.Component {
     //   addressButton = <ConnectWallet onClick={this.props.onClick} />;
     // }
 
-    switch ('ok') {
+    switch (this.props.buttonStatus) {
       case "loading":
         addressButton = <LoadingAddress />;
         break;
@@ -38,9 +38,7 @@ export default class Header extends React.Component {
         addressButton = <WrongNetwork />;
         break;
       case "ok":
-        addressButton = (
-          <Address address={this.props.account} network={this.props.network} />
-        );
+        addressButton = <Address account={this.props.account} />;
         break;
       case "connect":
         addressButton = <ConnectWallet onClick={this.props.onClick} />;
@@ -54,7 +52,9 @@ export default class Header extends React.Component {
 
     return (
       <div className="my_header">
-        <div className="logo"><span>stakeit.space</span></div>
+        <div className="logo">
+          <span>stakeit.space</span>
+        </div>
         <div className="my_nav">
           <NavLink className="my_nav_item" to="/stake">
             Stake
@@ -69,7 +69,9 @@ export default class Header extends React.Component {
             Worklock
           </NavLink>
         </div>
-        
+
+        {/* <Address account={this.props.account} /> */}
+        {/* {addressButton} */}
         <div className="my_address">{addressButton}</div>
       </div>
     );

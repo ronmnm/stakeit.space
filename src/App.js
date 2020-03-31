@@ -8,11 +8,12 @@ import Stake from "./components/stake/Stake";
 import Manage from "./components/manage/Manage";
 import Worklock from "./components/worklock/worklock";
 import Withdraw from "./components/withdraw/Withdraw";
-import Loader from "./components/loader/Loader";
+import FooterLoader from "./components/loader/footer-loader";
+import MainSpinner from "./components/loader/main-spinner";
 
-import ServiceWeb3 from './services/web3-service'
+import ServiceWeb3 from "./services/web3-service";
 import ServiceWeb3Setters from "./services/web3-service-setters";
-import WorklockService from './services/worklock-service'
+import WorklockService from "./services/worklock-service";
 
 const serviceWeb3 = new ServiceWeb3();
 const serviceSetters = new ServiceWeb3Setters();
@@ -24,28 +25,45 @@ class App extends React.Component {
     stakeData: null,
     footerData: null,
     withdrawData: null, /////
-    buttonStatus: 'loading',
-    footerStatus: 'loading',
     setters: null,
-    worklockData: null
+    worklockData: null,
+    buttonStatus: "loading",
+    footerStatus: "loading"
+  };
+
+  componentDidMount() {
+    if (typeof window.ethereum !== "undefined") {
+      if (window.ethereum.networkVersion === "5"){
+        serviceWeb3.getStakerBalAddr().then(res =>
+          this.setState({
+            stakeData: res,
+            buttonStatus: 'ok'
+          })
+        );
+
+
+        serviceWeb3
+          .getFooterData()
+          .then(res => this.setState({ footerData: res, footerStatus: "done" }));
+        serviceWeb3
+          .getManageData()
+          .then(res => this.setState({ manageData: res }));
+        serviceSetters.getSetters().then(res => this.setState({ setters: res }));
+        worklockService
+          .getWorklockData()
+          .then(res => this.setState({ worklockData: res }));
+      } else { this.setState({ buttonStatus: 'wrong' }) }
+    } else {
+      this.setState({ buttonStatus: "install" });
+    }
   }
-
-
-  componentDidMount(){
-    serviceWeb3.getStakerBalAddr().then(res => this.setState({stakeData: res}))
-    serviceWeb3.getFooterData().then(res => this.setState({footerData: res, footerStatus: 'done'}))
-    serviceWeb3.getManageData().then(res => this.setState({manageData: res}))
-    serviceSetters.getSetters().then(res => this.setState({setters: res}))
-    worklockService.getWorklockData().then(res => this.setState({worklockData: res}))
-    
-  }
-
 
   async handleClick() {
     await window.ethereum.enable();
     // this.setState({ isConnected: true });
     // this.getBlockChainData();
   }
+
   // async componentDidMount() {
   //   if (typeof window.ethereum !== "undefined") {
   //     // Metamask installed
@@ -62,7 +80,6 @@ class App extends React.Component {
   //       console.log("user denied logging")
   //       this.setState({buttonStatus: 'connect'})
   //     }
-      
 
   //     if (window.ethereum.networkVersion === "5") {
   //       if (typeof window.ethereum.selectedAddress !== "string") {
@@ -88,163 +105,80 @@ class App extends React.Component {
   //   }
   // }
 
-
-  async getBlockChainData () {
-    this.setState({ buttonStatus: "loading" });
-
-    // const web3 = new Web3(window["ethereum"]);
-
-    // await window.ethereum.enable();
-
-    // const accounts = await web3.eth.getAccounts();
-    // const network = await web3.eth.net.getNetworkType();
-
-    // INSTANCES
-
-
-    // MAIN DATA
-
-
-    // // USER DATA
-    // // Get Nu balance
-    // const nuNitsBalance = await instanceToken.methods
-    //   .balanceOf(accounts[0])
-    //   .call();
-    // // const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18).toLocaleString(
-    // //   "en-Us"
-    // // );
-    // // Get all users tokens
-    // const allUserNuNits = await instanceEscrow.methods
-    //   .getAllTokens(accounts[0])
-    //   .call();
-    // const allUserNu = (parseFloat(allUserNuNits) / 10 ** 18).toLocaleString(
-    //   "en-Us"
-    // );
-    // // Get users locked tokens
-    // const lockedUserNuNits = await instanceEscrow.methods
-    //   .getLockedTokens(accounts[0], 0)
-    //   .call();
-    // const lockedUserNu = (
-    //   parseFloat(lockedUserNuNits) /
-    //   10 ** 18
-    // ).toLocaleString("en-Us");
-    // // Available NuNits to withdraw
-    // const nuNitsToWithdraw = allUserNuNits - lockedUserNuNits;
-    // const nuToWithdraw = (
-    //   parseFloat(nuNitsToWithdraw) /
-    //   10 ** 18
-    // ).toLocaleString("en-Us");
-    // // nodes
-    // const nodes = await instancePolicy.methods.nodes(accounts[0]).call();
-
-
-    // // get substake length by substake index
-    // const getSubStakesLength = await instanceEscrow.methods
-    //   .getSubStakesLength(stakerAddr)
-    //   .call();
-
-    // for (let i = 0; i < getSubStakesLength; i++) {
-    //   const list = await instanceEscrow.methods
-    //     .getSubStakeInfo(stakerAddr, i)
-    //     .call();
-    //   // console.log(list);
-    // }
-
-    // this.setState({
-    //   address: accounts[0],
-    //   nuNitsBalance: nuNitsBalance,
-    //   currentPeriod: currentPeriod,
-    //   getActiveStakers: getActiveStakers.activeStakers.length,
-    //   percentOfLockedNu: percentOfLockedNu,
-    //   lockedNu: lockedNu,
-    //   network: network,
-    //   nuNitsToWithdraw: nuNitsToWithdraw,
-    //   buttonStatus: "ok"
-    // });
-
-
-  }
-
   render() {
     const {
+      buttonStatus,
+
+      // objects
       stakeData,
       manageData,
       footerData,
       footerStatus,
       worklockData
     } = this.state;
-    
 
-    let manageComp;
-    if(this.state.manageData){
-      manageComp = <Manage 
-      manageData={manageData}
-      setters={this.state.setters}
-      setWinddown={this.state.setWinddown} />
-    } else {
-      manageComp = <Loading />
+    let manageComponent = <MainSpinner />;
+    if (buttonStatus === "install") {
+      manageComponent = <div> install metamask</div>;
+    } else if (manageData) {
+      manageComponent = (
+        <Manage
+          manageData={manageData}
+          setters={this.state.setters}
+          setWinddown={this.state.setWinddown}
+        />
+      );
     }
 
-    if(this.state.setWinddown){
-      this.state.setWinddown();
-      console.log(this.state.setWinddown())
+    let account;
+    if (stakeData) {
+      account = stakeData.account;
     }
-    
-    console.log(worklockData)
-    
-    worklockData ? console.log(worklockData.methods) : console.log('hi');
-    
+
+    console.log(worklockData);
+
+    worklockData ? console.log(worklockData.methods) : console.log("hi");
+
     return (
       <BrowserRouter>
         <div className="my_wrapper">
           <Header
-            address={this.state.h}
+            account={account}
             network={this.state.network}
-            buttonStatus={this.state.buttonStatus}
+            buttonStatus={buttonStatus}
             onClick={this.handleClick}
             // account={this.stakeData.account}
-            />
-            
+          />
 
           <div className="my_content_wrapper">
-          
             {/* STAKE Component */}
             <Route path="/" exact>
               <Redirect to="/stake" />
             </Route>
             <Route
               path="/stake"
-              render={ () => <Stake stakeData={stakeData} /> } />
+              render={() => <Stake stakeData={stakeData} />}
+            />
             {/* END STAKE Component */}
 
-
             {/* MANAGE Component */}
-            <Route 
-              path="/manage" 
-              render={ () => (manageComp) } />
+            <Route path="/manage" render={() => manageComponent} />
             {/* END MANAGE Component */}
 
-
             {/* WORKLOCK Component */}
-            <Route 
-              path="/worklock" 
-              component={Worklock} />
+            <Route path="/worklock" component={Worklock} />
             {/* END WORKLOCK Component */}
 
-
             {/* WITHDRAW Component */}
-            <Route
-              path="/withdraw"
-              render={() => (
-                <Withdraw nuNitsToWithdraw={this.state.nuNitsToWithdraw} />
-              )} />
+            <Route path="/withdraw" render={() => <Withdraw />} />
             {/* END WITHDRAW Component */}
-
           </div>
 
-          {footerStatus === "loading" ? <Loader /> :
+          {footerStatus === "loading" ? (
+            <FooterLoader />
+          ) : (
             <Footer footerData={footerData} />
-          }
+          )}
         </div>
       </BrowserRouter>
     );
@@ -252,8 +186,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-const Loading = () => {
-  return <div>Loading ...</div>
-}

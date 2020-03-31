@@ -1,30 +1,31 @@
 import React from "react";
 // import Web3 from "web3";
-import "./Address.css";
+import s from "./Address.module.css";
 import Blockies from "react-blockies";
 
 export default class Address extends React.Component {
   render() {
+    const {account} = this.props;
     return (
       <React.Fragment>
-        <div>
+        
           {/* <span>{this.props.network}</span> */}
-          <div className="my_address_item">
-            <div className="my_ident_icon">
+          <div className={s.my_address_item}>
+            <div className={s.my_ident_icon}>
               <Blockies
-                seed={this.props.address}
-                size={4}
-                scale={5}
+                seed={account}
+                size={5}
+                scale={4}
                 color="#B692BE"
                 // bgColor="#E885B4"
                 spotColor="#18335E"
               />
             </div>
-            <div className="my_address_text">
-              0x9483...9585
+            <div className={s.my_address_text}>
+            {account.slice(0, 6)}...{account.slice(38, 42)}
             </div>
           </div>
-        </div>
+        
       </React.Fragment>
     );
   }

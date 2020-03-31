@@ -1,9 +1,9 @@
 import React from "react";
-import './Loader.css'
+import './footer-loader.css'
 
 const Loader = () => {
   return <div className="my_footer_loader">
-    <div className="my_footer_loader_wrapper">Loading...</div>
+    <div className="my_footer_loader_wrapper"></div>
   </div>;
 };
 
