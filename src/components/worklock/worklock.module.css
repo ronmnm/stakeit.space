@@ -1,0 +1,124 @@
+.worklock_wrapper{
+  display: grid;
+
+  grid-template-columns: minmax(400px, 1000px);
+  grid-template-rows: repeat(3, auto);
+  justify-content: center;
+  margin-top: 30px;
+  row-gap: 20px;
+}
+.worklock_timeline{
+  /* background-color: indigo; */
+  display: grid;
+  grid-template-rows: 40px 2fr;
+  row-gap: 20px;
+  /* justify-content: center; */
+  /* align-content: center; */
+  /* align-items: center; */
+}
+.worklock_timeline h3{
+  border-bottom: 1px solid #444;
+  margin: 0;
+  padding-bottom: 15px;
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+.timeline_container{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(50px, 330px));
+  column-gap: 70px;
+  margin-bottom: 10px;
+}
+.timeline_container div h4{
+  margin-top: 10px;
+  color: #ddd;
+  font-weight: 400;
+}
+.timeline_container div{
+  height: 90px;
+  /* padding-left: 20px; */
+}
+.timeline_container div span:first-child{
+  font-size: 12px;
+  color: grey;
+}
+
+
+
+
+.economics{
+  display: grid;
+  grid-template-rows: 40px 3fr;
+  row-gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #444;
+  /* justify-content: center; */
+  /* align-content: center; */
+  /* align-items: center; */
+
+}
+.economics h3{
+  border-bottom: 1px solid #444;
+  margin: 0;
+  padding-bottom: 15px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  
+}
+.economics_container{
+  display: grid;
+  grid-template-rows: repeat(3, 80px);
+  /* row-gap: 30px; */
+}
+
+.economics_container h4{
+  margin-top: 10px;
+  color: #ddd;
+  font-weight: 400;
+}
+/* Top */
+.economics_top_row{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(50px, 330px));
+  column-gap: 70px;
+  
+}
+.economics_top_row div span:first-child{
+  font-size: 12px;
+  color: grey;
+  
+}
+/* Middle */
+.economics_middle_row{
+  display: grid;
+  column-gap: 70px;
+  grid-template-columns: repeat(4, minmax(50px, 330px));
+}
+.economics_middle_row div span:first-child{
+  font-size: 12px;
+  color: grey;
+  
+}
+/* Bottom */
+.economics_bottom_row{
+  display: grid;
+  column-gap: 70px;
+  grid-template-columns: repeat(4, minmax(50px, 330px));
+}
+.economics_bottom_row div span:first-child{
+  font-size: 12px;
+  color: grey;
+  
+}
+
+
+
+
+.worklock_participant{
+  background-color: lightseagreen;
+  display: grid;
+  justify-content: center;
+  height: 300px;
+}
+/* repeat(3, minmax(100px, 200px)) */

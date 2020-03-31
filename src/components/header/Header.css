@@ -19,6 +19,7 @@
   justify-content: center;
   height: 60px;
   width: 100%;
+  display: none;
 }
 .logo span{
     margin-left: 0;
@@ -31,6 +32,7 @@
   height: 40px;
   align-content: center;
   width: 200px;
+  margin-top: 10px;
 }
 
 
@@ -92,12 +94,19 @@ padding: 0 20px;
   .logo {
     /* justify-self: start; */
     justify-content: start;
+
+    display: grid;
+    align-content: center;
+    justify-content: start;
+    height: 60px;
+    width: 100%;
   }
   .logo span{
     margin: 0 30px;
 }
   .my_address {
     justify-self: end;
+    margin-top: 0;
   }
   .my_nav {
       justify-self: center;

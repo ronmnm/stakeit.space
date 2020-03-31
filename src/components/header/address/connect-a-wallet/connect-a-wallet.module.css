@@ -18,21 +18,30 @@
   /* margin-left: 80px; */
   /* margin-right: 20px;  */
   border-radius: 7px;
-  background-color: rgb(16, 111, 235);
+  border: 1px solid #0077FF;
+  /* background-color: #0077FF; */
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 .connect_a_wallet{
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: .5px;
+  /* color: rgb(243, 243, 243); */
+  color: #0077FF;
 }
+
 .my_address_item_blue:hover {
-  background-color: rgb(9, 98, 214);
+  background-color: rgb(0, 32, 61);
   cursor: pointer;
+  /* color: rgb(0, 47, 255); */
+  /* border: 1px solid rgb(0, 47, 255); */
 }
+
+
+
 .my_ident_icon {
   /* display: flex; */
   /* justify-content: flex-start; */
@@ -55,7 +64,7 @@
   letter-spacing: 0.5px;
   display: flex;
   font-size: 12px;
-  color: #ddd;
+  color: rgb(24, 67, 255);
   justify-content: flex-end;
   margin: 0 auto;
 }

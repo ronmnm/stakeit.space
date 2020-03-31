@@ -20,6 +20,11 @@ const serviceSetters = new ServiceWeb3Setters();
 const worklockService = new WorklockService();
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.setState = this.setState.bind(this);
+  }
   state = {
     manageData: null,
     stakeData: null,
@@ -28,40 +33,68 @@ class App extends React.Component {
     setters: null,
     worklockData: null,
     buttonStatus: "loading",
-    footerStatus: "loading"
+    footerStatus: "loading",
+    isConnected: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (typeof window.ethereum !== "undefined") {
-      if (window.ethereum.networkVersion === "5"){
-        serviceWeb3.getStakerBalAddr().then(res =>
-          this.setState({
-            stakeData: res,
-            buttonStatus: 'ok'
-          })
-        );
-
-
-        serviceWeb3
-          .getFooterData()
-          .then(res => this.setState({ footerData: res, footerStatus: "done" }));
-        serviceWeb3
-          .getManageData()
-          .then(res => this.setState({ manageData: res }));
-        serviceSetters.getSetters().then(res => this.setState({ setters: res }));
-        worklockService
-          .getWorklockData()
-          .then(res => this.setState({ worklockData: res }));
+      // window.ethereum.enable()
+      if (window.ethereum.networkVersion == "5"){
+        if(window.ethereum.selectedAddress !== null){
+          serviceWeb3.getStakerBalAddr().then(res => {
+            this.setState({
+              stakeData: res,
+              buttonStatus: 'ok'
+            });
+            console.log(this.state.buttonStatus)
+          }
+          );
+          serviceWeb3
+            .getFooterData()
+            .then(res => this.setState({ footerData: res, footerStatus: "done" }));
+          serviceWeb3
+            .getManageData()
+            .then(res => this.setState({ manageData: res }));
+          serviceSetters.getSetters().then(res => this.setState({ setters: res }));
+          worklockService
+            .getWorklockData()
+            .then(res => this.setState({ worklockData: res }));
+        } else {
+          console.log('not connected');
+          this.setState({buttonStatus: 'connect'})
+        }
       } else { this.setState({ buttonStatus: 'wrong' }) }
     } else {
       this.setState({ buttonStatus: "install" });
     }
   }
 
+
+
+  componentDidUpdate(){
+    console.log('updated');
+  }
+
   async handleClick() {
-    await window.ethereum.enable();
-    // this.setState({ isConnected: true });
-    // this.getBlockChainData();
+    this.setState({buttonStatus: 'loading'})
+    try {
+      await window.ethereum.enable()
+        .then((ob) => {
+
+          this.componentDidMount();
+          
+        })
+      
+    } catch (error) {
+      this.setState({buttonStatus: 'connect'})
+      
+      console.log('user denied');
+      
+    } 
+    
+
+
   }
 
   // async componentDidMount() {
@@ -108,7 +141,7 @@ class App extends React.Component {
   render() {
     const {
       buttonStatus,
-
+      isConnected,
       // objects
       stakeData,
       manageData,
@@ -130,20 +163,27 @@ class App extends React.Component {
       );
     }
 
+    let worklockComponent = <MainSpinner />;
+    if (worklockData){
+      worklockComponent = <Worklock worklockData={worklockData} />;
+    }
+
+
     let account;
     if (stakeData) {
       account = stakeData.account;
     }
 
-    console.log(worklockData);
+    console.log('render');
 
-    worklockData ? console.log(worklockData.methods) : console.log("hi");
+    // worklockData ? console.log(worklockData.methods) : console.log("hi");
 
     return (
       <BrowserRouter>
         <div className="my_wrapper">
           <Header
             account={account}
+            isConnected={isConnected}
             network={this.state.network}
             buttonStatus={buttonStatus}
             onClick={this.handleClick}
@@ -166,7 +206,7 @@ class App extends React.Component {
             {/* END MANAGE Component */}
 
             {/* WORKLOCK Component */}
-            <Route path="/worklock" component={Worklock} />
+            <Route path="/worklock" render={() => worklockComponent} />
             {/* END WORKLOCK Component */}
 
             {/* WITHDRAW Component */}

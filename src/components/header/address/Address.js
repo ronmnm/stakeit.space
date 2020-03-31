@@ -14,8 +14,8 @@ export default class Address extends React.Component {
             <div className={s.my_ident_icon}>
               <Blockies
                 seed={account}
-                size={5}
-                scale={4}
+                size={7}
+                scale={3}
                 color="#B692BE"
                 // bgColor="#E885B4"
                 spotColor="#18335E"

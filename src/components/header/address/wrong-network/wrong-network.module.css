@@ -33,7 +33,7 @@
 }
 .my_address_item_wrong:hover {
   /* background-color: rgb(23, 52, 214); */
-  cursor: pointer;
+  cursor: default;
 }
 .my_ident_icon {
   /* display: flex; */
@@ -48,10 +48,6 @@
   /* align-items: center; */
 }
 
-.my_ident_icon canvas {
-  /* border-radius: 4px; */
-  /* margin: auto; */
-}
 
 .my_address_text {
   letter-spacing: 0.5px;
