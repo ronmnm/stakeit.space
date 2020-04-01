@@ -44,6 +44,7 @@ class App extends React.Component {
         window.ethereum.networkVersion === "5" ||
         window.ethereum.networkVersion === undefined
       ) {
+        
         if (window.ethereum.selectedAddress !== null) {
           serviceWeb3.getStakerBalAddr().then(res => {
             this.setState({
@@ -66,16 +67,21 @@ class App extends React.Component {
             .getWorklockData()
             .then(res => this.setState({ worklockData: res }));
         } else {
-          console.log("not connected");
+          window.ethereum.enable()
+          // console.log(window.ethereum.selectedAddress);
+          // console.log("not connected");
+          
           this.setState({ buttonStatus: "connect" });
         }
       } else {
+        
         this.setState({ buttonStatus: "wrong" });
         // console.log(typeof window.ethereum.networkVersion);
       }
     } else {
       this.setState({ buttonStatus: "install" });
     }
+  
   }
 
   componentDidUpdate() {
@@ -87,12 +93,14 @@ class App extends React.Component {
     try {
       await window.ethereum.enable().then(ob => {
         this.componentDidMount();
+        
       });
     } catch (error) {
       this.setState({ buttonStatus: "connect" });
 
       console.log("user denied");
-    }
+    } 
+    
   }
 
   render() {

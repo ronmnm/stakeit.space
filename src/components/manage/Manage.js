@@ -182,8 +182,9 @@ const SubstakeList = (props) => {
       const value = (obj.lockedValue / 10**18).toLocaleString("en-Us")
       const startDay = new Date(obj.firstPeriod*86400000).toUTCString().slice(0, 11);
       const startYear = new Date(obj.firstPeriod*86400000).toDateString().slice(-4);
-      const endDay = new Date((+obj.firstPeriod + +obj.periods + 1)*86400000).toUTCString().slice(0, 11);
-      const endYear = new Date((+obj.firstPeriod + +obj.periods)*86400000).toDateString().slice(-4);
+      const currentDate = Date.now() / 86400000;
+      const endDay = new Date((currentDate+ +obj.periods + 1)*86400000).toUTCString().slice(0, 11);
+      const endYear = new Date((currentDate + +obj.periods)*86400000).toDateString().slice(-4);
 
       // console.log('obj.firstPeriod', typeof obj.firstPeriod)
       // console.log('obj.periods', typeof obj.periods)
