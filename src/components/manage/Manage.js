@@ -4,6 +4,8 @@ import { NavLink, Route, Redirect } from "react-router-dom";
 // import 'rsuite/dist/styles/rsuite-dark.css'
 import { Button } from "semantic-ui-react";
 
+import NoStakes from './no-stakes/no-stakes'
+
 // import { Toggle, Button } from 'rsuite';
 
 export default props => {
@@ -25,7 +27,13 @@ export default props => {
   
   const { setRestake, setWinddown, setWorker } = props.setters;
 
-
+  let workerAddress;
+  if(worker == "0x0000000000000000000000000000000000000000"){
+    workerAddress = <React.Fragment>No worker assigned</React.Fragment>
+  } else {
+     workerAddress = `${worker.slice(0, 6)}...${worker.slice(38, 42)}`
+    }
+  
   
   // console.log('winddown',windDown);
   // console.log('restake disabled?', reStakeDisabled);
@@ -117,7 +125,8 @@ export default props => {
       <div className="worker_manage big_item">
         <h4 className="address_title">Worker Account</h4>
         <h2 className="address_eth">
-          {worker.slice(0, 6)}...{worker.slice(38, 42)}
+          
+          {workerAddress}
         </h2>
 
         <div className="worker_content">
@@ -173,7 +182,7 @@ const SubstakeList = (props) => {
       const value = (obj.lockedValue / 10**18).toLocaleString("en-Us")
       const startDay = new Date(obj.firstPeriod*86400000).toUTCString().slice(0, 11);
       const startYear = new Date(obj.firstPeriod*86400000).toDateString().slice(-4);
-      const endDay = new Date((+obj.firstPeriod + +obj.periods)*86400000).toUTCString().slice(0, 11);
+      const endDay = new Date((+obj.firstPeriod + +obj.periods + 1)*86400000).toUTCString().slice(0, 11);
       const endYear = new Date((+obj.firstPeriod + +obj.periods)*86400000).toDateString().slice(-4);
 
       // console.log('obj.firstPeriod', typeof obj.firstPeriod)
@@ -212,7 +221,7 @@ const SubstakeList = (props) => {
       )
     })
   } else {
-    return substake_item = <div>no stakes</div>
+    return substake_item = <NoStakes />
   }
 
 
@@ -238,7 +247,7 @@ const SubstakeList = (props) => {
 };
 
 const ActionHistory = () => {
-  return <div>Action History</div>;
+  return <div>Coming soon...</div>;
 };
 
 
@@ -247,7 +256,7 @@ class ChangeWorkerField extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      address: ''
+      address: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -261,6 +270,7 @@ class ChangeWorkerField extends React.Component{
   handleSubmit(event) {
     event.preventDefault();
     this.props.setWorker(this.state.address)
+    
   }
 
   render() {
@@ -272,7 +282,7 @@ class ChangeWorkerField extends React.Component{
         
         <form onSubmit={this.handleSubmit} className="worker_buttons">
 
-          <button className="change_wrkr_button">Change Worker</button>
+          <button className="change_wrkr_button">Confirm</button>
           <input 
             placeholder="Enter new ETH address" 
             className="change_wrkr_input" 

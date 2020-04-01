@@ -126,7 +126,7 @@
   align-items: center;
 }
 .prolong_devide button {
-  color: rgb(182, 182, 182);
+  color: rgb(107, 107, 107);
   font-family: Arial, sans-serif;
   display: inline-block;
   height: 28px;
@@ -139,9 +139,9 @@
   outline: none;
 }
 .prolong_devide button:hover{
-  cursor: pointer;
-  color: #eee;
-  background-color: #444;
+  cursor: default;
+  /* color: #eee; */
+  /* background-color: #444; */
 }
 
 
@@ -336,4 +336,20 @@
   display: grid;
   grid-template-columns: 150px 1fr;
   column-gap: 20px;
+}
+
+
+
+/* Кнопка вместо адреса */
+.set_worker_button {
+  border-radius: 10px;
+  background-color: black;
+  border: 1px solid grey;
+  color: grey;
+  font-size: 12px;
+  height: 30px;
+  width: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+ 
+  margin-left: 20px;
 }

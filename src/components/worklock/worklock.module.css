@@ -4,7 +4,7 @@
   grid-template-columns: minmax(400px, 1000px);
   grid-template-rows: repeat(3, auto);
   justify-content: center;
-  margin-top: 30px;
+  margin: 30px;
   row-gap: 20px;
 }
 .worklock_timeline{
@@ -17,11 +17,13 @@
   /* align-items: center; */
 }
 .worklock_timeline h3{
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #b5cc18;
+  color: #b5cc18;
   margin: 0;
   padding-bottom: 15px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .5px;
+  /* background-color: forestgreen; */
 }
 .timeline_container{
   display: grid;
@@ -30,7 +32,8 @@
   margin-bottom: 10px;
 }
 .timeline_container div h4{
-  margin-top: 10px;
+  margin-top: 6px;
+  font-size: 16px;
   color: #ddd;
   font-weight: 400;
 }
@@ -50,30 +53,39 @@
   display: grid;
   grid-template-rows: 40px 3fr;
   row-gap: 20px;
-  margin-bottom: 30px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #444;
+  /* margin-bottom: 10px; */
+  /* padding-bottom: 5px; */
+  /* border-bottom: 1px solid #444; */
   /* justify-content: center; */
   /* align-content: center; */
   /* align-items: center; */
 
 }
+
+/* ECONOMICS TITLE */
 .economics h3{
-  border-bottom: 1px solid #444;
-  margin: 0;
-  padding-bottom: 15px;
-  font-weight: 500;
+  border-bottom: 1px solid #f2711c;
+  color: #f2711c;
+
+  margin: 0px;
+  /* padding: 8px; */
+  font-weight: 600;
   letter-spacing: .5px;
+  /* background-color: rgb(255, 190, 70); */
+  
+  
+  
   
 }
 .economics_container{
   display: grid;
-  grid-template-rows: repeat(3, 80px);
+  grid-template-rows: repeat(3, 70px);
   /* row-gap: 30px; */
 }
 
 .economics_container h4{
-  margin-top: 10px;
+  margin-top: 6px;
+  font-size: 16px;
   color: #ddd;
   font-weight: 400;
 }
@@ -116,9 +128,151 @@
 
 
 .worklock_participant{
-  background-color: lightseagreen;
+  /* background-color: lightseagreen; */
   display: grid;
-  justify-content: center;
-  height: 300px;
+  grid-template-rows: 40px 1fr;
+  row-gap: 20px;
+  /* height: 300px; */
 }
-/* repeat(3, minmax(100px, 200px)) */
+.worklock_participant h3{
+  border-bottom: 1px solid #0077FF;
+  color: #0077FF;
+  margin: 0;
+  /* padding-bottom: 15px; */
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+
+
+
+
+.participant_field{
+
+  display: grid;
+  grid-template-rows: 50px 200px;
+  grid-template-columns: 1fr;
+
+}
+.participanting_with_address{
+
+ 
+  
+}
+
+.part_with_addr{
+  margin-right: 10px;
+
+  color: grey;
+}
+.addr{
+  color: white;
+  font-weight: 500;
+}
+.current_bid{
+  margin-left: 50px;
+  color: grey;
+  font-weight: 500;
+}
+.white_bold{
+  margin-right: 20px;
+}
+.cancel_bid{
+  padding: 4px 10px;
+  background-color: black;
+  border: 1px solid #0077FF;
+  border-radius: 5px;
+  color: #0077FF;
+  transition: .3s;
+}
+.cancel_bid:focus{
+  outline: none;
+}
+.cancel_bid:hover{
+  cursor: pointer;
+  background-color: rgb(0, 43, 92);
+}
+
+/* ${s.cancel_bid_dis} */
+.cancel_bid_dis{
+  pointer-events: none;
+  color: grey;
+  border: 1px solid grey;
+}
+
+
+.button_disabled{
+  cursor: default;
+  pointer-events: none;
+  background-color: rgb(59, 59, 59) !important;
+  color: grey !important;
+  border: none !important;
+}
+
+
+
+
+.bid_form{
+  display: grid;
+  /* grid-auto-flow: row; */
+  grid-template-columns: 1fr;
+  justify-content: center;
+  /* justify-items: center; */
+  width: 300px;
+  margin: 30px auto;
+}
+.bid_form span{
+  margin-bottom: 10px;
+}
+.bid_form input{
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid rgb(78, 78, 78);
+  color: white;
+  padding: 10px;
+  transition: .3s;
+  font-size: 16px;
+  font-family: Roboto;
+  letter-spacing: 1px;
+}
+.bid_form input:focus{
+  outline: none;
+}
+.bid_form input:hover{
+  border: 1px solid #0077FF;
+}
+.bid input:focus::placeholder {
+  color: transparent;
+}
+.bid_form button{
+  height: 40px;
+  border-radius: 5px;
+}
+
+
+
+.participant_info{
+  margin-bottom: 50px;
+  width: 40%;
+}
+.participant_info div  {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+.participant_info div span {
+  color: grey;
+}
+.participant_info div b {
+  font-weight: 400;
+}
+.participant_info h5{
+  letter-spacing: .5px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(51, 51, 51);
+}

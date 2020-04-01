@@ -56,13 +56,13 @@ export default class Header extends React.Component {
           <span>stakeit.space</span>
         </div>
         <div className="my_nav">
-          <NavLink className="my_nav_item" to="/stake">
+          <NavLink className="my_nav_item disable" to="/stake">
             Stake
           </NavLink>
-          <NavLink className="my_nav_item" to="/manage">
+          <NavLink className="my_nav_item" to="/manage/substake-list">
             Manage
           </NavLink>
-          <NavLink className="my_nav_item" to="/withdraw">
+          <NavLink className="my_nav_item disable" to="/withdraw">
             Withdraw
           </NavLink>
           <NavLink className="my_nav_item" to="/worklock">

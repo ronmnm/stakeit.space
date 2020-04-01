@@ -40,103 +40,60 @@ class App extends React.Component {
   async componentDidMount() {
     if (typeof window.ethereum !== "undefined") {
       // window.ethereum.enable()
-      if (window.ethereum.networkVersion == "5"){
-        if(window.ethereum.selectedAddress !== null){
+      if (
+        window.ethereum.networkVersion === "5" ||
+        window.ethereum.networkVersion === undefined
+      ) {
+        if (window.ethereum.selectedAddress !== null) {
           serviceWeb3.getStakerBalAddr().then(res => {
             this.setState({
               stakeData: res,
-              buttonStatus: 'ok'
+              buttonStatus: "ok"
             });
-            console.log(this.state.buttonStatus)
-          }
-          );
+          });
           serviceWeb3
             .getFooterData()
-            .then(res => this.setState({ footerData: res, footerStatus: "done" }));
+            .then(res =>
+              this.setState({ footerData: res, footerStatus: "done" })
+            );
           serviceWeb3
             .getManageData()
             .then(res => this.setState({ manageData: res }));
-          serviceSetters.getSetters().then(res => this.setState({ setters: res }));
+          serviceSetters
+            .getSetters()
+            .then(res => this.setState({ setters: res }));
           worklockService
             .getWorklockData()
             .then(res => this.setState({ worklockData: res }));
         } else {
-          console.log('not connected');
-          this.setState({buttonStatus: 'connect'})
+          console.log("not connected");
+          this.setState({ buttonStatus: "connect" });
         }
-      } else { this.setState({ buttonStatus: 'wrong' }) }
+      } else {
+        this.setState({ buttonStatus: "wrong" });
+        // console.log(typeof window.ethereum.networkVersion);
+      }
     } else {
       this.setState({ buttonStatus: "install" });
     }
   }
 
-
-
-  componentDidUpdate(){
-    console.log('updated');
+  componentDidUpdate() {
+    // console.log(window.ethereum.networkVersion);
   }
 
   async handleClick() {
-    this.setState({buttonStatus: 'loading'})
+    this.setState({ buttonStatus: "loading" });
     try {
-      await window.ethereum.enable()
-        .then((ob) => {
-
-          this.componentDidMount();
-          
-        })
-      
+      await window.ethereum.enable().then(ob => {
+        this.componentDidMount();
+      });
     } catch (error) {
-      this.setState({buttonStatus: 'connect'})
-      
-      console.log('user denied');
-      
-    } 
-    
+      this.setState({ buttonStatus: "connect" });
 
-
+      console.log("user denied");
+    }
   }
-
-  // async componentDidMount() {
-  //   if (typeof window.ethereum !== "undefined") {
-  //     // Metamask installed
-  //     // const web3 = new Web3(window.ethereum);
-  //     console.log("metamask installed");
-
-  //     // const web3 = new Web3(window.ethereum);
-  //     // console.log(window.ethereum.selectedAddress)
-  //     // console.log(account)
-  //     // (window.ethereum.selectedAddress == null) || (typeof window.ethereum.selectedAddress === undefined)
-  //     try {
-  //       await window.ethereum.enable()
-  //     } catch (error) {
-  //       console.log("user denied logging")
-  //       this.setState({buttonStatus: 'connect'})
-  //     }
-
-  //     if (window.ethereum.networkVersion === "5") {
-  //       if (typeof window.ethereum.selectedAddress !== "string") {
-  //         console.log("акаунт не подключен");
-  //         this.setState({ buttonStatus: "connect" });
-  //         console.log(typeof window.ethereum.selectedAddress);
-  //       } else {
-  //         this.setState({ buttonStatus: "ok" });
-
-  //         console.log("подключен аккаунт");
-  //         console.log(window.ethereum.networkVersion);
-  //         // this.getBlockChainData();
-  //       }
-  //     } else {
-  //       console.log(window.ethereum.networkVersion);
-  //       this.setState({ buttonStatus: "wrong" });
-  //     }
-  //   } else {
-  //     // Metamask not installed
-  //     this.setState({ buttonStatus: "install" });
-  //     console.log("please install metamask");
-  //     // this.setState({ isLoading: false });
-  //   }
-  // }
 
   render() {
     const {
@@ -164,17 +121,16 @@ class App extends React.Component {
     }
 
     let worklockComponent = <MainSpinner />;
-    if (worklockData){
+    if (worklockData) {
       worklockComponent = <Worklock worklockData={worklockData} />;
     }
-
 
     let account;
     if (stakeData) {
       account = stakeData.account;
     }
 
-    console.log('render');
+    // console.log(window.ethereum.networkVersion);
 
     // worklockData ? console.log(worklockData.methods) : console.log("hi");
 
@@ -193,7 +149,7 @@ class App extends React.Component {
           <div className="my_content_wrapper">
             {/* STAKE Component */}
             <Route path="/" exact>
-              <Redirect to="/stake" />
+              <Redirect to="/worklock" />
             </Route>
             <Route
               path="/stake"
@@ -205,13 +161,13 @@ class App extends React.Component {
             <Route path="/manage" render={() => manageComponent} />
             {/* END MANAGE Component */}
 
-            {/* WORKLOCK Component */}
-            <Route path="/worklock" render={() => worklockComponent} />
-            {/* END WORKLOCK Component */}
-
             {/* WITHDRAW Component */}
             <Route path="/withdraw" render={() => <Withdraw />} />
             {/* END WITHDRAW Component */}
+
+            {/* WORKLOCK Component */}
+            <Route path="/worklock" render={() => worklockComponent} />
+            {/* END WORKLOCK Component */}
           </div>
 
           {footerStatus === "loading" ? (

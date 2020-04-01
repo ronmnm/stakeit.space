@@ -1,0 +1,13 @@
+.no_stakes{
+  display: grid;
+  background-color: rgb(24, 24, 24);
+  border-radius: 10px;
+  align-content: center;
+  justify-content: center;
+}
+.no_stakes span{
+  color: grey;
+}
+
+
+

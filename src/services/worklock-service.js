@@ -106,7 +106,7 @@ export default class WorklockService {
     const ethToTokensNits = await instanceWorklock.methods
       .ethToTokens(workInfo[0])
       .call();
-    const ethToTokensNu = ethToTokensNits / 10 ** 18;
+    const ethToTokensNu = (ethToTokensNits / 10 ** 18).toFixed(4);
     // boostingRefund
     const boostingRefund = await instanceWorklock.methods
       .boostingRefund()
@@ -137,9 +137,52 @@ export default class WorklockService {
     .tokenSupply()
     .call();
 
-    const bonusTokenSupply = tokenSupply - getBiddersLength * minAllowedBid;
+    const tokenSupplyH = tokenSupply / 10**18;
+
+    const getRemainingWork = await instanceWorklock.methods
+    .getRemainingWork(account)
+    .call();
+
+    // minAllowableLockedTokens
+    const minAllowableLockedTokens = await instanceWorklock.methods
+      .minAllowableLockedTokens()
+      .call();
+
+
+    // console.log(getRemainingWork);
+    const bonusTokenSupply = tokenSupply - getBiddersLength * minAllowableLockedTokens;
     const bonusDepositRate = bonusTokenSupply / bonusETHSupplyWei;
     const bonusRefundRate = bonusDepositRate * SLOWING_REFUND / boostingRefund;
+
+
+    // Setters
+    // Make Bid
+    const makeBid = async (value) => {
+      
+      const toNum = +this.state.inputAmount;
+    
+      await instanceWorklock.methods.bid().send({
+        from: accounts[0],
+        value: web3.utils.toWei(this.state.inputAmount, "ether")
+      });
+    };
+    
+    // Cancel Bid
+    const cancelBid = async () => {
+      
+      await instanceWorklock.methods.cancelBid().send({
+        from: accounts[0]
+      });
+    };
+
+    // Claim
+    const claimTokens = async () => {
+      // alert('ho ho ho')
+      await instanceWorklock.methods.claim().send({
+        from: account
+      })
+    }
+
 
     const worklockData = {
       account: account,
@@ -152,6 +195,7 @@ export default class WorklockService {
       cancellationEndDate: endCancellationDateHuman,
       cancellationTimeDuration: cancellationTimeDurationHuman,
       cancellationTimeRemaining: remainingCancelationTimeHuman,
+      CancelationTime: remainingCancelationTime,
       // time end
       claimingBool: isClaimingAvailable,
       claimingYesNo: isClaimingAvailableHuman,
@@ -168,8 +212,13 @@ export default class WorklockService {
       аvailableRefund: getAvailableRefund,
       getContractBal: getContractBal,
       bonusETHSupply: bonusETHSupply,
-      bonusDepositRate: bonusDepositRate,
-      bonusRefundRate: bonusRefundRate,
+      bonusDepositRate: bonusDepositRate.toFixed(2),
+      bonusRefundRate: bonusRefundRate.toFixed(2),
+      getRemainingWork: getRemainingWork,
+      tokenSupply: tokenSupplyH,
+      bonusTokenSupply: bonusTokenSupply / 10**18,
+
+      claimTokens: claimTokens,
       
 
       methods: instanceWorklock.methods

@@ -61,6 +61,7 @@ padding: 0 20px;
   transition: 0.4s;
 }
 .disable {
+  color: #555;
   pointer-events: none;
 }
 .my_nav_item:hover {
