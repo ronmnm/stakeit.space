@@ -23,5 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 
-// my
+# my
 .vscode
+firebase.json
+.firebaserc
+.firebase
