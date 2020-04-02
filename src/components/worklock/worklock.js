@@ -38,7 +38,8 @@ const WorkLock = props => {
     аvailableRefund,
     getRemainingWork,
     tokenSupply,
-    bonusTokenSupply
+    bonusTokenSupply,
+    claimed
   } = props.worklockData;
   const slicedAddr = `${account.slice(0, 6)}...${account.slice(-4)}`;
   // console.log(props.worklockData);
@@ -51,12 +52,18 @@ const WorkLock = props => {
   }
 
   let disableClaimBtn; 
-  if (claimingBool){
+  if (claimingBool && !claimed){
     disableClaimBtn = null
   } else {  disableClaimBtn = s.cancel_bid_dis; }
 
   // console.log('claim ava', claimingBool);
-  // console.log(disableCanBtn);
+  let isClaimed;
+  if(claimed){
+    isClaimed = 'Yes'
+  } else {
+    isClaimed = "No"
+  }
+  // console.log(claimed);
   return (
     <div className={s.worklock_wrapper}>
       <div className={s.worklock_timeline}>
@@ -76,7 +83,7 @@ const WorkLock = props => {
           </div>
           <div>
             <span>Bid Cancel Time Remaining</span>
-            <h4>{cancellationTimeRemaining}</h4>
+            <h4>0</h4>
           </div>
         </div>
       </div>
@@ -116,8 +123,8 @@ const WorkLock = props => {
               <h4>{bonusTokenSupply} NU</h4>
             </div>
             <div>
-              <span></span>
-              <h4></h4>
+              <span>Tokens Claimed</span>
+              <h4 style={{color: '#0077FF'}}>{isClaimed}</h4>
             </div>
           </div>
 

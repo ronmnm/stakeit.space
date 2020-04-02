@@ -128,8 +128,8 @@ export default class ServiceWeb3 {
       windDown: StakerInfo.windDown,
       reStakeDisabled: StakerInfo.reStakeDisabled,
       subStakesLength: getSubStakesLength,
-      substakeList: getAllSubstakes
-      // StakerInfo: StakerInfo,
+      substakeList: getAllSubstakes,
+      StakerInfo: StakerInfo,
       // methods: await instanceEscrow.methods
       
       

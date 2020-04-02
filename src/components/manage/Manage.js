@@ -33,15 +33,8 @@ export default props => {
   } else {
      workerAddress = `${worker.slice(0, 6)}...${worker.slice(38, 42)}`
     }
-  
-  
-  // console.log('winddown',windDown);
-  // console.log('restake disabled?', reStakeDisabled);
-  // console.log('consnt stakersNuAll = ', stakersNuAll);
-  // console.log(typeof subStakesLength);
-  // console.log('substakeList = ', substakeList);
 
-
+    
   return (
     <div className="my_manage">
       {/* Staker Left Side */}

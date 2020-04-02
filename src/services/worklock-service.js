@@ -69,9 +69,9 @@ export default class WorklockService {
       cancellationEndDate * 1000 - currentDateUnix;
     const objC = this._convertMS(remainingCancelationTime);
     const remainingCancelationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
-    // TIME END
 
-    // Claiming phase open?
+
+
     const isClaimingAvailable = await instanceWorklock.methods
       .isClaimingAvailable()
       .call();
@@ -81,15 +81,15 @@ export default class WorklockService {
     } else {
       isClaimingAvailableHuman = "No";
     }
-    // ECONOMICS
 
-    // min allowed bid minAllowedBid
+
+
     const minAllowedBid = await instanceWorklock.methods.minAllowedBid().call();
     const minAllowedBidETH = parseFloat(
       web3.utils.fromWei(minAllowedBid, "ether")
     ).toFixed(2);
 
-    // Bidders count
+
     const getBiddersLength = await instanceWorklock.methods
       .getBiddersLength()
       .call();
@@ -102,20 +102,20 @@ export default class WorklockService {
     // is tokens claimed ?
     const claimed = workInfo[2];
 
-    // current nu allocations
+
     const ethToTokensNits = await instanceWorklock.methods
       .ethToTokens(workInfo[0])
       .call();
     const ethToTokensNu = (ethToTokensNits / 10 ** 18).toFixed(4);
-    // boostingRefund
+
     const boostingRefund = await instanceWorklock.methods
       .boostingRefund()
       .call();
-    //  SLOWING_REFUND
+
     const SLOWING_REFUND = await instanceWorklock.methods
       .SLOWING_REFUND()
       .call();
-    // getAvailableRefund
+
     const getAvailableRefund = await instanceWorklock.methods
       .getAvailableRefund(account)
       .call();
@@ -124,7 +124,6 @@ export default class WorklockService {
       web3.utils.fromWei(await web3.eth.getBalance(WORKLOCK_ADDRESS), "ether")
     ).toFixed(2);
 
-    // bonusETHSupply
     const bonusETHSupplyWei = await instanceWorklock.methods
       .bonusETHSupply()
       .call();
@@ -132,7 +131,6 @@ export default class WorklockService {
     const bonusETHSupply = parseFloat(web3.utils.fromWei(bonusETHSupplyWei, "ether"))
       .toFixed(2);
 
-    //  Supply tokenSupply
     const tokenSupply = await instanceWorklock.methods
     .tokenSupply()
     .call();
