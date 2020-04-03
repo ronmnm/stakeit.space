@@ -18,18 +18,6 @@ export default class Header extends React.Component {
   render() {
     let addressButton;
 
-    // if (this.props.isConnected) {
-    //   if (this.props.isLoading) {
-    //     addressButton = <LoadingAddress />;
-    //   } else {
-    //     addressButton = (
-    //       <Address address={this.props.address} network={this.props.network} />
-    //     );
-    //   }
-    // } else {
-    //   addressButton = <ConnectWallet onClick={this.props.onClick} />;
-    // }
-
     switch (this.props.buttonStatus) {
       case "loading":
         addressButton = <LoadingAddress />;
@@ -47,7 +35,7 @@ export default class Header extends React.Component {
         addressButton = <InstallMetamask />;
         break;
       default:
-        console.log("deaulf case switch");
+        console.log("default case switch");
     }
 
     return (
@@ -56,7 +44,7 @@ export default class Header extends React.Component {
           <span>stakeit.space</span>
         </div>
         <div className="my_nav">
-          <NavLink className="my_nav_item disable" to="/stake">
+          <NavLink className="my_nav_item" to="/stake">
             Stake
           </NavLink>
           <NavLink className="my_nav_item" to="/manage/substake-list">

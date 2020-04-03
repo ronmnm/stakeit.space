@@ -115,6 +115,8 @@ class App extends React.Component {
       let manageComponent = <MainSpinner />;
       if (buttonStatus === "install") {
          manageComponent = <div> install metamask</div>;
+      } else if(buttonStatus === 'connect') {
+         manageComponent = <div>Connect a wallet</div>
       } else if (manageData) {
          manageComponent = (
             <Manage
@@ -124,6 +126,9 @@ class App extends React.Component {
             />
          );
       }
+
+
+
 
       let worklockComponent = <MainSpinner />;
       if (worklockData) {
@@ -158,7 +163,10 @@ class App extends React.Component {
                   </Route>
                   <Route
                      path="/stake"
-                     render={() => <Stake stakeData={stakeData} />}
+                     render={() => <Stake 
+                        stakeData={stakeData}
+                        account={account}
+                         />}
                   />
                   {/* END STAKE Component */}
 
