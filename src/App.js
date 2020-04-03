@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
-
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
@@ -20,9 +19,6 @@ const serviceWeb3 = new ServiceWeb3();
 const serviceSetters = new ServiceWeb3Setters();
 const worklockService = new WorklockService();
 
-
-
-
 class App extends React.Component {
    constructor(props) {
       super(props);
@@ -39,20 +35,24 @@ class App extends React.Component {
       buttonStatus: "loading",
       footerStatus: "loading",
       isConnected: false,
-      address: null
+      address: null,
+      approveAndCall: null
    };
 
    async componentDidMount() {
-      this.metamaskChecking()
+      this.metamaskChecking();
    }
 
-   metamaskChecking(){
+   metamaskChecking() {
       if (typeof window.ethereum !== "undefined") {
          if (
             window.ethereum.networkVersion === "5" ||
             window.ethereum.networkVersion === undefined
          ) {
-            if (window.ethereum.selectedAddress !== null || this.state.address !== null) {
+            if (
+               window.ethereum.selectedAddress !== null ||
+               this.state.address !== null
+            ) {
                serviceWeb3.getStakerBalAddr().then(res => {
                   this.setState({
                      stakeData: res,
@@ -75,6 +75,7 @@ class App extends React.Component {
                worklockService
                   .getWorklockData()
                   .then(res => this.setState({ worklockData: res }));
+               
             } else {
                this.setState({ buttonStatus: "connect" });
             }
@@ -91,9 +92,9 @@ class App extends React.Component {
       try {
          await window.ethereum.enable().then(ob => {
             console.log(ob);
-            this.setState({address: ob[0]})
+            this.setState({ address: ob[0] });
          });
-         this.metamaskChecking()
+         this.metamaskChecking();
       } catch (error) {
          this.setState({ buttonStatus: "connect" });
          console.log("user denied");
@@ -115,8 +116,8 @@ class App extends React.Component {
       let manageComponent = <MainSpinner />;
       if (buttonStatus === "install") {
          manageComponent = <div> install metamask</div>;
-      } else if(buttonStatus === 'connect') {
-         manageComponent = <div>Connect a wallet</div>
+      } else if (buttonStatus === "connect") {
+         manageComponent = <div>Connect a wallet</div>;
       } else if (manageData) {
          manageComponent = (
             <Manage
@@ -126,9 +127,6 @@ class App extends React.Component {
             />
          );
       }
-
-
-
 
       let worklockComponent = <MainSpinner />;
       if (worklockData) {
@@ -163,10 +161,9 @@ class App extends React.Component {
                   </Route>
                   <Route
                      path="/stake"
-                     render={() => <Stake 
-                        stakeData={stakeData}
-                        account={account}
-                         />}
+                     render={() => (
+                        <Stake stakeData={stakeData} account={account} />
+                     )}
                   />
                   {/* END STAKE Component */}
 

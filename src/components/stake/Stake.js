@@ -2,29 +2,40 @@
 import React from "react";
 import s from "./Stake.module.css";
 import ConfirmationText from "./confirm-text";
+import StakeService from "../../services/stake-service";
+
+const stakeService = new StakeService();
 
 export default class Stake extends React.Component {
    state = {
-      inputAmount: "5",
-      inputDuration: "5",
+      inputAmount: 150000,
+      inputDuration: null,
       balanceNu: "",
-      clicked: true
+      clicked: true,
+      approveAndCall: null
    };
    constructor(props) {
       super(props);
-
-      // This binding is necessary to make `this` work in the callback
       this.onButtonClick = this.onButtonClick.bind(this);
+      this.confirmationClick = this.confirmationClick.bind(this);
    }
 
-   // handleAmountInput() {
-   //     console.log('this.state.balanceClick')
-   //   }
+   componentDidMount() {
+      const approveAndCall = stakeService.getApproveAndCall();
+      this.setState({ approveAndCall: approveAndCall });
+      // console.log(approveAndCall)
+   }
+   confirmationClick() {
+      this.state.approveAndCall(
+         this.state.inputAmount,
+         +this.state.inputDuration
+      )
+   }
+
 
    onButtonClick(e) {
       e.preventDefault();
-      console.log(this.state.inputDuration);
-      console.log(this.state.inputAmount);
+
       this.setState({ clicked: true });
    }
 
@@ -58,9 +69,9 @@ export default class Stake extends React.Component {
                      </span>
                      <span
                         className={s.confirm_button}
-                        onClick={() => {
-                           this.setState({ clicked: false });
-                        }}>Confirm</span>
+                        onClick={this.confirmationClick}>
+                        Confirm
+                     </span>
                   </div>
                </div>
             </div>
@@ -84,16 +95,16 @@ export default class Stake extends React.Component {
 
                <form action="" className={s.my_form}>
                   <input
-                     onChange={event =>
-                        this.setState({ inputAmount: event.target.value })
+                     onChange={e =>
+                        this.setState({ inputAmount: e.target.value })
                      }
                      placeholder="15000"
                      className={s.my_input}
                      autoComplete="off"
-                     type="text"
+                     type="number"
                      name="nuAmount"
-                     value={this.state.inputAmount}
-                     required
+                     value={this.state.inputAmount || ''}
+                     
                   />
                   <div className={s.stake_info}>
                      <span>Duration:</span>
@@ -102,13 +113,13 @@ export default class Stake extends React.Component {
                      onChange={event =>
                         this.setState({ inputDuration: event.target.value })
                      }
-                     value={this.state.inputDuration}
+                     value={this.state.inputDuration || ""}
                      placeholder="30"
                      className={s.my_input}
                      autoComplete="off"
-                     type="text"
+                     type="number"
                      name="duration"
-                     required
+                     
                   />
                   <div className={s.slider}>
                      <input
