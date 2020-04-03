@@ -1,6 +1,5 @@
 import React from "react";
 import s from "./Address-loading.module.css";
-import RoudLoader from '../../../loader/round-loader'
 import RoundSpinner from '../../../loader/7.svg';
 
 export default class Address extends React.Component {

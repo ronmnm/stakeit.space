@@ -2,7 +2,7 @@ import React from "react";
 import "./Manage.css";
 import { NavLink, Route, Redirect } from "react-router-dom";
 // import 'rsuite/dist/styles/rsuite-dark.css'
-import { Button } from "semantic-ui-react";
+// import { Button } from "semantic-ui-react";
 
 import NoStakes from './no-stakes/no-stakes'
 
@@ -13,7 +13,7 @@ export default props => {
     staker,
     worker,
     stakerBalEth,
-    stakersNuAll,
+    
     stakerNuBal,
     stakerNuLocked,
     stakerNuUnlocked,
@@ -21,20 +21,20 @@ export default props => {
     status,
     windDown,
     reStakeDisabled,
-    subStakesLength,
+    
     substakeList
   } = props.manageData;
   
   const { setRestake, setWinddown, setWorker } = props.setters;
 
   let workerAddress;
-  if(worker == "0x0000000000000000000000000000000000000000"){
+  if(worker === "0x0000000000000000000000000000000000000000"){
     workerAddress = <React.Fragment>No worker assigned</React.Fragment>
   } else {
      workerAddress = `${worker.slice(0, 6)}...${worker.slice(38, 42)}`
     }
 
-    
+
   return (
     <div className="my_manage">
       {/* Staker Left Side */}

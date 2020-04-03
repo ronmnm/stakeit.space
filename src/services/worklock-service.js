@@ -161,7 +161,7 @@ export default class WorklockService {
     
       await instanceWorklock.methods.bid().send({
         from: accounts[0],
-        value: web3.utils.toWei(this.state.inputAmount, "ether")
+        value: web3.utils.toWei(toNum, "ether")
       });
     };
     
@@ -217,7 +217,9 @@ export default class WorklockService {
       bonusTokenSupply: bonusTokenSupply / 10**18,
 
       claimTokens: claimTokens,
-      
+      makeBid: makeBid,
+      cancelBid: cancelBid,
+
 
       methods: instanceWorklock.methods
     };

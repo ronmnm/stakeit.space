@@ -1,25 +1,14 @@
 import React from "react";
 import s from "./worklock.module.css";
-import Blockies from "react-blockies";
-import { Button, Form, Message } from "semantic-ui-react";
 
-// import {
-//   Button,
-//   FormGroup,
-//   ButtonToolbar,
-//   Form,
-//   ControlLabel,
-//   FormControl
-// } from "rsuite";
-// import "rsuite/dist/styles/rsuite-dark.css";
+
 
 const WorkLock = props => {
   const {
     account,
     biddingStartDate,
     biddingEndDate,
-    biddingTimeRemaining,
-    cancellationTimeRemaining,
+    
     //
     minAllowedBid,
     biddersLength,
