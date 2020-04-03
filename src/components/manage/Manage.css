@@ -28,14 +28,8 @@
   
 }
 
-.staker_manage {
-  grid-area: staker;
-  /* min-width: 350px; */
-  /* width: 40%; */
-  /* padding-right: 30px; */
-  height: 300px;
-  /* background-color: rgb(155, 155, 155); */
-}
+
+
 .worker_manage {
   /* padding-left: 30px; */
   grid-area: worker;
@@ -149,17 +143,9 @@
   text-align: center;
 }
 
-.address_eth {
-  letter-spacing: 1px;
-  font-weight: 500;
-}
-.address_title {
-  font-weight: 400;
-  margin-bottom: 7px;
-  color: rgb(119, 119, 119);
-}
 
-.staker_content,
+
+
 .worker_content {
   margin: 10px 0;
   padding-top: 5px;
@@ -167,7 +153,7 @@
   border-bottom: 1px solid #333;
   border-top: 1px solid #333;
 }
-.staker_content p,
+
 .worker_content p {
   display: grid;
   grid-auto-flow: column;
@@ -176,12 +162,12 @@
   color: rgb(119, 119, 119);
   font-size: 13px;
 }
-.staker_content p span,
+
 .worker_content p span {
   color: grey;
   /* font-weight: 600; */
 }
-.staker_content p span b,
+
 .worker_content p span b {
   color: #eee;
   font-weight: 500;
@@ -231,28 +217,8 @@
   margin: 0;
 } */
 
-.staker_buttons {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* border-top: 1px solid #222; */
-}
-.winddown {
-  justify-self: end;
-}
-.restake_text,
-.winddown_text {
-  font-weight: 500;
-}
-.restake_status {
-  font-size: 12px;
-  margin: 0 10px;
-  border: 1px solid #333;
-  color: rgb(161, 161, 161);
-  border-radius: 7px;
-  padding: 2px 8px;
-  /* margin-bottom: 5px; */
-}
+
+
 
 /* Navigation Start */
 .substake_list {
@@ -279,57 +245,6 @@
 
 
 
-
-
-.btn-group button {
-  background-color: #333; /* Green background */
-  border: none;
-  color: rgb(182, 182, 182); /* White text */
-  padding: 6px 22px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
-  transition: .4s;
-  font-family: 'Arial', sans-serif;
-  
-}
-
-.btn-group button:first-child {
-  /* border-right: none; Prevent double borders */
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  /* border-right: 1px solid #2d7430; */
- 
-}
-.btn-group button:last-child {
-  /* border-right: none; Prevent double borders */
-  
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #4e4e4e;
-  color: white;
-}
-.btn-group button:focus {
-  outline: none;
-}
-
-.restake_active{
-  background-color: #0077FF !important;
-  pointer-events: none;
-  cursor: none;
-  color: white !important;
-}
 
 
 .worker_buttons{

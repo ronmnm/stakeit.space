@@ -1,0 +1,119 @@
+.staker_manage {
+   grid-area: staker;
+   /* min-width: 350px; */
+   /* width: 40%; */
+   /* padding-right: 30px; */
+   height: 300px;
+   /* background-color: rgb(26, 26, 26); */
+}
+.address_title {
+   font-weight: 400;
+   margin-bottom: 7px;
+   color: rgb(119, 119, 119);
+}
+
+.address_eth {
+   letter-spacing: 1px;
+   font-weight: 500;
+}
+
+/* Content */
+.staker_content {
+   margin: 10px 0;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   border-bottom: 1px solid #333;
+   border-top: 1px solid #333;
+}
+.staker_content p {
+   display: grid;
+   grid-auto-flow: column;
+   justify-content: space-between;
+   margin: 7px 0;
+   color: rgb(119, 119, 119);
+   font-size: 13px;
+}
+.staker_content p span {
+   color: grey;
+   /* font-weight: 600; */
+}
+.staker_content p span b {
+   color: #eee;
+   font-weight: 500;
+   letter-spacing: 0.8px;
+   /* font-weight: 600; */
+}
+
+/* Buttons */
+.staker_buttons {
+   margin-top: 30px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   /* border-top: 1px solid #222; */
+}
+.restake_text {
+   font-weight: 500;
+}
+.winddown {
+   justify-self: end;
+}
+
+.winddown_text {
+   font-weight: 500;
+}
+
+.restake_status {
+   font-size: 12px;
+   margin: 0 10px;
+   border: 1px solid #333;
+   color: rgb(161, 161, 161);
+   border-radius: 7px;
+   padding: 2px 8px;
+   /* margin-bottom: 5px; */
+}
+
+.btn_group button {
+   background-color: #333; /* Green background */
+   border: none;
+   color: rgb(182, 182, 182); /* White text */
+   padding: 6px 22px; /* Some padding */
+   cursor: pointer; /* Pointer/hand icon */
+   float: left; /* Float the buttons side by side */
+   transition: 0.4s;
+   font-family: "Arial", sans-serif;
+}
+
+.btn_group button:first-child {
+   /* border-right: none; Prevent double borders */
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
+   /* border-right: 1px solid #2d7430; */
+}
+.btn_group button:last-child {
+   /* border-right: none; Prevent double borders */
+
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+}
+
+/* Clear floats (clearfix hack) */
+.btn_group:after {
+   content: "";
+   clear: both;
+   display: table;
+}
+/* Add a background color on hover */
+.btn_group button:hover {
+   background-color: #4e4e4e;
+   color: white;
+}
+.btn_group button:focus {
+   outline: none;
+}
+
+.button_active {
+   background-color: #0077ff !important;
+   pointer-events: none;
+   cursor: none;
+   color: white !important;
+}
