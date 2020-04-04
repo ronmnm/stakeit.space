@@ -11,6 +11,10 @@
    display: block;
    line-height: 2rem;
 }
+.scrollable span b{
+   color: #eee;
+   font-weight: 500;
+}
 .scrollable b{
    color: #eee;
    font-weight: 500;
@@ -23,8 +27,9 @@
    border-radius: 5px;
    padding-right: 40px;
    padding-left: 30px;
-   border: 1px solid #444;
-   color: grey;
+   border: 1px solid #333;
+   color: rgb(165, 165, 165);
+   font-size: 14px;
    overflow-y: scroll;
    scrollbar-color: #444 #111;
    scrollbar-width: auto;
