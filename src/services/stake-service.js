@@ -21,6 +21,7 @@ export default class StakeService {
    }
 
    getApproveAndCall() {
+
       const approveAndCall = async (inputAmount, inputDuration) => {
          const accounts = await web3.eth.getAccounts();
 
@@ -28,7 +29,8 @@ export default class StakeService {
 
          const hex = web3.utils.numberToHex(inputDuration);
          const duration = this._hexToBytes(hex);
-         console.log(duration);
+         
+         
 
          try {
             await instanceToken.methods

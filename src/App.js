@@ -24,6 +24,8 @@ class App extends React.Component {
       super(props);
       this.handleClick = this.handleClick.bind(this);
       this.setState = this.setState.bind(this);
+      this.handleAmountState = this.handleAmountState.bind(this);
+      this.handleDurationState = this.handleDurationState.bind(this);
    }
    state = {
       manageData: null,
@@ -36,8 +38,16 @@ class App extends React.Component {
       footerStatus: "loading",
       isConnected: false,
       address: null,
-      approveAndCall: null
+      approveAndCall: null,
+      amount: null,
+      duration: null
    };
+   handleAmountState(amount){
+      this.setState({amount: amount})
+   }
+   handleDurationState(duration){
+      this.setState({duration: duration})
+   }
 
    async componentDidMount() {
       this.metamaskChecking();
@@ -66,8 +76,7 @@ class App extends React.Component {
                   );
                serviceWeb3.getManageData().then(res => {
                   this.setState({ manageData: res });
-                  console.log("locked", res.stakerNuLocked);
-                  console.log(res.stakerNuUnlocked);
+                  
                });
                serviceSetters
                   .getSetters()
@@ -162,7 +171,13 @@ class App extends React.Component {
                   <Route
                      path="/stake"
                      render={() => (
-                        <Stake stakeData={stakeData} account={account} />
+                        <Stake
+                           stakeData={stakeData}
+                           account={account}
+                           amount={this.state.amount}
+                           duration={this.state.duration}
+                           handleDurationState={this.handleDurationState}
+                           handleAmount={this.handleAmountState} />
                      )}
                   />
                   {/* END STAKE Component */}

@@ -16,11 +16,12 @@
    color: #eee;
    /* border-bottom: 1px solid #333; */
    padding-bottom: 15px;
-   margin-bottom: 50px;
+   /* margin-bottom: 50px; */
 }
 .form_container {
    width: 350px;
    margin: 0 auto;
+   margin-top: 50px;
 }
 
 .stake_info {
@@ -70,7 +71,6 @@
    outline: none;
    letter-spacing: 0.5px;
    transition: 0.3s;
-   
 }
 .my_input:hover {
    border: 1px solid #0077ff;
@@ -82,16 +82,15 @@
    border: 1px solid #0077ff;
    background-color: #111;
 }
-.amount_error{
+.amount_error {
    border: 1px solid tomato;
 }
-.amount_error:hover{
+.amount_error:hover {
    border: 1px solid tomato;
 }
-.amount_error:focus{
+.amount_error:focus {
    border: 1px solid tomato;
 }
-
 
 .my_input::placeholder {
    /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -104,7 +103,7 @@
    opacity: 0;
 }
 .my_input::-webkit-input-placeholder {
-   line-height:normal !important;
+   line-height: normal !important;
 }
 
 .button_group {
@@ -133,7 +132,7 @@
    align-content: center;
    justify-content: center;
    text-align: center;
-   
+
    cursor: pointer;
    transition: 0.2s;
    font-weight: 600;
@@ -143,7 +142,6 @@
 .button_stake_it:focus {
    outline: none;
 }
-
 
 .slider {
    width: 95%;
@@ -188,7 +186,6 @@
 }
 .slider input:hover {
    cursor: pointer;
-
 }
 .slider input::-webkit-slider-thumb {
    -webkit-appearance: none; /* Override default look */
@@ -199,9 +196,8 @@
    cursor: pointer; /* Cursor on hover */
    border-radius: 5px;
 }
-.slider input::-webkit-slider-thumb:hover{
+.slider input::-webkit-slider-thumb:hover {
    background: #999;
-
 }
 
 .slider input::-moz-range-thumb {
@@ -216,7 +212,7 @@
    opacity: 0.99;
 }
 /* .slider input:focus::-moz-range-track { */
-   /* outline: none;
+/* outline: none;
     border: none;
    opacity: .99;
    background: red; */
@@ -227,20 +223,24 @@
    display: grid;
    grid-auto-flow: column;
    justify-content: center;
-  column-gap: 20px;
+   column-gap: 20px;
+   margin-top: 20px;
    /* width: 50%; */
 }
 .back_button {
    text-align: center;
    cursor: pointer;
-   background-color: #333;
-   padding: 5px;
+   background-color: rgb(59, 59, 59);
+   padding: 10px 20px;
    border-radius: 5px;
    width: 100px;
-   transition: .3s;
+   transition: 0.2s;
 }
-.back_button:hover{
-   background-color: #444;
+.back_button:hover {
+   background-color: rgb(54, 54, 54);
+}
+.back_button:active {
+   background-color: rgb(44, 44, 44);
 }
 .confirm_button {
    text-align: center;
@@ -250,17 +250,12 @@
    border-radius: 5px;
    width: 120px;
    transition: 0.2s;
-
 }
 .confirm_button:hover {
-
    background-color: #006ae2;
- 
 }
 .confirm_button:active {
-
    background-color: #0062d3;
- 
 }
 
 .button_stake_it {
@@ -276,7 +271,7 @@
    align-content: center;
    justify-content: center;
    text-align: center;
-   
+
    cursor: pointer;
    transition: 0.2s;
    font-weight: 600;

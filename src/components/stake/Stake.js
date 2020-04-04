@@ -8,14 +8,15 @@ const stakeService = new StakeService();
 
 export default class Stake extends React.Component {
    state = {
-      amount: null,
-      duration: null,
+      // amount: null,
+      // duration: null,
       balanceNu: "",
-      clicked: false,
+      clicked: true,
       approveAndCall: null,
       // amountError: false,
       durationError: false
    };
+
    constructor(props) {
       super(props);
       this.onButtonClick = this.onButtonClick.bind(this);
@@ -28,7 +29,7 @@ export default class Stake extends React.Component {
       // console.log(approveAndCall)
    }
    confirmationClick() {
-      this.state.approveAndCall(this.state.amount, this.state.duration);
+      this.state.approveAndCall(this.props.amount, this.props.duration);
    }
 
    onButtonClick(e) {
@@ -39,35 +40,30 @@ export default class Stake extends React.Component {
 
    render() {
       // const {balanceNu} = this.props.stakeData;
+      const { amount, duration } = this.props;
 
       let balanceNu = 0;
       if (this.props.stakeData !== null) {
-         balanceNu = this.props.stakeData.balanceNu;
+         balanceNu = this.props.stakeData.balanceNu.toFixed(0);
+         
       }
 
       let amount_error;
-      if (this.state.amount >= 15000 || this.state.amount === null) {
+      if (amount >= 15000 || amount === null) {
          amount_error = null;
       } else {
          amount_error = s.amount_error;
       }
 
       let duration_error;
-      if (
-         (this.state.duration >= 30 && this.state.duration <= 365) ||
-         this.state.duration === null
-      ) {
+      if ((duration >= 30 && duration <= 365) || duration === null) {
          duration_error = null;
       } else {
          duration_error = s.amount_error;
       }
 
       let disable = s.disable;
-      if (
-         this.state.duration >= 30 &&
-         this.state.duration <= 365 &&
-         this.state.amount >= 15000
-      ) {
+      if (duration >= 30 && duration <= 365 && amount >= 15000) {
          disable = null;
       }
 
@@ -80,8 +76,8 @@ export default class Stake extends React.Component {
                <div>
                   <ConfirmationText
                      account={this.props.account}
-                     amount={this.state.amount}
-                     duration={this.state.duration}
+                     amount={amount}
+                     duration={duration}
                   />
 
                   <div className={s.button_group_confirm}>
@@ -111,29 +107,29 @@ export default class Stake extends React.Component {
                   <span>Amount:</span>
                   <span
                      className={s.balance_click}
-                     onClick={event => this.setState({ amount: balanceNu })}>
+                     onClick={e => this.props.handleAmount(balanceNu)}>
                      Balance: <b>{balanceNu}</b> NU
                   </span>
                </div>
 
                <form action="" className={s.my_form}>
                   <input
-                     onChange={e => this.setState({ amount: e.target.value })}
+                     onChange={e => this.props.handleAmount(e.target.value)}
                      placeholder="15000"
                      className={`${s.my_input} ${amount_error}`}
                      autoComplete="off"
                      type="text"
                      name="nuAmount"
-                     value={this.state.amount || ""}
+                     value={amount || ""}
                   />
                   <div className={s.stake_info}>
                      <span>Duration:</span>
                   </div>
                   <input
-                     onChange={event =>
-                        this.setState({ duration: event.target.value })
+                     onChange={e =>
+                        this.props.handleDurationState(e.target.value)
                      }
-                     value={this.state.duration || ""}
+                     value={duration || ""}
                      placeholder="30"
                      className={`${s.my_input} ${duration_error}`}
                      autoComplete="off"
@@ -145,10 +141,10 @@ export default class Stake extends React.Component {
                         type="range"
                         min="30"
                         step="1"
-                        value={this.state.duration || "30"}
+                        value={duration || "30"}
                         max="365"
-                        onChange={event =>
-                           this.setState({ duration: event.target.value })
+                        onChange={e =>
+                           this.props.handleDurationState(e.target.value)
                         }
                      />
                      <div>

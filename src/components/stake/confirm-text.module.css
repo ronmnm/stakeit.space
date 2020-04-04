@@ -1,6 +1,6 @@
 .container_scrollable{
    display: grid;
-   grid-template-rows: 40vh;
+   grid-template-rows: 45vh;
 }
 .scrollable p{
    letter-spacing: .2px;
@@ -22,7 +22,7 @@
 .scrollable {
    /* height: 300px; */
    /* overflow: scroll; */
-   /* background-color: #111; */
+   background-color: #111;
 
    border-radius: 5px;
    padding-right: 40px;
