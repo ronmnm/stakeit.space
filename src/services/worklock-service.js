@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import { WORKLOCK_ADDRESS, WORKLOCK_ABI } from "../ethereum/instances/worklock";
+import { instanceEscrow } from "../ethereum/instances/instances";
 
 const web3 = new Web3(window.ethereum);
 
@@ -10,221 +11,233 @@ const instanceWorklock = new web3.eth.Contract(WORKLOCK_ABI, WORKLOCK_ADDRESS);
 ////   WORKLOCK
 
 export default class WorklockService {
-  _convertMS(milliseconds) {
-    var day, hour, minute, seconds;
-    seconds = Math.floor(milliseconds / 1000);
-    minute = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    hour = Math.floor(minute / 60);
-    minute = minute % 60;
-    day = Math.floor(hour / 24);
-    hour = hour % 24;
-    return {
-      day: day,
-      hour: hour,
-      minute: minute,
-      seconds: seconds
-    };
-  }
+   _convertMS(milliseconds) {
+      var day, hour, minute, seconds;
+      seconds = Math.floor(milliseconds / 1000);
+      minute = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+      hour = Math.floor(minute / 60);
+      minute = minute % 60;
+      day = Math.floor(hour / 24);
+      hour = hour % 24;
+      return {
+         day: day,
+         hour: hour,
+         minute: minute,
+         seconds: seconds
+      };
+   }
 
-  async getWorklockData() {
-    const accounts = await web3.eth.getAccounts();
-    const account = accounts[0];
+   async getWorklockData() {
+      const accounts = await web3.eth.getAccounts();
+      const account = accounts[0];
 
-    // TIME START
-    // Start bid day
-    const startBidDate = await instanceWorklock.methods.startBidDate().call();
-    const biddingStartDateHuman = new Date(startBidDate * 1000).toUTCString();
+      // TIME START
+      // Start bid day
+      const startBidDate = await instanceWorklock.methods.startBidDate().call();
+      const biddingStartDateHuman = new Date(startBidDate * 1000).toUTCString();
 
-    // End bid day
-    const endBidDate = await instanceWorklock.methods.endBidDate().call();
-    const biddingEndDateHuman = new Date(endBidDate * 1000).toUTCString();
-    const biddingDurationMs = (endBidDate - startBidDate) * 1000;
+      // End bid day
+      const endBidDate = await instanceWorklock.methods.endBidDate().call();
+      const biddingEndDateHuman = new Date(endBidDate * 1000).toUTCString();
+      const biddingDurationMs = (endBidDate - startBidDate) * 1000;
 
-    // Calculate bidding duration
-    const objA = this._convertMS(biddingDurationMs);
-    const biddingDuration = `${objA.day} days, ${objA.hour} hour, ${objA.minute} min`;
+      // Calculate bidding duration
+      const objA = this._convertMS(biddingDurationMs);
+      const biddingDuration = `${objA.day} days, ${objA.hour} hour, ${objA.minute} min`;
 
-    // Calculate bidding remaining
-    const currentDateUnix = Date.now();
-    const biddingTimeRemainingMs = endBidDate * 1000 - currentDateUnix;
-    const objB = this._convertMS(biddingTimeRemainingMs);
-    const biddingTimeRemaining = `${objB.day} Days, ${objB.hour} Hours, ${objB.minute} Mins`;
+      // Calculate bidding remaining
+      const currentDateUnix = Date.now();
+      const biddingTimeRemainingMs = endBidDate * 1000 - currentDateUnix;
+      const objB = this._convertMS(biddingTimeRemainingMs);
+      const biddingTimeRemaining = `${objB.day} Days, ${objB.hour} Hours, ${objB.minute} Mins`;
 
-    // Cancellation Window End Date
-    const cancellationEndDate = await instanceWorklock.methods
-      .endCancellationDate()
-      .call();
-    const endCancellationDateHuman = new Date(
-      cancellationEndDate * 1000
-    ).toUTCString();
+      // Cancellation Window End Date
+      const cancellationEndDate = await instanceWorklock.methods
+         .endCancellationDate()
+         .call();
+      const endCancellationDateHuman = new Date(
+         cancellationEndDate * 1000
+      ).toUTCString();
 
-    // Calculate Cancellation Window Duration
-    const cancellationTimeDuration = cancellationEndDate - startBidDate;
-    const objD = this._convertMS(cancellationTimeDuration * 1000);
-    const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
+      // Calculate Cancellation Window Duration
+      const cancellationTimeDuration = cancellationEndDate - startBidDate;
+      const objD = this._convertMS(cancellationTimeDuration * 1000);
+      const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
 
-    // Calculate Cancellation Window Time Remaining
-    const remainingCancelationTime =
-      cancellationEndDate * 1000 - currentDateUnix;
-    const objC = this._convertMS(remainingCancelationTime);
-    const remainingCancelationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
+      // Calculate Cancellation Window Time Remaining
+      const remainingCancelationTime =
+         cancellationEndDate * 1000 - currentDateUnix;
+      const objC = this._convertMS(remainingCancelationTime);
+      const remainingCancelationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
 
+      const isClaimingAvailable = await instanceWorklock.methods
+         .isClaimingAvailable()
+         .call();
+      let isClaimingAvailableHuman;
+      if (isClaimingAvailable) {
+         isClaimingAvailableHuman = "Yes";
+      } else {
+         isClaimingAvailableHuman = "No";
+      }
 
+      const minAllowedBid = await instanceWorklock.methods
+         .minAllowedBid()
+         .call();
+      const minAllowedBidETH = parseFloat(
+         web3.utils.fromWei(minAllowedBid, "ether")
+      ).toFixed(2);
 
-    const isClaimingAvailable = await instanceWorklock.methods
-      .isClaimingAvailable()
-      .call();
-    let isClaimingAvailableHuman;
-    if (isClaimingAvailable) {
-      isClaimingAvailableHuman = "Yes";
-    } else {
-      isClaimingAvailableHuman = "No";
-    }
+      const getBiddersLength = await instanceWorklock.methods
+         .getBiddersLength()
+         .call();
 
+      // get current bid
+      const workInfo = await instanceWorklock.methods.workInfo(account).call();
+      const currentBid = web3.utils.fromWei(workInfo[0], "ether");
+      // get completedWork
+      const refundedWork = workInfo[1];
+      // is tokens claimed ?
+      const claimed = workInfo[2];
 
+      const ethToTokensNits = await instanceWorklock.methods
+         .ethToTokens(workInfo[0])
+         .call();
+      const ethToTokensNu = (ethToTokensNits / 10 ** 18).toFixed(4);
 
-    const minAllowedBid = await instanceWorklock.methods.minAllowedBid().call();
-    const minAllowedBidETH = parseFloat(
-      web3.utils.fromWei(minAllowedBid, "ether")
-    ).toFixed(2);
+      const boostingRefund = await instanceWorklock.methods
+         .boostingRefund()
+         .call();
 
+      const SLOWING_REFUND = await instanceWorklock.methods
+         .SLOWING_REFUND()
+         .call();
 
-    const getBiddersLength = await instanceWorklock.methods
-      .getBiddersLength()
-      .call();
+      const getAvailableRefund = web3.utils.fromWei(
+         await instanceWorklock.methods.getAvailableRefund(account).call(),
+         "ether"
+      );
 
-    // get current bid
-    const workInfo = await instanceWorklock.methods.workInfo(account).call();
-    const currentBid = web3.utils.fromWei(workInfo[0], "ether");
-    // get completedWork
-    const completedWork = workInfo[1];
-    // is tokens claimed ?
-    const claimed = workInfo[2];
+      const getContractBal = parseFloat(
+         web3.utils.fromWei(
+            await web3.eth.getBalance(WORKLOCK_ADDRESS),
+            "ether"
+         )
+      ).toFixed(2);
 
+      const bonusETHSupplyWei = await instanceWorklock.methods
+         .bonusETHSupply()
+         .call();
 
-    const ethToTokensNits = await instanceWorklock.methods
-      .ethToTokens(workInfo[0])
-      .call();
-    const ethToTokensNu = (ethToTokensNits / 10 ** 18).toFixed(4);
+      const bonusETHSupply = parseFloat(
+         web3.utils.fromWei(bonusETHSupplyWei, "ether")
+      ).toFixed(2);
 
-    const boostingRefund = await instanceWorklock.methods
-      .boostingRefund()
-      .call();
+      const tokenSupply = await instanceWorklock.methods.tokenSupply().call();
 
-    const SLOWING_REFUND = await instanceWorklock.methods
-      .SLOWING_REFUND()
-      .call();
+      const tokenSupplyH = tokenSupply / 10 ** 18;
 
-    const getAvailableRefund = await instanceWorklock.methods
-      .getAvailableRefund(account)
-      .call();
+      const getRemainingWork = await instanceWorklock.methods
+         .getRemainingWork(account)
+         .call();
 
-    const getContractBal = parseFloat(
-      web3.utils.fromWei(await web3.eth.getBalance(WORKLOCK_ADDRESS), "ether")
-    ).toFixed(2);
+      // minAllowableLockedTokens
+      const minAllowableLockedTokens = await instanceWorklock.methods
+         .minAllowableLockedTokens()
+         .call();
 
-    const bonusETHSupplyWei = await instanceWorklock.methods
-      .bonusETHSupply()
-      .call();
+      // console.log(getRemainingWork);
+      const bonusTokenSupply =
+         tokenSupply - getBiddersLength * minAllowableLockedTokens;
+      const bonusDepositRate = bonusTokenSupply / bonusETHSupplyWei;
+      const bonusRefundRate =
+         (bonusDepositRate * SLOWING_REFUND) / boostingRefund;
 
-    const bonusETHSupply = parseFloat(web3.utils.fromWei(bonusETHSupplyWei, "ether"))
-      .toFixed(2);
+      const completedWork = (await instanceEscrow.methods
+         .getCompletedWork(account)
+         .call()) - workInfo[1];
+      // const completedWork = blabla - refundedWork;
+      // Setters
+      // Make Bid
+      const makeBid = async value => {
+         const toNum = +this.state.inputAmount;
 
-    const tokenSupply = await instanceWorklock.methods
-    .tokenSupply()
-    .call();
+         await instanceWorklock.methods.bid().send({
+            from: accounts[0],
+            value: web3.utils.toWei(toNum, "ether")
+         });
+      };
 
-    const tokenSupplyH = tokenSupply / 10**18;
+      // Cancel Bid
+      const cancelBid = async () => {
+         await instanceWorklock.methods.cancelBid().send({
+            from: accounts[0]
+         });
+      };
 
-    const getRemainingWork = await instanceWorklock.methods
-    .getRemainingWork(account)
-    .call();
+      // Claim
+      const claimTokens = async () => {
+         // alert('ho ho ho')
+         await instanceWorklock.methods.claim().send({
+            from: account
+         });
+      };
+      // Refund
+      const refund = async () => {
+         // alert('ho ho ho')
+         await instanceWorklock.methods.refund().send({
+            from: account
+         });
+      };
 
-    // minAllowableLockedTokens
-    const minAllowableLockedTokens = await instanceWorklock.methods
-      .minAllowableLockedTokens()
-      .call();
+      const worklockData = {
+         account: account,
+         biddersLength: getBiddersLength,
+         // time start
+         biddingStartDate: biddingStartDateHuman,
+         biddingEndDate: biddingEndDateHuman,
+         biddingDuration: biddingDuration,
+         biddingTimeRemaining: biddingTimeRemaining,
+         cancellationEndDate: endCancellationDateHuman,
+         cancellationTimeDuration: cancellationTimeDurationHuman,
+         cancellationTimeRemaining: remainingCancelationTimeHuman,
+         CancelationTime: remainingCancelationTime,
+         // time end
+         claimingBool: isClaimingAvailable,
+         claimingYesNo: isClaimingAvailableHuman,
+         //
+         // Economics
+         minAllowedBid: minAllowedBidETH,
+         workInfo: workInfo,
 
+         claimed: claimed,
+         currentBid: currentBid,
+         tokensAllocated: ethToTokensNu,
+         boostingRefund: boostingRefund,
+         SLOWING_REFUND: SLOWING_REFUND,
+         аvailableRefund: getAvailableRefund,
+         getContractBal: getContractBal,
+         bonusETHSupply: bonusETHSupply,
+         bonusDepositRate: bonusDepositRate.toFixed(2),
+         bonusRefundRate: bonusRefundRate.toFixed(2),
+         getRemainingWork: getRemainingWork,
+         tokenSupply: tokenSupplyH,
+         bonusTokenSupply: bonusTokenSupply / 10 ** 18,
 
-    // console.log(getRemainingWork);
-    const bonusTokenSupply = tokenSupply - getBiddersLength * minAllowableLockedTokens;
-    const bonusDepositRate = bonusTokenSupply / bonusETHSupplyWei;
-    const bonusRefundRate = bonusDepositRate * SLOWING_REFUND / boostingRefund;
+         claimTokens: claimTokens,
+         makeBid: makeBid,
+         cancelBid: cancelBid,
+         refund: refund,
+         refundedWork: refundedWork,
 
+         workInfo: workInfo,
+         methods: instanceWorklock.methods,
 
-    // Setters
-    // Make Bid
-    const makeBid = async (value) => {
-      
-      const toNum = +this.state.inputAmount;
-    
-      await instanceWorklock.methods.bid().send({
-        from: accounts[0],
-        value: web3.utils.toWei(toNum, "ether")
-      });
-    };
-    
-    // Cancel Bid
-    const cancelBid = async () => {
-      
-      await instanceWorklock.methods.cancelBid().send({
-        from: accounts[0]
-      });
-    };
-
-    // Claim
-    const claimTokens = async () => {
-      // alert('ho ho ho')
-      await instanceWorklock.methods.claim().send({
-        from: account
-      })
-    }
-
-
-    const worklockData = {
-      account: account,
-      biddersLength: getBiddersLength,
-      // time start
-      biddingStartDate: biddingStartDateHuman,
-      biddingEndDate: biddingEndDateHuman,
-      biddingDuration: biddingDuration,
-      biddingTimeRemaining: biddingTimeRemaining,
-      cancellationEndDate: endCancellationDateHuman,
-      cancellationTimeDuration: cancellationTimeDurationHuman,
-      cancellationTimeRemaining: remainingCancelationTimeHuman,
-      CancelationTime: remainingCancelationTime,
-      // time end
-      claimingBool: isClaimingAvailable,
-      claimingYesNo: isClaimingAvailableHuman,
-      //
-      // Economics
-      minAllowedBid: minAllowedBidETH,
-      workInfo: workInfo,
-      completedWork: completedWork,
-      claimed: claimed,
-      currentBid: currentBid,
-      tokensAllocated: ethToTokensNu,
-      boostingRefund: boostingRefund,
-      SLOWING_REFUND: SLOWING_REFUND,
-      аvailableRefund: getAvailableRefund,
-      getContractBal: getContractBal,
-      bonusETHSupply: bonusETHSupply,
-      bonusDepositRate: bonusDepositRate.toFixed(2),
-      bonusRefundRate: bonusRefundRate.toFixed(2),
-      getRemainingWork: getRemainingWork,
-      tokenSupply: tokenSupplyH,
-      bonusTokenSupply: bonusTokenSupply / 10**18,
-
-      claimTokens: claimTokens,
-      makeBid: makeBid,
-      cancelBid: cancelBid,
-
-
-      methods: instanceWorklock.methods
-    };
-    return worklockData;
-  }
+         completedWork: completedWork
+         
+      };
+      return worklockData;
+   }
 }
 
 /**

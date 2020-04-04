@@ -8,10 +8,10 @@ const stakeService = new StakeService();
 
 export default class Stake extends React.Component {
    state = {
-      inputAmount: 150000,
+      inputAmount: null,
       inputDuration: null,
       balanceNu: "",
-      clicked: true,
+      clicked: false,
       approveAndCall: null
    };
    constructor(props) {
@@ -27,8 +27,8 @@ export default class Stake extends React.Component {
    }
    confirmationClick() {
       this.state.approveAndCall(
-         this.state.inputAmount,
-         +this.state.inputDuration
+         this.state.amount,
+         this.state.inputDuration
       )
    }
 
@@ -48,7 +48,7 @@ export default class Stake extends React.Component {
       }
       // {parseFloat(nuBalance).toFixed(2)}
       let disable = s.disable;
-      if (this.state.inputAmount && this.state.inputDuration) {
+      if (this.state.amount && this.state.inputDuration) {
          disable = null;
       }
 
@@ -87,7 +87,7 @@ export default class Stake extends React.Component {
                   <span
                      className={s.balance_click}
                      onClick={event =>
-                        this.setState({ inputAmount: balanceNu })
+                        this.setState({ amount: balanceNu })
                      }>
                      Balance: <b>{balanceNu}</b> NU
                   </span>
@@ -96,14 +96,14 @@ export default class Stake extends React.Component {
                <form action="" className={s.my_form}>
                   <input
                      onChange={e =>
-                        this.setState({ inputAmount: e.target.value })
+                        this.setState({ amount: e.target.value })
                      }
                      placeholder="15000"
                      className={s.my_input}
                      autoComplete="off"
-                     type="number"
+                     type="text"
                      name="nuAmount"
-                     value={this.state.inputAmount || ''}
+                     value={this.state.amount || ''}
                      
                   />
                   <div className={s.stake_info}>
@@ -117,7 +117,7 @@ export default class Stake extends React.Component {
                      placeholder="30"
                      className={s.my_input}
                      autoComplete="off"
-                     type="number"
+                     type="text"
                      name="duration"
                      
                   />
