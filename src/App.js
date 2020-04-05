@@ -1,13 +1,15 @@
 import React from "react";
-import "./App.css";
+import ReactGA from "react-ga";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+
+import "./App.css";
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
 import Manage from "./components/manage/Manage";
 import Worklock from "./components/worklock/worklock";
-import Rewards from "./components/withdraw/rewards";
+import Rewards from "./components/rewards/rewards";
 import FooterLoader from "./components/loader/footer-loader";
 import MainSpinner from "./components/loader/main-spinner";
 
@@ -42,16 +44,22 @@ class App extends React.Component {
       amount: null,
       duration: null
    };
-   handleAmountState(amount){
-      this.setState({amount: amount})
+   handleAmountState(amount) {
+      this.setState({ amount: amount });
    }
-   handleDurationState(duration){
-      this.setState({duration: duration})
+   handleDurationState(duration) {
+      this.setState({ duration: duration });
    }
 
    async componentDidMount() {
+      const stakeit = "UA-162529903-1";
+      const test = "UA-162797521-1";
+
+      ReactGA.initialize(test);
+
       this.metamaskChecking();
    }
+   componentDidUpdate() {}
 
    metamaskChecking() {
       if (typeof window.ethereum !== "undefined") {
@@ -76,7 +84,6 @@ class App extends React.Component {
                   );
                serviceWeb3.getManageData().then(res => {
                   this.setState({ manageData: res });
-                  
                });
                serviceSetters
                   .getSetters()
@@ -84,7 +91,6 @@ class App extends React.Component {
                worklockService
                   .getWorklockData()
                   .then(res => this.setState({ worklockData: res }));
-               
             } else {
                this.setState({ buttonStatus: "connect" });
             }
@@ -143,8 +149,10 @@ class App extends React.Component {
       }
 
       let account;
+      let fee;
       if (stakeData) {
          account = stakeData.account;
+         // fee = stakeData.
       }
 
       // console.log(window.ethereum.networkVersion);
@@ -166,7 +174,7 @@ class App extends React.Component {
                <div className="my_content_wrapper">
                   {/* STAKE Component */}
                   <Route path="/" exact>
-                     <Redirect to="/worklock" />
+                     <Redirect to="/stake" />
                   </Route>
                   <Route
                      path="/stake"
@@ -177,7 +185,8 @@ class App extends React.Component {
                            amount={this.state.amount}
                            duration={this.state.duration}
                            handleDurationState={this.handleDurationState}
-                           handleAmount={this.handleAmountState} />
+                           handleAmount={this.handleAmountState}
+                        />
                      )}
                   />
                   {/* END STAKE Component */}
@@ -187,7 +196,28 @@ class App extends React.Component {
                   {/* END MANAGE Component */}
 
                   {/* WITHDRAW Component */}
-                  <Route path="/rewards" render={() => <Rewards />} />
+                  <Route
+                     path="/rewards"
+                     render={() => (
+                        <Rewards
+                           fee={
+                              this.state.stakerData
+                                 ? this.state.stakerData.policyFee
+                                 : 'Loading'
+                           }
+                           nu={
+                              this.state.manageData
+                                 ? this.state.manageData.stakerNuUnlocked.toFixed(3)
+                                 : 'Loading'
+                           }
+                           eth={
+                              this.state.worklockData
+                                 ? this.state.worklockData.аvailableRefund
+                                 : 'Loading'
+                           }
+                        />
+                     )}
+                  />
                   {/* END WITHDRAW Component */}
 
                   {/* WORKLOCK Component */}

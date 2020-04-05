@@ -1,5 +1,7 @@
 // import Web3 from "web3";
 import React from "react";
+import ReactGA from "react-ga";
+
 import s from "./Stake.module.css";
 import ConfirmationText from "./confirm-text";
 import StakeService from "../../services/stake-service";
@@ -22,13 +24,19 @@ export default class Stake extends React.Component {
    }
 
    componentDidMount() {
+      ReactGA.pageview(window.location.pathname + window.location.search);
+
       const approveAndCall = stakeService.getApproveAndCall();
       this.setState({ approveAndCall: approveAndCall });
       // console.log(approveAndCall)
    }
    async confirmationClick() {
       this.setState({ confirmBtnLoading: true });
-
+      ReactGA.event({
+         category: 'Stake tab',
+         action: 'Confirm button click',
+         label: 'stake_tab_label'
+      })
       await this.state.approveAndCall(this.props.amount, this.props.duration);
 
       this.setState({ confirmBtnLoading: false });
@@ -36,6 +44,11 @@ export default class Stake extends React.Component {
 
    onButtonClick(e) {
       e.preventDefault();
+      ReactGA.event({
+         category: 'Stake tab',
+         action: 'Click Stake It button',
+         label: 'stake_tab_label'
+      })
 
       this.setState({ clicked: true });
    }

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactGA from "react-ga";
 import s from "./staker.module.css";
 
 const Staker = props => {
@@ -60,12 +61,26 @@ const Staker = props => {
                <div className={s.btn_group}>
                   <button
                      className={!reStakeDisabled ? s.button_active : null}
-                     onClick={() => setRestake(true)}>
+                     onClick={() => {
+                        ReactGA.event({
+                           category: 'Manage tab',
+                           action: 'Restake On',
+                           label: 'manage_tab_label'
+                        })
+                        setRestake(true)
+                     }}>
                      On
                   </button>
                   <button
                      className={reStakeDisabled ? s.button_active : null}
-                     onClick={() => setRestake(false)}>
+                     onClick={() => {
+                        ReactGA.event({
+                           category: 'Manage tab',
+                           action: 'Restake Off',
+                           label: 'manage_tab_label'
+                        })
+                        setRestake(false)
+                     }}>
                      Off
                   </button>
                </div>
@@ -76,12 +91,26 @@ const Staker = props => {
                <div className={s.btn_group}>
                   <button
                      className={windDown ? s.button_active : null}
-                     onClick={() => setWinddown(true)}>
+                     onClick={() => {
+                        ReactGA.event({
+                           category: 'Manage tab',
+                           action: 'Winddown On',
+                           label: 'manage_tab_label'
+                        })
+                        setWinddown(true)
+                     }}>
                      On
                   </button>
                   <button
                      className={!windDown ? s.button_active : null}
-                     onClick={() => setWinddown(false)}>
+                     onClick={() => {
+                        ReactGA.event({
+                           category: 'Manage tab',
+                           action: 'Winddown Off',
+                           label: 'manage_tab_label'
+                        })
+                        setWinddown(false)
+                     }}>
                      Off
                   </button>
                </div>

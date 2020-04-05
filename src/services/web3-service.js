@@ -1,7 +1,5 @@
 import Web3 from "web3";
 import {
-  
-  instancePolicy,
   instanceEscrow,
   instanceToken
 } from "../ethereum/instances/instances";
@@ -19,13 +17,13 @@ export default class ServiceWeb3 {
     const nuNitsBalance = await instanceToken.methods.balanceOf(account).call();
     const nuBalance = (parseFloat(nuNitsBalance) / 10 ** 18);
     // nodes (Policy fee)
-    const policyFee = await instancePolicy.methods.nodes(account).call();
+    
 
     const stakerData = {
       account: account,
       network: network,
-      balanceNu: nuBalance,
-      policyFee: policyFee
+      balanceNu: nuBalance
+     
     }
     return stakerData;
   }

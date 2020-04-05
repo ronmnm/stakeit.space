@@ -1,4 +1,5 @@
 import React from "react";
+import ReactGA from "react-ga";
 import "./Manage.css";
 import { NavLink, Route, Redirect } from "react-router-dom";
 
@@ -10,6 +11,7 @@ import NoStakes from "./no-stakes/no-stakes";
 // import { Toggle, Button } from 'rsuite';
 
 export default props => {
+   ReactGA.pageview(window.location.pathname + window.location.search);
    const {
       worker,
       workerEthBal,

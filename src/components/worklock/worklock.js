@@ -1,7 +1,9 @@
 import React from "react";
+import ReactGA from "react-ga";
 import s from "./worklock.module.css";
 
 const WorkLock = props => {
+   ReactGA.pageview(window.location.pathname + window.location.search);
    const {
       account,
       biddingStartDate,

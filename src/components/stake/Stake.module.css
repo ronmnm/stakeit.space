@@ -1,6 +1,6 @@
 .my_stake {
    /* display: grid; */
-   width: 600px;
+   /* width: 600px; */
    height: 500px;
    margin-bottom: 20%;
    padding-top: 5vh;
@@ -58,9 +58,9 @@
    /* left: -10px; */
    font-family: "Open Sans", sans-serif;
 
-   background-color: #191919;
+   background-color: #1f1f1f;
    border-radius: 10px;
-   border: 1px solid #191919;
+   border: 1px solid #1f1f1f;
    height: 55px;
    width: 100%;
    margin: 10px auto 20px auto;
@@ -94,9 +94,9 @@
 
 .my_input::placeholder {
    /* Chrome, Firefox, Opera, Safari 10.1+ */
-   color: #444;
+   color: #666;
    letter-spacing: 0.5px;
-   font-weight: 600;
+   font-weight: 500;
    opacity: 1; /* Firefox */
 }
 .my_input:focus::placeholder {

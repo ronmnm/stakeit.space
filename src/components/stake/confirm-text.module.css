@@ -1,6 +1,8 @@
 .container_scrollable{
    display: grid;
    grid-template-rows: 45vh;
+   grid-template-columns: minmax(200px, 600px);
+   margin: 0 10px;
 }
 .scrollable p{
    letter-spacing: .2px;
