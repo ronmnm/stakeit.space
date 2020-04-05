@@ -243,6 +243,8 @@
    background-color: rgb(44, 44, 44);
 }
 .confirm_button {
+   display: grid;
+   justify-content: center;
    text-align: center;
    cursor: pointer;
    background-color: #0077ff;
@@ -250,12 +252,18 @@
    border-radius: 5px;
    width: 120px;
    transition: 0.2s;
+   height: 39px;
 }
 .confirm_button:hover {
    background-color: #006ae2;
 }
 .confirm_button:active {
    background-color: #0062d3;
+}
+
+.round_spinner{
+   width: 19px;
+   height: 19px;
 }
 
 .button_stake_it {

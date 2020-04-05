@@ -3,6 +3,7 @@ import React from "react";
 import s from "./Stake.module.css";
 import ConfirmationText from "./confirm-text";
 import StakeService from "../../services/stake-service";
+import RoundSpinner from '../loader/7.svg';
 
 const stakeService = new StakeService();
 
@@ -10,7 +11,8 @@ export default class Stake extends React.Component {
    state = {
       balanceNu: "",
       clicked: false,
-      approveAndCall: null
+      approveAndCall: null,
+      confirmBtnLoading: false
    };
 
    constructor(props) {
@@ -24,8 +26,12 @@ export default class Stake extends React.Component {
       this.setState({ approveAndCall: approveAndCall });
       // console.log(approveAndCall)
    }
-   confirmationClick() {
-      this.state.approveAndCall(this.props.amount, this.props.duration);
+   async confirmationClick() {
+      this.setState({ confirmBtnLoading: true });
+
+      await this.state.approveAndCall(this.props.amount, this.props.duration);
+
+      this.setState({ confirmBtnLoading: false });
    }
 
    onButtonClick(e) {
@@ -62,12 +68,16 @@ export default class Stake extends React.Component {
          disable = null;
       }
 
+      let ConfirmButtonContent = "Confirm";
+      if (this.state.confirmBtnLoading === true) {
+         ConfirmButtonContent = <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" />
+      }
       // (this.state.amountError) ? amount_error = s.amount_error : amount_error = null;
 
       if (this.state.clicked) {
          return (
             <div className={s.my_stake}>
-               <h3>add new stake</h3>
+               <h4>add new stake</h4>
                <div>
                   <ConfirmationText
                      account={this.props.account}
@@ -84,9 +94,9 @@ export default class Stake extends React.Component {
                         Back
                      </span>
                      <span
-                        className={s.confirm_button}
+                        className={`${s.confirm_button}`}
                         onClick={this.confirmationClick}>
-                        Confirm
+                        {ConfirmButtonContent}
                      </span>
                   </div>
                </div>
@@ -123,20 +133,20 @@ export default class Stake extends React.Component {
                   <div className={s.stake_info}>
                      <span>Duration:</span>
                   </div>
-                 <div className={s.input_container}>
-                 <label for="days">days</label>
-                 <input
-                     onChange={e =>
-                        this.props.handleDurationState(e.target.value)
-                     }
-                     value={duration || ""}
-                     placeholder="30"
-                     className={`${s.my_input} ${duration_error}`}
-                     autoComplete="off"
-                     type="text"
-                     name="duration"
-                  />
-                 </div>
+                  <div className={s.input_container}>
+                     <label for="days">days</label>
+                     <input
+                        onChange={e =>
+                           this.props.handleDurationState(e.target.value)
+                        }
+                        value={duration || ""}
+                        placeholder="30"
+                        className={`${s.my_input} ${duration_error}`}
+                        autoComplete="off"
+                        type="text"
+                        name="duration"
+                     />
+                  </div>
                   <div className={s.slider}>
                      <input
                         type="range"

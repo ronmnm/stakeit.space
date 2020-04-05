@@ -50,8 +50,8 @@ export default class Header extends React.Component {
           <NavLink className="my_nav_item" to="/manage/substake-list">
             Manage
           </NavLink>
-          <NavLink className="my_nav_item disable" to="/withdraw">
-            Withdraw
+          <NavLink className="my_nav_item" to="/rewards">
+            Rewards
           </NavLink>
           <NavLink className="my_nav_item" to="/worklock">
             Worklock

@@ -7,7 +7,7 @@ import Header from "./components/header/Header";
 import Stake from "./components/stake/Stake";
 import Manage from "./components/manage/Manage";
 import Worklock from "./components/worklock/worklock";
-import Withdraw from "./components/withdraw/Withdraw";
+import Rewards from "./components/withdraw/rewards";
 import FooterLoader from "./components/loader/footer-loader";
 import MainSpinner from "./components/loader/main-spinner";
 
@@ -187,7 +187,7 @@ class App extends React.Component {
                   {/* END MANAGE Component */}
 
                   {/* WITHDRAW Component */}
-                  <Route path="/withdraw" render={() => <Withdraw />} />
+                  <Route path="/rewards" render={() => <Rewards />} />
                   {/* END WITHDRAW Component */}
 
                   {/* WORKLOCK Component */}
