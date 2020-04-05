@@ -159,11 +159,12 @@ const ActionHistory = () => {
    return <div>Coming soon...</div>;
 };
 
+
 class ChangeWorkerField extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         address: null
+         address: ''
       };
 
       this.handleChange = this.handleChange.bind(this);

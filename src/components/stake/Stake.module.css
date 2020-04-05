@@ -5,11 +5,11 @@
    margin-bottom: 20%;
    padding-top: 5vh;
    border-radius: 15px;
-   margin-top: 30px;
+   margin-top: 4vh;
    /* background-color: #222; */
    /* position: relative; */
 }
-.my_stake h3 {
+.my_stake h4 {
    text-transform: uppercase;
    text-align: center;
    font-weight: 500;
@@ -288,4 +288,19 @@
    pointer-events: none;
    transition: 0.2s;
    font-weight: 600;
+}
+
+.input_container {
+   position: relative;
+}
+.input_container label {
+   position: absolute;
+   font-size: 18px;
+   text-transform: uppercase;
+   color: #777;
+   width: 60px;
+   text-align: end;
+   left: 260px;
+   top: 28px;
+   pointer-events: none;
 }

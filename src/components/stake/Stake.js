@@ -8,13 +8,9 @@ const stakeService = new StakeService();
 
 export default class Stake extends React.Component {
    state = {
-      // amount: null,
-      // duration: null,
       balanceNu: "",
-      clicked: true,
-      approveAndCall: null,
-      // amountError: false,
-      durationError: false
+      clicked: false,
+      approveAndCall: null
    };
 
    constructor(props) {
@@ -45,7 +41,6 @@ export default class Stake extends React.Component {
       let balanceNu = 0;
       if (this.props.stakeData !== null) {
          balanceNu = this.props.stakeData.balanceNu.toFixed(0);
-         
       }
 
       let amount_error;
@@ -101,7 +96,7 @@ export default class Stake extends React.Component {
 
       return (
          <div className={s.my_stake}>
-            <h3>add new stake</h3>
+            <h4>Add New Stake</h4>
             <div className={s.form_container}>
                <div className={s.stake_info}>
                   <span>Amount:</span>
@@ -113,19 +108,24 @@ export default class Stake extends React.Component {
                </div>
 
                <form action="" className={s.my_form}>
-                  <input
-                     onChange={e => this.props.handleAmount(e.target.value)}
-                     placeholder="15000"
-                     className={`${s.my_input} ${amount_error}`}
-                     autoComplete="off"
-                     type="text"
-                     name="nuAmount"
-                     value={amount || ""}
-                  />
+                  <div className={s.input_container}>
+                     <label for="NU">NU</label>
+                     <input
+                        onChange={e => this.props.handleAmount(e.target.value)}
+                        placeholder="15000"
+                        className={`${s.my_input} ${amount_error}`}
+                        autoComplete="off"
+                        type="text"
+                        name="nuAmount"
+                        value={amount || ""}
+                     />
+                  </div>
                   <div className={s.stake_info}>
                      <span>Duration:</span>
                   </div>
-                  <input
+                 <div className={s.input_container}>
+                 <label for="days">days</label>
+                 <input
                      onChange={e =>
                         this.props.handleDurationState(e.target.value)
                      }
@@ -136,6 +136,7 @@ export default class Stake extends React.Component {
                      type="text"
                      name="duration"
                   />
+                 </div>
                   <div className={s.slider}>
                      <input
                         type="range"
