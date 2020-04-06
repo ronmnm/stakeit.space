@@ -1,313 +1,463 @@
-.worklock_wrapper{
-  display: grid;
+.worklock_wrapper {
+   display: grid;
 
-  grid-template-columns: minmax(400px, 1000px);
-  grid-template-rows: repeat(3, auto);
-  justify-content: center;
-  margin: 30px;
-  row-gap: 20px;
+   grid-template-columns: minmax(400px, 900px);
+   grid-template-rows: auto 180px 300px;
+   justify-content: center;
+   margin: 30px;
+   row-gap: 20px;
 }
-.worklock_timeline{
-  /* background-color: indigo; */
-  display: grid;
-  grid-template-rows: 40px 2fr;
-  row-gap: 20px;
-  /* justify-content: center; */
-  /* align-content: center; */
-  /* align-items: center; */
+.worklock_timeline {
+   /* background-color: indigo; */
+   display: grid;
+   grid-template-rows: 40px 2fr;
+   row-gap: 20px;
+   /* justify-content: center; */
+   /* align-content: center; */
+   /* align-items: center; */
 }
-.worklock_timeline h3{
-  border-bottom: 1px solid #b5cc18;
-  color: #b5cc18;
-  margin: 0;
-  padding-bottom: 15px;
-  font-weight: 600;
-  letter-spacing: .5px;
-  /* background-color: forestgreen; */
+.worklock_timeline h3 {
+   border-bottom: 1px solid #b5cc18;
+   color: #b5cc18;
+   margin: 0;
+   padding-bottom: 15px;
+   font-weight: 600;
+   letter-spacing: 0.5px;
+   /* background-color: forestgreen; */
 }
-.timeline_container{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(50px, 330px));
-  column-gap: 70px;
-  margin-bottom: 10px;
+.timeline_container {
+   display: grid;
+   grid-template-columns: repeat(4, minmax(50px, 330px));
+   column-gap: 70px;
+   margin-bottom: 10px;
 }
-.timeline_container div h4{
-  margin-top: 6px;
-  font-size: 16px;
-  color: #ddd;
-  font-weight: 400;
+.timeline_container div h4 {
+   margin-top: 6px;
+   font-size: 16px;
+   color: #ddd;
+   font-weight: 400;
 }
-.timeline_container div{
-  height: 90px;
-  /* padding-left: 20px; */
+.timeline_container div {
+   height: 90px;
+   /* padding-left: 20px; */
 }
-.timeline_container div span:first-child{
-  font-size: 12px;
-  color: grey;
+.timeline_container div span:first-child {
+   font-size: 12px;
+   color: grey;
 }
 
-
-
-
-.economics{
-  display: grid;
-  grid-template-rows: 40px 3fr;
-  row-gap: 20px;
-  /* margin-bottom: 10px; */
-  /* padding-bottom: 5px; */
-  /* border-bottom: 1px solid #444; */
-  /* justify-content: center; */
-  /* align-content: center; */
-  /* align-items: center; */
-
+.economics {
+   display: grid;
+   grid-template-rows: 40px 3fr;
+   row-gap: 20px;
+   /* margin-bottom: 10px; */
+   /* padding-bottom: 5px; */
+   /* border-bottom: 1px solid #444; */
+   /* justify-content: center; */
+   /* align-content: center; */
+   /* align-items: center; */
 }
 
 /* ECONOMICS TITLE */
-.economics h3{
-  border-bottom: 1px solid #f2711c;
-  color: #f2711c;
+.economics h3 {
+   border-bottom: 1px solid #f2711c;
+   color: #f2711c;
 
-  margin: 0px;
-  /* padding: 8px; */
-  font-weight: 600;
-  letter-spacing: .5px;
-  /* background-color: rgb(255, 190, 70); */
-  
-  
-  
-  
+   margin: 0px;
+   /* padding: 8px; */
+   font-weight: 600;
+   letter-spacing: 0.5px;
+   /* background-color: rgb(255, 190, 70); */
 }
-.economics_container{
-  display: grid;
-  grid-template-rows: repeat(3, 70px);
-  /* row-gap: 30px; */
+.economics_container {
+   display: grid;
+   grid-template-rows: repeat(3, 70px);
+   /* row-gap: 30px; */
 }
 
-.economics_container h4{
-  margin-top: 6px;
-  font-size: 16px;
-  color: #ddd;
-  font-weight: 400;
+.economics_container h4 {
+   margin-top: 6px;
+   font-size: 16px;
+   color: #ddd;
+   font-weight: 400;
 }
 /* Top */
-.economics_top_row{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(50px, 330px));
-  column-gap: 70px;
-  
+.economics_top_row {
+   display: grid;
+   grid-template-columns: repeat(4, minmax(50px, 330px));
+   column-gap: 70px;
 }
-.economics_top_row div span:first-child{
-  font-size: 12px;
-  color: grey;
-  
+.economics_top_row div span:first-child {
+   font-size: 12px;
+   color: grey;
 }
 /* Middle */
-.economics_middle_row{
-  display: grid;
-  column-gap: 70px;
-  grid-template-columns: repeat(4, minmax(50px, 330px));
+.economics_middle_row {
+   display: grid;
+   column-gap: 70px;
+   grid-template-columns: repeat(4, minmax(50px, 330px));
 }
-.economics_middle_row div span:first-child{
-  font-size: 12px;
-  color: grey;
-  
+.economics_middle_row div span:first-child {
+   font-size: 12px;
+   color: grey;
 }
 /* Bottom */
-.economics_bottom_row{
-  display: grid;
-  column-gap: 70px;
-  grid-template-columns: repeat(4, minmax(50px, 330px));
+.economics_bottom_row {
+   display: grid;
+   column-gap: 70px;
+   grid-template-columns: repeat(4, minmax(50px, 330px));
 }
-.economics_bottom_row div span:first-child{
-  font-size: 12px;
-  color: grey;
-  
-}
-
-
-
-
-.worklock_participant{
-  /* background-color: lightseagreen; */
-  display: grid;
-  grid-template-rows: 40px 1fr;
-  row-gap: 20px;
-  /* height: 300px; */
-}
-.worklock_participant h3{
-  border-bottom: 1px solid #0077FF;
-  color: #0077FF;
-  margin: 0;
-  /* padding-bottom: 15px; */
-  font-weight: 600;
-  letter-spacing: .5px;
-  text-transform: uppercase;
+.economics_bottom_row div span:first-child {
+   font-size: 12px;
+   color: grey;
 }
 
 
-
-
-
-.participant_field{
-
-  display: grid;
-  grid-template-rows: 50px 200px;
-  grid-template-columns: 1fr;
+/* First Section */
+.worklock_participant {
+   /* background-color: lightseagreen; */
+   margin-bottom: 50px;
 
 }
-.participanting_with_address{
-
- 
-  
+.participant_address{
+   /* background-color: blueviolet; */
+   margin-bottom: 50px;
+   /* height: 40px; */
+   display: grid;
+   justify-content: space-between;
+   grid-auto-flow: column;
+   align-items: center;
+}
+.participant_address span{
+   /* text-transform: ; */
+   color: grey;
+   font-size: 12px;
+}
+.participant_address b{
+   text-transform: none;
+   color: #eee;
+   font-family: 'Roboto Mono', sans-serif;
+   letter-spacing: .6px;
+   font-size: 16px;
+   font-weight: 400;
+}
+.participant_address div{
+   /* text-transform: uppercase; */
+   background-color: #0077ff;
+   border-radius: 5px;
+   width: 170px;
+   text-align: center;
+   justify-content: center;
+   height: 35px;
+   line-height: 35px;
+   transition: .2s;
+}
+.participant_address div:hover{
+   cursor: pointer;
+   background-color: #006ae2;
+}
+.participant_address div:active{
+   background-color: #0062d3;
 }
 
-.part_with_addr{
-  margin-right: 10px;
 
-  color: grey;
-}
-.addr{
-  color: white;
-  font-weight: 500;
-}
-.current_bid{
-  margin-left: 50px;
-  color: grey;
-  font-weight: 500;
-}
-.white_bold{
-  margin-right: 20px;
-}
-.cancel_bid{
-  padding: 4px 10px;
-  background-color: black;
-  border: 1px solid #0077FF;
-  border-radius: 5px;
-  color: #0077FF;
-  transition: .3s;
-  height: 25px;
-  text-align: center;
 
-  vertical-align: middle;
+
+.participant_panels{
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   column-gap: 3vw;
+   justify-items: center;
 }
-.cancel_bid:focus{
-  outline: none;
+.panel{
+   background-color: #222;
+   border-radius: 5px;
+   width: 100%;
 }
-.cancel_bid:hover{
-  cursor: pointer;
-  background-color: rgb(0, 43, 92);
+
+.panel h3, .panel b, .panel p{
+   text-align: center;
+   display: block;
+}
+.panel p{
+   margin-top: 20px;
+}
+.panel b{
+   font-weight: 500;
+   color: grey;
+}
+.panel h3{
+   letter-spacing: 1px;
+   margin-bottom: 5px;
+   margin-top: 30px;
+}
+.panel span{
+   display: block;
+   text-align: center;
+   /* width: 100%; */
+   color: rgb(223, 223, 223);
+   background-color: #555;
+   margin: 30px 50px 25px 50px;
+   height: 35px;
+   /* padding: 7px 0; */
+   border-radius: 5px;
+   transition: .2s;
+   line-height: 35px;
+}
+.panel span:hover{
+   cursor: pointer;
+   color: white;
+   background-color: rgb(94, 94, 94);
+   box-shadow: 0 5px 20px rgb(19, 19, 19);
+}
+.panel span:active{
+   background-color: #555;
+}
+.disabled{
+   background-color: #303030 !important;
+   pointer-events: none !important;
+   color: #666 !important;
+}
+.round_spinner{
+   height: 19px;
+   width: 19px;
+   margin-top: 8px;
+}
+
+.part_with_addr {
+   margin-right: 10px;
+
+   color: grey;
+}
+.addr {
+   color: white;
+   font-weight: 500;
+}
+.current_bid {
+   margin-left: 50px;
+   color: grey;
+   font-weight: 500;
+}
+.white_bold {
+   margin-right: 20px;
+}
+.cancel_bid {
+   padding: 4px 10px;
+   background-color: black;
+   border: 1px solid #0077ff;
+   border-radius: 5px;
+   color: #0077ff;
+   transition: 0.3s;
+   height: 25px;
+   text-align: center;
+
+   vertical-align: middle;
+}
+.cancel_bid:focus {
+   outline: none;
+}
+.cancel_bid:hover {
+   cursor: pointer;
+   background-color: rgb(0, 43, 92);
 }
 
 /* ${s.cancel_bid_dis} */
-.cancel_bid_dis{
-  pointer-events: none;
-  color: grey;
-  border: 1px solid grey;
+.cancel_bid_dis {
+   pointer-events: none;
+   color: grey;
+   border: 1px solid grey;
 }
 
-
-.button_disabled{
-  cursor: default;
-  pointer-events: none;
-  background-color: rgb(59, 59, 59) !important;
-  color: grey !important;
-  border: none !important;
+.button_disabled {
+   cursor: default;
+   pointer-events: none;
+   background-color: rgb(59, 59, 59) !important;
+   color: grey !important;
+   border: none !important;
 }
 
-
-
-
-.bid_form{
-  display: grid;
-  /* grid-auto-flow: row; */
-  grid-template-columns: 1fr;
-  justify-content: center;
-  /* justify-items: center; */
-  width: 300px;
-  margin: 30px auto;
+.bid_form {
+   display: grid;
+   /* grid-auto-flow: row; */
+   grid-template-columns: 1fr;
+   justify-content: center;
+   /* justify-items: center; */
+   width: 300px;
+   margin: 30px auto;
 }
-.bid_form span{
-  margin-bottom: 10px;
+.bid_form span {
+   margin-bottom: 10px;
 }
-.bid_form input{
-  margin-bottom: 10px;
-  height: 40px;
-  background-color: black;
-  border-radius: 5px;
-  border: 1px solid rgb(78, 78, 78);
-  color: white;
-  padding: 10px;
-  transition: .3s;
-  font-size: 16px;
-  font-family: Roboto;
-  letter-spacing: 1px;
+.bid_form input {
+   margin-bottom: 10px;
+   height: 40px;
+   background-color: black;
+   border-radius: 5px;
+   border: 1px solid rgb(78, 78, 78);
+   color: white;
+   padding: 10px;
+   transition: 0.3s;
+   font-size: 16px;
+   font-family: Roboto;
+   letter-spacing: 1px;
 }
-.bid_form input:focus{
-  outline: none;
+.bid_form input:focus {
+   outline: none;
 }
-.bid_form input:hover{
-  border: 1px solid #0077FF;
+.bid_form input:hover {
+   border: 1px solid #0077ff;
 }
 .bid input:focus::placeholder {
-  color: transparent;
+   color: transparent;
 }
-.bid_form button{
-  height: 40px;
-  border-radius: 5px;
+.bid_form button {
+   height: 40px;
+   border-radius: 5px;
 }
 
-
-
-.participant_info{
-  margin-bottom: 50px;
-  width: 50%;
+.participant_info {
+   margin-bottom: 50px;
+   width: 50%;
 }
-.participant_info div  {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: 25px;
-  grid-template-columns: 2fr 4fr 1fr;
-  column-gap: 15px;
-  justify-content: space-evenly;
-  justify-items: end;
+.participant_info div {
+   display: grid;
+   grid-auto-flow: column;
+   grid-template-rows: 25px;
+   grid-template-columns: 2fr 4fr 1fr;
+   column-gap: 15px;
+   justify-content: space-evenly;
+   justify-items: end;
 }
 .participant_info div span {
-  color: grey;
+   color: grey;
 }
 .participant_info div b {
-  font-weight: 400;
+   font-weight: 400;
 }
-.participant_info h5{
-  letter-spacing: .5px;
-  font-size: 16px;
-  font-weight: 500;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(51, 51, 51);
+.participant_info h5 {
+   letter-spacing: 0.5px;
+   font-size: 16px;
+   font-weight: 500;
+   padding-bottom: 10px;
+   border-bottom: 1px solid rgb(51, 51, 51);
 }
 
 .refund_button {
    padding: 3px 10px;
    display: inline-block;
-   
-   font-size: 12px ;
+
+   font-size: 12px;
    background-color: black;
-   border: 1px solid #0077FF;
+   border: 1px solid #0077ff;
    border-radius: 5px;
-   color: #0077FF;
-   transition: .3s;
+   color: #0077ff;
+   transition: 0.3s;
    /* height: 25px; */
    text-align: center;
-   
-   
+
    /* margin-left: 10px; */
 }
 
- .refund_button:hover{
+.refund_button:hover {
    cursor: pointer;
    background-color: rgb(0, 43, 92);
-   color: #0077FF;
- }
- .refund_button_disable {
-    pointer-events: none;
-    border-color: grey;
- }
+   color: #0077ff;
+}
+.refund_button_disable {
+   pointer-events: none;
+   border-color: grey;
+}
+
+.modal_title{
+   font-weight: 500;
+   color: grey;
+   margin-bottom: 40px;
+   padding-bottom: 10px;
+   border-bottom: 1px solid #222;
+}
+.bid_input{
+   background-color: #222;
+   display: block;
+   border-radius: 5px;
+   height: 50px;
+   width: 300px;
+   color: #eee;
+   padding-left: 20px;
+   line-height: 40px;
+
+   font-size: 18px;
+   margin: 20px auto 60px auto;
+   transition: .5s;
+   border: 1px solid #222;
+   letter-spacing: .5px;
+
+}
+.bid_input:hover{
+   border: 1px solid #0077ff;
+}
+.bid_input:focus{
+   outline: none;
+}
+.bid_input::placeholder{
+   font-weight: 400;
+   letter-spacing: .5px;
+}
+.bid_input:focus::placeholder{
+   opacity: 0;
+}
+.bid_input:focus{
+   background-color: #181818;
+}
+.modal_bidding_closed{
+   display: block;
+   text-align: center;
+   font-size: 12px;
+   color: grey;
+}
+.modal_buttons_group{
+   width: 300px;
+   height: 40px;
+   /* background-color: #b5cc18; */
+   margin: 20px auto;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   column-gap: 10px;
+   align-content: space-around;
+}
+.modal_buttons_group span{
+   text-align: center;
+   border-radius: 5px;
+
+   height: 35px;
+   line-height: 35px;
+   font-size: 14px;
+}
+.modal_buttons_group span:first-child{
+   background-color: #444;
+   color: #eee;
+   transition: .2s;
+}
+.modal_buttons_group span:first-child:hover{
+   cursor: pointer;
+   background-color: #555;
+}
+.modal_buttons_group span:first-child:active{
+
+   background-color: rgb(61, 61, 61);
+}
+
+.modal_buttons_group span:last-child{
+   /* background-color: #002044; */
+   border: 1px dashed #003d83;
+   color: grey;
+   transition: .2s;
+   pointer-events: none;
+}
+.modal_buttons_group span:first-child:hover{
+   cursor: pointer;
+   background-color: #555;
+}
+.modal_buttons_group span:first-child:active{
+
+   background-color: rgb(61, 61, 61);
+}

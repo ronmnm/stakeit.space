@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import ReactGA from "react-ga";
 import s from "./worklock.module.css";
+import RoundSpinner from '../loader/7.svg';
+import Modal from './modal/modal'
 
 const WorkLock = props => {
    ReactGA.pageview(window.location.pathname + window.location.search);
+   const [refundSpin, setRefundSpin] = useState(false);
+   const [claimSpin, setClaimSpin] = useState(false);
+   const [cancelSpin, setCancelSpin] = useState(false);
    const {
       account,
       biddingStartDate,
@@ -30,26 +35,28 @@ const WorkLock = props => {
       bonusTokenSupply,
       claimed,
       refundedWork,
-      refund
+      refund,
+      cancelBid
    } = props.worklockData;
+
    const slicedAddr = `${account.slice(0, 6)}...${account.slice(-4)}`;
    // console.log(props.worklockData);
 
    let disableCanBtn;
    if (+currentBid > 0 && CancelationTime > 0) {
-      disableCanBtn = null;
+      disableCanBtn = false;
    } else {
-      disableCanBtn = s.cancel_bid_dis;
+      disableCanBtn = true;
    }
 
    let disableClaimBtn;
-   if (claimingBool && !claimed) {
-      disableClaimBtn = null;
+   if (claimingBool && !claimed && tokensAllocated > 0) {
+      disableClaimBtn = false;
    } else {
-      disableClaimBtn = s.cancel_bid_dis;
+      disableClaimBtn = true;
    }
 
-   // console.log('claim ava', claimingBool);
+
    let isClaimed;
    if (claimed) {
       isClaimed = "Yes";
@@ -57,17 +64,124 @@ const WorkLock = props => {
       isClaimed = "No";
    }
 
-
    let refund_disable;
-   if(аvailableRefund > 0){
-      refund_disable = null
-   } else (
-      refund_disable = s.refund_button_disable
-   )
+   if (аvailableRefund > 0) {
+      refund_disable = false;
+   } else refund_disable = true;
+
+
+   
+
+   const onRefundClick = async (e) => {
+      e.preventDefault();
+      ReactGA.event({
+         category: 'Worklock tab',
+         action: 'Click Refund ETH button',
+         label: 'worklock_tab_label'
+      })
+      setRefundSpin(true)
+      refund()
+         .then(() => { setRefundSpin(false) })
+         .catch(() => { setRefundSpin(false) });
+   }
+
+   const onClaimClick = (e) => {
+      e.preventDefault();
+      ReactGA.event({
+         category: 'Worklock tab',
+         action: 'Click Claim NU button',
+         label: 'worklock_tab_label'
+      })
+      setClaimSpin(true)
+      claimTokens()
+         .then(() => { setClaimSpin(false) })
+         .catch(() => { setClaimSpin(false) });
+   }
+
+
+   const onCancelBidClick = (e) => {
+      e.preventDefault();
+      ReactGA.event({
+         category: 'Worklock tab',
+         action: 'Click Cancel Bid button',
+         label: 'worklock_tab_label'
+      })
+      setCancelSpin(true)
+      cancelBid()
+         .then(() => { setCancelSpin(false) })
+         .catch(() => { setCancelSpin(false) });
+   }
+
+   const modalRef = useRef();
+
+   const openModal = (e) => {
+      e.preventDefault();
+      ReactGA.event({
+         category: 'Worklock tab',
+         action: 'Open Bid Modal Button',
+         label: 'worklock_tab_label'
+      })
+      modalRef.current.openMod();
+
+   }
+   const closeModal = () => {
+
+      modalRef.current.closeMod();
+   }
 
    console.log(props.worklockData);
    return (
       <div className={s.worklock_wrapper}>
+         <Modal ref={modalRef}>
+            <h2 className={s.modal_title}>Place new bid</h2>
+
+            <input placeholder='Enter ETH amount' className={s.bid_input} type="text"/>
+            <span className={s.modal_bidding_closed}>Bidding period ended.</span>
+            <div className={s.modal_buttons_group}>
+               <span onClick={closeModal}>Close</span>
+               <span>Confirm</span>
+            </div>
+         </Modal>
+         <div className={s.worklock_participant}>
+            <div className={s.participant_address}>
+               <span>
+                  Participating with address:
+                  <br />
+                  <b>{account}</b>
+               </span>
+               <div onClick={openModal}>Place new bid</div>
+            </div>
+            <div className={s.participant_panels}>
+               <ParticipantPanel
+                  title="Your current bid:"
+                  value={currentBid}
+                  currency="ETH"
+                  button={cancelSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Cancel Bid'}
+                  
+                  disabled={disableCanBtn}
+                  onClick={onCancelBidClick}
+               />
+               <ParticipantPanel
+                  title="Nu tokens allocation:"
+                  value={tokensAllocated
+                           .toLocaleString("en-Us")}
+                  currency="NU"
+                  button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Claim'}
+                  // disableClaimBtn
+                  disabled={disableClaimBtn}
+                  onClick={onClaimClick}
+               />
+               <ParticipantPanel
+                  title="Available ETH refund:"
+                  value={аvailableRefund}
+                  currency="ETH"
+                  button={refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Refund'}
+                  disabled={refund_disable}
+                  onClick={onRefundClick}
+               />
+            </div>
+         </div>
+
          <div className={s.worklock_timeline}>
             <h3>TIMELINE</h3>
             <div className={s.timeline_container}>
@@ -151,11 +265,23 @@ const WorkLock = props => {
             </div>
          </div>
 
-         <div className={s.worklock_participant}>
-            <h3>Worklock</h3>
+         {/* <div className={s.worklock_participant}>
+           
+               <h3>Worklock </h3>
+               
+            
             <div className={s.participant_field}>
-               <div className={s.participanting_with_address}>
-                  <span className={s.part_with_addr}>
+               <div className={s.participant_actions}>
+                  <div className={s.participant_actions_item}>
+                     <h5>Your current bid</h5>
+                     <span>4 eth</span>
+                     <span className={s.participant_actions_item_button}>
+                        button
+                     </span>
+                  </div>
+                  <div>Claim tokens</div>
+                  <div>Refund eth</div> */}
+         {/* <span className={s.part_with_addr}>
                      Participating with address:
                   </span>
                   <span className={s.addr}>{slicedAddr}</span>
@@ -173,8 +299,8 @@ const WorkLock = props => {
                      }}
                      className={`${s.cancel_bid} ${disableClaimBtn}`}>
                      Claim Tokens
-                  </button>
-               </div>
+                  </button> */}
+         {/* </div>
 
                <div>
                   <Bid />
@@ -185,16 +311,19 @@ const WorkLock = props => {
                      <span>Completed Work:</span>
                      <b>{completedWork}</b>
                   </div>
-                  <div>
-                     <span>Available Refund:</span>
+                  <div> */}
+         {/* <span>Available Refund:</span>
                      <b>{parseFloat(аvailableRefund).toFixed(4)} ETH</b>
-                     <span 
+                     <span
                         className={`${s.refund_button} ${refund_disable}`}
-                        onClick={() => { refund() }}
-                        >Refund</span>
-                  </div>
-                  
-                  <div>
+                        onClick={() => {
+                           refund();
+                        }}>
+                        Refund
+                     </span>
+                  </div> */}
+
+         {/* <div>
                      <span>Refunded Work:</span>
                      <b>{refundedWork}</b>
                   </div>
@@ -204,7 +333,7 @@ const WorkLock = props => {
                   </div>
                </div>
             </div>
-         </div>
+         </div> */}
       </div>
    );
 };
@@ -242,3 +371,18 @@ class Bid extends React.Component {
       );
    }
 }
+
+const ParticipantPanel = ({ title, value, currency, button, disabled, onClick }) => {
+
+   return (
+      <div className={s.panel}>
+         <p>{title}</p>
+         <h3>{value}</h3>
+         <b>{currency}</b>
+         <span 
+            className={disabled ? s.disabled : null}
+            onClick={onClick}
+         >{button}</span>
+      </div>
+   );
+};

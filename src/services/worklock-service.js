@@ -103,7 +103,7 @@ export default class WorklockService {
       const ethToTokensNits = await instanceWorklock.methods
          .ethToTokens(workInfo[0])
          .call();
-      const ethToTokensNu = (ethToTokensNits / 10 ** 18).toFixed(4);
+      const ethToTokensNu = (ethToTokensNits / 10 ** 18);
 
       const boostingRefund = await instanceWorklock.methods
          .boostingRefund()
@@ -117,6 +117,7 @@ export default class WorklockService {
          await instanceWorklock.methods.getAvailableRefund(account).call(),
          "ether"
       );
+
 
       const getContractBal = parseFloat(
          web3.utils.fromWei(
@@ -171,7 +172,7 @@ export default class WorklockService {
       // Cancel Bid
       const cancelBid = async () => {
          await instanceWorklock.methods.cancelBid().send({
-            from: accounts[0]
+            from: account
          });
       };
 
@@ -211,11 +212,11 @@ export default class WorklockService {
          workInfo: workInfo,
 
          claimed: claimed,
-         currentBid: currentBid,
+         currentBid: parseFloat(currentBid).toFixed(4),
          tokensAllocated: ethToTokensNu,
          boostingRefund: boostingRefund,
-         SLOWING_REFUND: SLOWING_REFUND,
-         аvailableRefund: getAvailableRefund,
+         SLOWING_REFUND: SLOWING_REFUND, 
+         аvailableRefund: parseFloat(getAvailableRefund).toFixed(4),
          getContractBal: getContractBal,
          bonusETHSupply: bonusETHSupply,
          bonusDepositRate: bonusDepositRate.toFixed(2),

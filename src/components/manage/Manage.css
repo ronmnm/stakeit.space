@@ -65,7 +65,9 @@
 
 .substake_and_prdvd{
   display: grid;
+  
   grid-template-columns: 3fr 1fr;
+  
   /* column-gap: 0px; */
 }
 .substake_item {
@@ -73,11 +75,11 @@
   grid-gap: 5px;
   margin: 5px 0;
   padding: 14px;
-  background-color: rgb(15, 15, 15);
+  background-color: #222;
   grid-template-columns: 1.5fr 2fr 1.5fr 2fr 2fr;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border-right: 2px solid rgb(29, 29, 29);
+  border-right: 2px solid rgb(49, 49, 49);
   /* justify-content: center;
   align-items: center; */
 }
@@ -108,7 +110,7 @@
   
 /* } */
 .prolong_devide{
-  background-color: rgb(15, 15, 15);
+   background-color: #222;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   margin: 5px 0;
