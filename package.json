@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bignumber.js": "^9.0.0",
     "firebase": "^7.13.1",
+    "history": "^4.10.1",
     "npm-force-resolutions": "0.0.3",
     "react": "^16.13.1",
     "react-blockies": "^1.4.1",

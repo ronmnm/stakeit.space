@@ -24,7 +24,7 @@ export default class Stake extends React.Component {
    }
 
    componentDidMount() {
-      ReactGA.pageview(window.location.pathname + window.location.search);
+      
 
       const approveAndCall = stakeService.getApproveAndCall();
       this.setState({ approveAndCall: approveAndCall });

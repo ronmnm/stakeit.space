@@ -1,6 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 import "./App.css";
 
@@ -16,6 +17,18 @@ import MainSpinner from "./components/loader/main-spinner";
 import ServiceWeb3 from "./services/web3-service";
 import ServiceWeb3Setters from "./services/web3-service-setters";
 import WorklockService from "./services/worklock-service";
+
+const history = createBrowserHistory();
+const stakeit = "UA-162529903-1";
+const test = "UA-162797521-1";
+
+ReactGA.initialize(stakeit);
+
+
+history.listen(location => {
+   ReactGA.set({ page: location.pathname }); // Update the user's current page
+   ReactGA.pageview(location.pathname); // Record a pageview for the given page
+ });
 
 const serviceWeb3 = new ServiceWeb3();
 const serviceSetters = new ServiceWeb3Setters();
@@ -52,10 +65,7 @@ class App extends React.Component {
    }
 
    async componentDidMount() {
-      const stakeit = "UA-162529903-1";
-      const test = "UA-162797521-1";
-
-      ReactGA.initialize(test);
+      
 
       this.metamaskChecking();
    }
@@ -160,7 +170,7 @@ class App extends React.Component {
       // worklockData ? console.log(worklockData.methods) : console.log("hi");
 
       return (
-         <BrowserRouter>
+         <Router history={history}>
             <div className="my_wrapper">
                <Header
                   account={account}
@@ -231,7 +241,7 @@ class App extends React.Component {
                   <Footer footerData={footerData} />
                )}
             </div>
-         </BrowserRouter>
+         </Router>
       );
    }
 }

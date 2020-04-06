@@ -176,39 +176,6 @@
   letter-spacing: 0.8px;
   /* font-weight: 600; */
 }
-.change_wrkr_button{
-  color: rgb(182, 182, 182);
-  font-family: Arial, sans-serif;
-  display: inline-block;
-  height: 28px;
-  border-radius: 5px;
-  background-color: #333;
-  border: none;
-  transition: .3s;
-  padding: 0 15px;
-}
-.change_wrkr_button:hover{
-  cursor: pointer;
-  color: #eee;
-  background-color: #444;
-}
-.change_wrkr_button:focus{
-  outline: none;
-}
-.change_wrkr_input{
-  background-color: black;
-  border: 1px solid #333;
-  border-radius: 5px;
-  height: 30px;
-  color: #eee;
-  padding: 10px;
-}
-.change_wrkr_input:focus{
-  outline: none;
-}
-.change_wrkr_input:hover{
-  border: 1px solid #444;
-}
 
 
 

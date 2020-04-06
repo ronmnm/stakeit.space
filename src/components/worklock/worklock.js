@@ -5,7 +5,7 @@ import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal'
 
 const WorkLock = props => {
-   ReactGA.pageview(window.location.pathname + window.location.search);
+   
    const [refundSpin, setRefundSpin] = useState(false);
    const [claimSpin, setClaimSpin] = useState(false);
    const [cancelSpin, setCancelSpin] = useState(false);
@@ -118,7 +118,7 @@ const WorkLock = props => {
       e.preventDefault();
       ReactGA.event({
          category: 'Worklock tab',
-         action: 'Open Bid Modal Button',
+         action: 'Open Bid Modal',
          label: 'worklock_tab_label'
       })
       modalRef.current.openMod();
