@@ -24,7 +24,7 @@ export default props => {
    if (worker === "0x0000000000000000000000000000000000000000") {
       workerAddress = <React.Fragment>No worker assigned</React.Fragment>;
    } else {
-      workerAddress = `${worker.slice(0, 6)}...${worker.slice(38, 42)}`;
+      workerAddress = worker;
    }
 
    return (

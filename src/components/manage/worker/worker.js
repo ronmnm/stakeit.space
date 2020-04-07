@@ -6,7 +6,14 @@ const Worker = ({ workerAddress, workerEthBal, setWorker }) => {
    return (
       <div className="worker_manage">
          <h4 className={s.address_title}>Worker Account</h4>
-         <h2 className={s.address_eth}>{workerAddress}</h2>
+         <h2 className={s.address_eth}>{`${workerAddress.slice(0, 6)}...${workerAddress.slice(38, 42)}`}
+         <a
+               className={s.a_icon}
+               href={`https://goerli.etherscan.io/address/${workerAddress}`}
+               target="_blank">
+               <i className={`fas fa-external-link-alt fa-xs ${s.fa_external_link_alt}`}></i>
+            </a>
+         </h2>
 
          <div className="worker_content">
             <p>

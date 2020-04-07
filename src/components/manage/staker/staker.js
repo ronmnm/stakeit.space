@@ -20,6 +20,12 @@ const Staker = props => {
          <h4 className={s.address_title}>Staker Account</h4>
          <h2 className={s.address_eth}>
             {staker.slice(0, 6)}...{staker.slice(38, 42)}
+            <a
+               className={s.a_icon}
+               href={`https://goerli.etherscan.io/address/${staker}`}
+               target="_blank">
+               <i className={`fas fa-external-link-alt fa-xs ${s.fa_external_link_alt}`}></i>
+            </a>
          </h2>
 
          <div className={s.staker_content}>
@@ -51,7 +57,7 @@ const Staker = props => {
                </span>
             </p>
          </div>
-         
+
          <div className={s.staker_buttons}>
             <div>
                <h4 className={s.restake_text}>
@@ -63,11 +69,11 @@ const Staker = props => {
                      className={!reStakeDisabled ? s.button_active : null}
                      onClick={() => {
                         ReactGA.event({
-                           category: 'Manage tab',
-                           action: 'Restake On',
-                           label: 'manage_tab_label'
-                        })
-                        setRestake(true)
+                           category: "Manage tab",
+                           action: "Restake On",
+                           label: "manage_tab_label"
+                        });
+                        setRestake(true);
                      }}>
                      On
                   </button>
@@ -75,11 +81,11 @@ const Staker = props => {
                      className={reStakeDisabled ? s.button_active : null}
                      onClick={() => {
                         ReactGA.event({
-                           category: 'Manage tab',
-                           action: 'Restake Off',
-                           label: 'manage_tab_label'
-                        })
-                        setRestake(false)
+                           category: "Manage tab",
+                           action: "Restake Off",
+                           label: "manage_tab_label"
+                        });
+                        setRestake(false);
                      }}>
                      Off
                   </button>
@@ -93,11 +99,11 @@ const Staker = props => {
                      className={windDown ? s.button_active : null}
                      onClick={() => {
                         ReactGA.event({
-                           category: 'Manage tab',
-                           action: 'Winddown On',
-                           label: 'manage_tab_label'
-                        })
-                        setWinddown(true)
+                           category: "Manage tab",
+                           action: "Winddown On",
+                           label: "manage_tab_label"
+                        });
+                        setWinddown(true);
                      }}>
                      On
                   </button>
@@ -105,11 +111,11 @@ const Staker = props => {
                      className={!windDown ? s.button_active : null}
                      onClick={() => {
                         ReactGA.event({
-                           category: 'Manage tab',
-                           action: 'Winddown Off',
-                           label: 'manage_tab_label'
-                        })
-                        setWinddown(false)
+                           category: "Manage tab",
+                           action: "Winddown Off",
+                           label: "manage_tab_label"
+                        });
+                        setWinddown(false);
                      }}>
                      Off
                   </button>
