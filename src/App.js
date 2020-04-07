@@ -1,7 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
 import { Router, Route, Redirect } from "react-router-dom";
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from "history";
 
 import "./App.css";
 
@@ -20,15 +20,14 @@ import WorklockService from "./services/worklock-service";
 
 const history = createBrowserHistory();
 const stakeit = "UA-162529903-1";
-const test = "UA-162797521-1";
+// const test = "UA-162797521-1";
 
 ReactGA.initialize(stakeit);
-
 
 history.listen(location => {
    ReactGA.set({ page: location.pathname }); // Update the user's current page
    ReactGA.pageview(location.pathname); // Record a pageview for the given page
- });
+});
 
 const serviceWeb3 = new ServiceWeb3();
 const serviceSetters = new ServiceWeb3Setters();
@@ -65,8 +64,6 @@ class App extends React.Component {
    }
 
    async componentDidMount() {
-      
-
       this.metamaskChecking();
    }
    componentDidUpdate() {}
@@ -138,13 +135,13 @@ class App extends React.Component {
          worklockData
       } = this.state;
 
-      let manageComponent = <MainSpinner />;
+      let manage = <MainSpinner />;
       if (buttonStatus === "install") {
-         manageComponent = <div> install metamask</div>;
+         manage = <div> install metamask</div>;
       } else if (buttonStatus === "connect") {
-         manageComponent = <div>Connect a wallet</div>;
+         manage = <div>Connect a wallet</div>;
       } else if (manageData) {
-         manageComponent = (
+         manage = (
             <Manage
                manageData={manageData}
                setters={this.state.setters}
@@ -153,21 +150,46 @@ class App extends React.Component {
          );
       }
 
-      let worklockComponent = <MainSpinner />;
+      let worklock = <MainSpinner />;
       if (worklockData) {
-         worklockComponent = <Worklock worklockData={worklockData} />;
+         worklock = <Worklock worklockData={worklockData} />;
       }
 
       let account;
-      let fee;
       if (stakeData) {
          account = stakeData.account;
-         // fee = stakeData.
       }
 
-      // console.log(window.ethereum.networkVersion);
-
-      // worklockData ? console.log(worklockData.methods) : console.log("hi");
+      const stake = (
+         <Stake
+            stakeData={stakeData}
+            account={account}
+            amount={this.state.amount}
+            duration={this.state.duration}
+            handleDurationState={this.handleDurationState}
+            handleAmount={this.handleAmountState}
+         />
+      );
+      const rewards = (
+         <Rewards
+            fee={
+               this.state.stakerData
+                  ? this.state.stakerData.policyFee
+                  : "Loading"
+            }
+            nu={
+               this.state.manageData
+                  ? this.state.manageData.stakerNuUnlocked.toFixed(3)
+                  : "Loading"
+            }
+            eth={
+               this.state.worklockData
+                  ? this.state.worklockData.аvailableRefund
+                  : "Loading"
+            }
+         />
+      );
+      const footer = <Footer footerData={footerData} />;
 
       return (
          <Router history={history}>
@@ -178,68 +200,23 @@ class App extends React.Component {
                   network={this.state.network}
                   buttonStatus={buttonStatus}
                   onClick={this.handleClick}
-                  // account={this.stakeData.account}
                />
 
                <div className="my_content_wrapper">
-                  {/* STAKE Component */}
                   <Route path="/" exact>
                      <Redirect to="/stake" />
                   </Route>
-                  <Route
-                     path="/stake"
-                     render={() => (
-                        <Stake
-                           stakeData={stakeData}
-                           account={account}
-                           amount={this.state.amount}
-                           duration={this.state.duration}
-                           handleDurationState={this.handleDurationState}
-                           handleAmount={this.handleAmountState}
-                        />
-                     )}
-                  />
-                  {/* END STAKE Component */}
 
-                  {/* MANAGE Component */}
-                  <Route path="/manage" render={() => manageComponent} />
-                  {/* END MANAGE Component */}
+                  <Route path="/stake" render={() => stake} />
 
-                  {/* WITHDRAW Component */}
-                  <Route
-                     path="/rewards"
-                     render={() => (
-                        <Rewards
-                           fee={
-                              this.state.stakerData
-                                 ? this.state.stakerData.policyFee
-                                 : 'Loading'
-                           }
-                           nu={
-                              this.state.manageData
-                                 ? this.state.manageData.stakerNuUnlocked.toFixed(3)
-                                 : 'Loading'
-                           }
-                           eth={
-                              this.state.worklockData
-                                 ? this.state.worklockData.аvailableRefund
-                                 : 'Loading'
-                           }
-                        />
-                     )}
-                  />
-                  {/* END WITHDRAW Component */}
+                  <Route path="/manage" render={() => manage} />
 
-                  {/* WORKLOCK Component */}
-                  <Route path="/worklock" render={() => worklockComponent} />
-                  {/* END WORKLOCK Component */}
+                  <Route path="/rewards" render={() => rewards} />
+
+                  <Route path="/worklock" render={() => worklock} />
                </div>
 
-               {footerStatus === "loading" ? (
-                  <FooterLoader />
-               ) : (
-                  <Footer footerData={footerData} />
-               )}
+               {footerStatus === "loading" ? <FooterLoader /> : footer}
             </div>
          </Router>
       );
