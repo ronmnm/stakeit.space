@@ -146,6 +146,7 @@ class App extends React.Component {
                manageData={manageData}
                setters={this.state.setters}
                setWinddown={this.state.setWinddown}
+               
             />
          );
       }

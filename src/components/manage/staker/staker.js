@@ -1,6 +1,7 @@
 import React from "react";
 import ReactGA from "react-ga";
 import s from "./staker.module.css";
+import Icon from "../link-icon/link-icon";
 
 const Staker = props => {
    const {
@@ -20,12 +21,7 @@ const Staker = props => {
          <h4 className={s.address_title}>Staker Account</h4>
          <h2 className={s.address_eth}>
             {staker.slice(0, 6)}...{staker.slice(38, 42)}
-            <a
-               className={s.a_icon}
-               href={`https://goerli.etherscan.io/address/${staker}`}
-               target="_blank">
-               <i className={`fas fa-external-link-alt fa-xs ${s.fa_external_link_alt}`}></i>
-            </a>
+            <Icon address={staker} />
          </h2>
 
          <div className={s.staker_content}>

@@ -21,6 +21,7 @@
     "redux": "^4.0.5",
     "rsuite": "^4.3.3",
     "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0",
     "web3": "^1.2.6",
     "web3-utils": "^1.2.6"
   },

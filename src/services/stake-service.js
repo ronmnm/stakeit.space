@@ -28,6 +28,7 @@ export default class StakeService {
          const amount = web3.utils.toWei(inputAmount, "ether");
 
          const hex = web3.utils.numberToHex(inputDuration);
+         
          const duration = this._hexToBytes(hex);
          
          

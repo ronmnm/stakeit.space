@@ -1,5 +1,5 @@
 .my_footer {
-  background-color: #111;
+  background-color: #151515;
   height: 50px;
   margin-top: auto;
   position: fixed;
@@ -8,7 +8,7 @@
   font-size: 12px;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #222;
+  border-top: 1px solid #333;
   z-index: 1;
 }
 .my_footer_wrapper{

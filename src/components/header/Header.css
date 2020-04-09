@@ -1,5 +1,5 @@
 .my_header {
-  /* background-color: gray; */
+  /* background-color: #232323; */
   /* border-top: 3px solid blue; */
   display: grid;
   /* grid-template-columns: minmax(100px, 250px) minmax(480px, 600px) minmax(100px, 250px); */
@@ -7,7 +7,7 @@
   justify-items: center;
   align-content: center;
   align-items: center;
-  border-bottom: 1px solid #222;
+  /* border-bottom: 1px solid #222; */
   /* max-width: 1200px; */
   margin: 0 auto;
 }
@@ -31,7 +31,7 @@
   justify-items: center;
   height: 40px;
   align-content: center;
-  width: 200px;
+  width: 180px;
   margin-top: 10px;
 }
 
@@ -40,7 +40,7 @@
 .my_nav {
 padding: 0 20px;
   grid-area: nav;
-  height: 70px;
+  height: 80px;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
@@ -70,7 +70,7 @@ padding: 0 20px;
 }
 .my_nav .active {
   color: white;
-  background-color: #222;
+  background-color: #303030;
 }
 /* Navigation END */
 

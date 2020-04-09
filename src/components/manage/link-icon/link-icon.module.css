@@ -1,0 +1,20 @@
+.a_icon{
+   background-color: #2c2c2c;
+   display: flex;
+   align-items: center;
+   width: 29px;
+   border-radius: 10px;
+   margin: 2px 10px;
+   transition: .1s;
+   padding-left: 2px;
+   justify-content: center;
+}
+.fa_external_link_alt{
+   color: #d4d4d4 ;
+   font-size: 12px;
+   text-align: center;
+}
+
+.a_icon:hover{
+   background-color: #494949;
+}

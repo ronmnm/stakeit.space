@@ -21,7 +21,7 @@
 .form_container {
    width: 350px;
    margin: 0 auto;
-   margin-top: 50px;
+   margin-top: 30px;
 }
 
 .stake_info {
@@ -53,12 +53,9 @@
 }
 
 .my_input {
-   /* position: absolute; */
-   /* top: 10px; */
-   /* left: -10px; */
    font-family: "Open Sans", sans-serif;
 
-   background-color: #1f1f1f;
+   background-color: #303030;
    border-radius: 10px;
    border: 1px solid #1f1f1f;
    height: 55px;
@@ -94,7 +91,8 @@
 
 .my_input::placeholder {
    /* Chrome, Firefox, Opera, Safari 10.1+ */
-   color: #666;
+   color: #888;
+   /* color: #6152c2 */
    letter-spacing: 0.5px;
    font-weight: 500;
    opacity: 1; /* Firefox */
