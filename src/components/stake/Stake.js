@@ -13,7 +13,6 @@ export default class Stake extends React.Component {
    state = {
       balanceNu: "",
       clicked: false,
-      approveAndCall: null,
       confirmBtnLoading: false
    };
 
@@ -23,13 +22,6 @@ export default class Stake extends React.Component {
       this.confirmationClick = this.confirmationClick.bind(this);
    }
 
-   componentDidMount() {
-      
-
-      const approveAndCall = stakeService.getApproveAndCall();
-      this.setState({ approveAndCall: approveAndCall });
-      // console.log(approveAndCall)
-   }
    async confirmationClick() {
       this.setState({ confirmBtnLoading: true });
       ReactGA.event({
@@ -37,7 +29,8 @@ export default class Stake extends React.Component {
          action: 'Confirm button click',
          label: 'stake_tab_label'
       })
-      await this.state.approveAndCall(this.props.amount, this.props.duration);
+      const approveAndCall = stakeService.getApproveAndCall();
+      await approveAndCall(this.props.amount, this.props.duration);
 
       this.setState({ confirmBtnLoading: false });
    }
@@ -54,7 +47,6 @@ export default class Stake extends React.Component {
    }
 
    render() {
-      // const {balanceNu} = this.props.stakeData;
       const { amount, duration } = this.props;
 
       let balanceNu = 0;
@@ -195,8 +187,3 @@ export default class Stake extends React.Component {
    }
 }
 
-// const Form = () => {
-//    return (
-
-//    )
-// }
