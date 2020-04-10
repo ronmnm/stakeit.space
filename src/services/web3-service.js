@@ -1,19 +1,18 @@
-import Web3 from "web3";
-import { instanceEscrow, instanceToken } from "../ethereum/instances/instances";
+import Web3 from 'web3';
+import { Escrow, Token } from '../ethereum/instances/instances';
 
 const web3 = new Web3(window.ethereum);
 
 export default class ServiceWeb3 {
    async getStakerBalAddr() {
       let stakerData = {};
+
       stakerData.account = (await web3.eth.getAccounts())[0];
+
       stakerData.network = window.ethereum.networkVersion;
 
-      const nits = await instanceToken.methods
-         .balanceOf(stakerData.account)
-         .call();
+      const nits = await Token.methods.balanceOf(stakerData.account).call();
       stakerData.balanceNu = parseFloat(nits) / 10 ** 18;
-      // nodes (Policy fee)
 
       return stakerData;
    }
@@ -21,71 +20,41 @@ export default class ServiceWeb3 {
    getManageData = async () => {
       const stakerInfo = await this.getStakerBalAddr();
       const { balanceNu, account } = stakerInfo;
-      // Get Staker ETH balance
-      const balanceEth = parseFloat(
-         web3.utils.fromWei(await web3.eth.getBalance(account), "ether")
-      ).toFixed(2);
 
-      // get Worker address    Беру из StakerInfo
-      // const workerAddr = await instanceEscrow.methods
-      //   .getWorkerFromStaker(account).call();
+      const balanceEth = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account), 'ether')).toFixed(2);
 
-      // Много данных беру от сюда, зарефакторить потом код вверху
-      const StakerInfo = await instanceEscrow.methods
-         .stakerInfo(account)
-         .call();
+      const StakerInfo = await Escrow.methods.stakerInfo(account).call();
+      const currentPeriod = Math.floor(Date.now() / 86400000);
 
-      // get Worker balance ETH
+      const confirmedPeriod1 = +StakerInfo.confirmedPeriod1 === currentPeriod + 1 ? 'Next period confirmed' : 'Missing confirmation';
+
       let workerBal;
-      if (StakerInfo.worker !== "0x0000000000000000000000000000000000000000") {
-         workerBal = parseFloat(
-            web3.utils.fromWei(
-               await web3.eth.getBalance(StakerInfo.worker),
-               "ether"
-            )
-         ).toFixed(2);
+      if (StakerInfo.worker !== '0x0000000000000000000000000000000000000000') {
+         workerBal = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(StakerInfo.worker), 'ether')).toFixed(2);
       } else {
          workerBal = 0;
       }
 
-      // Get all tokens belonging to the staker
-      // const allStakersNits = await instanceEscrow.methods
-      //   .getAllTokens(account)
-      //   .call();
-      // const allStakersNu = (StakerInfo.value / 10**18).toFixed(0)
-
       // Get users locked tokens
-      const lockedStakerNits = await instanceEscrow.methods
-         .getLockedTokens(account, 0)
-         .call();
+      const lockedStakerNits = await Escrow.methods.getLockedTokens(account, 0).call();
       const lockedStakerNu = lockedStakerNits / 10 ** 18;
       // Calculate Stakers unlocked NU
       const stakerUnlockedNits = StakerInfo.value - lockedStakerNits;
       const stakerNuUnlocked = stakerUnlockedNits / 10 ** 18;
-      // Checks if `reStake` parameter is available for changing
-      const isReStakeLockedBool = await instanceEscrow.methods
-         .isReStakeLocked(account)
-         .call();
-      let isRestakeLocked;
-      if (isReStakeLockedBool) {
-         isRestakeLocked = "Locked";
-      } else {
-         isRestakeLocked = "Unlocked";
-      }
+
+      const isReStakeLockedBool = await Escrow.methods.isReStakeLocked(account).call();
+      const isRestakeLocked = isReStakeLockedBool ? 'Locked' : 'Unlocked';
+
 
       // get substake length by substake index
-      const getSubStakesLength = await instanceEscrow.methods
-         .getSubStakesLength(account)
-         .call();
+      const getSubStakesLength = await Escrow.methods.getSubStakesLength(account).call();
 
       // getting an array with all substakes
       const getAllSubstakes = await (async () => {
-         if (getSubStakesLength !== "0") {
+         if (getSubStakesLength !== '0') {
             let substakeList = [];
             for (let i = 0; i < getSubStakesLength; i++) {
-               let list = await instanceEscrow.methods
-                  .getSubStakeInfo(account, i)
-                  .call();
+               let list = await Escrow.methods.getSubStakeInfo(account, i).call();
                list.id = i.toString();
                substakeList.push(list);
             }
@@ -95,8 +64,6 @@ export default class ServiceWeb3 {
             return substakeList;
          }
       })();
-
-      // const getAllSubstakes2 = await getAllSubstakes();
 
       const res = {
          stakerBalEth: balanceEth,
@@ -113,7 +80,7 @@ export default class ServiceWeb3 {
          subStakesLength: getSubStakesLength,
          substakeList: getAllSubstakes,
          StakerInfo: StakerInfo,
-         // methods: await instanceEscrow.methods
+         confirmedPeriod1: confirmedPeriod1
       };
 
       return res;
@@ -122,32 +89,38 @@ export default class ServiceWeb3 {
    getFooterData = async () => {
       const footer = {};
 
-      footer.currentPeriod = await instanceEscrow.methods.getCurrentPeriod().call();
+      footer.currentPeriod = Math.floor(Date.now() / 86400000);
 
-      footer.totalNuSupply = await instanceToken.methods.totalSupply().call();
-      footer.supplyInBln = (footer.totalNuSupply / 10**18 / 10**9).toFixed(2)
-      footer.getReservedReward = await instanceEscrow.methods.getReservedReward().call();
-      // footer.getReservedRewardHuman = footer.getReservedReward / 10**18 / 10**9
-      
-      
-      // Get number of stakers (with inactive)
-      // const getStakersLength = await instanceEscrow.methods.getStakersLength().call();
+      footer.totalNuSupply = await Token.methods
+         .totalSupply()
+         .call();
+
+      footer.supplyInBln = (footer.totalNuSupply / 10 ** 18 / 10 ** 9)
+         .toFixed(2);
+
+      footer.getReservedReward = await Escrow.methods
+         .getReservedReward()
+         .call();
+
       // Get number of active stakers and locked amount
-      footer.getStakersAndTokens = await instanceEscrow.methods
+      footer.getStakersAndTokens = await Escrow.methods
          .getActiveStakers(1, 0, 0)
          .call();
-      // Calculations
+
       footer.activeStakers = footer.getStakersAndTokens[1].length;
+
       footer.lockedNu = (parseFloat(footer.getStakersAndTokens[0]) / 10 ** 18)
-         .toLocaleString("en-Us");
+         .toLocaleString('en-Us');
 
       footer.percentLocked = ((footer.getStakersAndTokens[0] / (footer.totalNuSupply - footer.getReservedReward)) * 100)
          .toFixed(2);
 
-      footer.circulatingSupply = ((footer.totalNuSupply - footer.getReservedReward) / 10 **18 / 10**9).toFixed(3);
+      footer.circulatingSupply = ((footer.totalNuSupply - footer.getReservedReward) / 10 ** 18 / 10 ** 9)
+         .toFixed(3);
 
-
-      console.log(footer);
       return footer;
+
+      // Get number of stakers (with inactive)
+      // const getStakersLength = await instanceEscrow.methods.getStakersLength().call();
    };
 }
