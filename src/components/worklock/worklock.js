@@ -3,12 +3,16 @@ import ReactGA from "react-ga";
 import s from "./worklock.module.css";
 import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal'
+import {ModalContent} from '../manage/worker/worker'
+import { ControlButton } from "../manage/manage-bottom/substakes/substakes";
 
 const WorkLock = props => {
    
    const [refundSpin, setRefundSpin] = useState(false);
    const [claimSpin, setClaimSpin] = useState(false);
    const [cancelSpin, setCancelSpin] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
+   const [isValid, setIsValid] = useState(true);
    const {
       account,
       biddingStartDate,
@@ -133,14 +137,45 @@ const WorkLock = props => {
    return (
       <div className={s.worklock_wrapper}>
          <Modal ref={modalRef}>
-            <h2 className={s.modal_title}>Place new bid</h2>
-
-            <input placeholder='Enter ETH amount' className={s.bid_input} type="text"/>
-            <span className={s.modal_bidding_closed}>Bidding period ended.</span>
-            <div className={s.modal_buttons_group}>
-               <span onClick={closeModal}>Close</span>
-               <span>Confirm</span>
-            </div>
+            <ModalContent isValid={isValid}>
+                  <span>Place new bid</span>
+                  <div>
+                  
+                     <b>
+                        Bidding period ended.
+                     </b>
+                     <label htmlFor="">Enter bid amount (ETH):</label>
+                     <input
+                        placeholder="0.0"
+                        // value={inputAddress}
+                        // onChange={(e) => setInputAddress(e.target.value)}
+                     />
+                  </div>
+                  <div className="button_wrapper">
+                     <ControlButton
+                        onClick={closeModal}
+                        background="#444"
+                        background_hover="#484848">
+                        Cancel
+                     </ControlButton>
+                     <ControlButton
+                        blue
+                        // onClick={}
+                        background="#0077ff"
+                        style={{pointerEvents: 'none'}}
+                        background_hover="#1683ff">
+                        {isLoading ? (
+                           <img
+                              style={{ marginTop: "10px" }}
+                              src={RoundSpinner}
+                              alt="React Logo"
+                           />
+                        ) : (
+                           "Confirm"
+                        )}
+                     </ControlButton>
+                  </div>
+               </ModalContent>
          </Modal>
          <div className={s.worklock_participant}>
             <div className={s.participant_address}>
