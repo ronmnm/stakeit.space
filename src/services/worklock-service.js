@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import { WORKLOCK_ADDRESS, WORKLOCK_ABI } from "../ethereum/instances/worklock";
-import { instanceEscrow } from "../ethereum/instances/instances";
+import { Escrow } from "../ethereum/instances/instances";
 
 const web3 = new Web3(window.ethereum);
 
@@ -154,7 +154,7 @@ export default class WorklockService {
       const bonusRefundRate =
          (bonusDepositRate * SLOWING_REFUND) / boostingRefund;
 
-      const completedWork = (await instanceEscrow.methods
+      const completedWork = (await Escrow.methods
          .getCompletedWork(account)
          .call()) - workInfo[1];
       // const completedWork = blabla - refundedWork;
@@ -231,7 +231,6 @@ export default class WorklockService {
          refund: refund,
          refundedWork: refundedWork,
 
-         workInfo: workInfo,
          methods: instanceWorklock.methods,
 
          completedWork: completedWork

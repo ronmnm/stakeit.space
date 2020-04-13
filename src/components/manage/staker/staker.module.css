@@ -76,27 +76,25 @@
 }
 
 .btn_group button {
-   background-color: #333; /* Green background */
+   background-color: #141414; /* Green background */
    border: none;
    color: rgb(182, 182, 182); /* White text */
    padding: 6px 22px; /* Some padding */
    cursor: pointer; /* Pointer/hand icon */
    float: left; /* Float the buttons side by side */
-   transition: 0.4s;
-   font-family: "Arial", sans-serif;
+   transition: 0.2s;
+   font-family: "Lato", sans-serif;
 }
 
 .btn_group button:first-child {
-   /* border-right: none; Prevent double borders */
-   border-top-left-radius: 8px;
-   border-bottom-left-radius: 8px;
-   /* border-right: 1px solid #2d7430; */
+   border-radius: 8px;
+
+
 }
 .btn_group button:last-child {
-   /* border-right: none; Prevent double borders */
+   
+   border-radius: 8px;
 
-   border-top-right-radius: 8px;
-   border-bottom-right-radius: 8px;
 }
 
 /* Clear floats (clearfix hack) */
@@ -107,15 +105,18 @@
 }
 /* Add a background color on hover */
 .btn_group button:hover {
-   background-color: #4e4e4e;
+   background-color: #333;
    color: white;
+   border-radius: 8px;
 }
 .btn_group button:focus {
    outline: none;
+   background-color: #333;
+   color: white;
 }
 
 .button_active {
-   background-color: #0077ff !important;
+   background-color: #584ab6 !important;
    pointer-events: none;
    cursor: none;
    color: white !important;

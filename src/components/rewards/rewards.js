@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import s from "./rewards.module.css";
 
 import ReactGA from "react-ga";

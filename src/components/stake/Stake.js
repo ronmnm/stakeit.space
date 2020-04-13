@@ -124,7 +124,7 @@ export default class Stake extends React.Component {
 
                <form action="" className={s.my_form}>
                   <div className={s.input_container}>
-                     <label for="NU">NU</label>
+                     <label htmlFor="NU">NU</label>
                      <input
                         onChange={e => this.props.handleAmount(e.target.value)}
                         placeholder="15000"
@@ -139,7 +139,7 @@ export default class Stake extends React.Component {
                      <span>Duration:</span>
                   </div>
                   <div className={s.input_container}>
-                     <label for="days">days</label>
+                     <label htmlFor="days">days</label>
                      <input
                         onChange={e =>
                            this.props.handleDurationState(e.target.value)

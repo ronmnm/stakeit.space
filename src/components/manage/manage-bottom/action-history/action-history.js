@@ -6,16 +6,8 @@ const ActionHistory = () => {
    }, []);
    return (
       <div>
-         <div>Coming soon...</div>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
-         <h1>hhhh</h1>
+         <div style={{textAlign: 'center'}}>In development...</div>
+
       </div>
    );
 };

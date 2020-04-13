@@ -13,6 +13,8 @@ const WorkLock = props => {
    const [cancelSpin, setCancelSpin] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
    const [isValid, setIsValid] = useState(true);
+
+
    const {
       account,
       biddingStartDate,
@@ -32,18 +34,18 @@ const WorkLock = props => {
       claimTokens,
       tokensAllocated,
       claimingBool,
-      completedWork,
+      // completedWork,
       аvailableRefund,
-      getRemainingWork,
+      // getRemainingWork,
       tokenSupply,
       bonusTokenSupply,
       claimed,
-      refundedWork,
+      // refundedWork,
       refund,
       cancelBid
    } = props.worklockData;
 
-   const slicedAddr = `${account.slice(0, 6)}...${account.slice(-4)}`;
+   // const slicedAddr = `${account.slice(0, 6)}...${account.slice(-4)}`;
    // console.log(props.worklockData);
 
    let disableCanBtn;
@@ -133,7 +135,7 @@ const WorkLock = props => {
       modalRef.current.closeMod();
    }
 
-   console.log(props.worklockData);
+   // console.log(props.worklockData);
    return (
       <div className={s.worklock_wrapper}>
          <Modal ref={modalRef}>

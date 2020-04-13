@@ -50,9 +50,9 @@ export default class Header extends React.Component {
           <NavLink className="my_nav_item" to="/manage">
             Manage
           </NavLink>
-          <NavLink className="my_nav_item disable" to="/rewards">
+          {/* <NavLink className="my_nav_item disable" to="/rewards">
             Rewards
-          </NavLink>
+          </NavLink> */}
           <NavLink className="my_nav_item" to="/worklock">
             Worklock
           </NavLink>

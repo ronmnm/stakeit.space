@@ -23,7 +23,7 @@ const ModalBackdrop = styled.div`
    left: 0;
    right: 0;
    z-index: 100;
-   background-color: rgba(0, 0, 0, 0.5);
+   background-color: rgba(44, 44, 44, 0.58);
 `;
 const ModalWindow = styled.div`
    position: relative;

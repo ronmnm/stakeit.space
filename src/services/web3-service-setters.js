@@ -1,16 +1,16 @@
 import Web3 from "web3";
-import { instanceEscrow } from "../ethereum/instances/instances";
+import { Escrow } from "../ethereum/instances/instances";
 
 const web3 = new Web3(window.ethereum);
 
 export default class ServiceWeb3Setters {
    async getSetters() {
-      console.log(instanceEscrow.methods);
+      console.log(Escrow.methods);
       const setters = {};
       setters.setRestake = async (value) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await instanceEscrow.methods
+            await Escrow.methods
                .setReStake(value)
                .send({ from: accounts[0] });
          } catch (err) {
@@ -21,7 +21,7 @@ export default class ServiceWeb3Setters {
       setters.setWinddown = async (value) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await instanceEscrow.methods
+            await Escrow.methods
                .setWindDown(value)
                .send({ from: accounts[0] });
          } catch (err) {
@@ -32,7 +32,7 @@ export default class ServiceWeb3Setters {
       setters.setWorker = async (address) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await instanceEscrow.methods
+            await Escrow.methods
                .setWorker(address)
                .send({ from: accounts[0] });
          } catch (err) {
@@ -43,7 +43,7 @@ export default class ServiceWeb3Setters {
       setters.prolongStake = async (index, periods) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await instanceEscrow.methods
+            await Escrow.methods
                .prolongStake(index, periods)
                .send({ from: accounts[0] });
          } catch (err) {
@@ -59,7 +59,7 @@ export default class ServiceWeb3Setters {
             // console.log(typeof nits);
             // console.log(nits);
 
-            await instanceEscrow.methods
+            await Escrow.methods
                .divideStake(index, nits, periods)
                .send({ from: accounts[0] });
          } catch (err) {

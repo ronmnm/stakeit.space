@@ -44,7 +44,8 @@ padding: 0 20px;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  grid-template-columns: repeat(4, minmax(100px, 120px));
+  grid-template-columns: repeat(3, minmax(120px, 150px));
+  column-gap: 10px;
 }
 .my_nav_item {
   text-align: center;

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import ReactGA from "react-ga";
-import { NavLink, Route, Redirect } from "react-router-dom";
+import React from "react";
+// import ReactGA from "react-ga";
 
 import "./Manage.css";
 
@@ -33,6 +32,7 @@ export default props => {
             worker={worker}
             workerEthBal={workerEthBal}
             setWorker={setWorker}
+            confirmedPeriod1={props.manageData.confirmedPeriod1}
          />
 
          {/* Bottom Nav */}

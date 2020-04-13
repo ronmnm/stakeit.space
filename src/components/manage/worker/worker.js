@@ -29,7 +29,7 @@ const WorkerButton = styled.span`
       background-color: #444444;
    }
 `;
-const ModalContent = styled.div`
+export const ModalContent = styled.div`
    display: grid;
    grid-template-rows: 1fr 4fr;
    grid-auto-columns: 1fr;
@@ -102,7 +102,7 @@ const ModalContent = styled.div`
    }
 `;
 
-const Worker = ({ worker, workerEthBal, setWorker }) => {
+const Worker = ({ worker, workerEthBal, setWorker, confirmedPeriod1 }) => {
    const [inputAddress, setInputAddress] = useState("");
    const [isValid, setIsValid] = useState(true);
    const [isLoading, setIsLoading] = useState(false);
@@ -161,9 +161,15 @@ const Worker = ({ worker, workerEthBal, setWorker }) => {
 
          <div className="worker_content">
             <p>
-               Ether Balance:{" "}
+               Ether Balance:
                <span>
                   <b>{workerEthBal}</b> ETH
+               </span>
+            </p>
+            <p>
+               Activity:
+               <span>
+                  <b>{confirmedPeriod1}</b>
                </span>
             </p>
          </div>

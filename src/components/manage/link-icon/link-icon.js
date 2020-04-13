@@ -5,7 +5,8 @@ const Icon = ({address}) => {
       <a
          className={s.a_icon}
          href={`https://goerli.etherscan.io/address/${address}`}
-         target="_blank">
+         target="_blank"
+         rel="noopener noreferrer">
          <i
             className={`fas fa-external-link-alt fa-xs ${s.fa_external_link_alt}`}></i>
       </a>
