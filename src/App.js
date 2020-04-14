@@ -7,7 +7,7 @@ import './App.css';
 
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
-import Stake from './components/stake/Stake';
+import StakeContainer from './components/stake/StakeContainer';
 import Manage from './components/manage/Manage';
 import Worklock from './components/worklock/worklock';
 import Rewards from './components/rewards/rewards';
@@ -149,12 +149,12 @@ class App extends React.Component {
       }
 
       const stake = (
-         <Stake
+         <StakeContainer
             stakeData={stakeData}
             account={account}
             amount={this.state.amount}
             duration={this.state.duration}
-            handleDurationState={this.handleDurationState}
+            handleDuration={this.handleDurationState}
             handleAmount={this.handleAmountState}
          />
       );

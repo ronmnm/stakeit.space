@@ -1,189 +1,154 @@
 // import Web3 from "web3";
-import React from "react";
-import ReactGA from "react-ga";
+// import ReactGA from 'react-ga';
+import React from 'react';
+import styled from 'styled-components';
+import { colors } from '../../constants/colors';
 
-import s from "./Stake.module.css";
-import ConfirmationText from "./confirm-text";
-import StakeService from "../../services/stake-service";
-import RoundSpinner from '../loader/7.svg';
+// import s from './Stake.module.css';
+import Slider from './Slider';
+import InputText from './Input';
 
-const stakeService = new StakeService();
+// import StakeService from '../../services/stake-service';
+// import RoundSpinner from '../loader/7.svg';
 
-export default class Stake extends React.Component {
-   state = {
-      balanceNu: "",
-      clicked: false,
-      confirmBtnLoading: false
-   };
+// const stakeService = new StakeService();
 
-   constructor(props) {
-      super(props);
-      this.onButtonClick = this.onButtonClick.bind(this);
-      this.confirmationClick = this.confirmationClick.bind(this);
+export const StakeWrapper = styled.div`
+   height: 500px;
+   margin-bottom: 20%;
+   padding-top: 5vh;
+   border-radius: 15px;
+   margin-top: 4vh;
+   h4 {
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 500;
+      color: ${colors.whiteText};
+      padding-bottom: 15px;
    }
-
-   async confirmationClick() {
-      this.setState({ confirmBtnLoading: true });
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Confirm button click',
-         label: 'stake_tab_label'
-      })
-      const approveAndCall = stakeService.getApproveAndCall();
-      await approveAndCall(this.props.amount, this.props.duration);
-
-      this.setState({ confirmBtnLoading: false });
+   .button_group_confirm {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: center;
+      column-gap: 20px;
+      margin-top: 20px;
    }
+`;
 
-   onButtonClick(e) {
-      e.preventDefault();
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Click Stake It button',
-         label: 'stake_tab_label'
-      })
+const FormWrapper = styled.div`
+   width: 350px;
+   margin: 0 auto;
+   margin-top: 30px;
+`;
 
-      this.setState({ clicked: true });
+const InputTitle = styled.div`
+   display: flex;
+   justify-content: space-between;
+   padding: 0 25px;
+   span {
+      font-size: 14px;
+      cursor: pointer;
+      color: ${colors.greyText};
    }
-
-   render() {
-      const { amount, duration } = this.props;
-
-      let balanceNu = 0;
-      if (this.props.stakeData !== null) {
-         balanceNu = this.props.stakeData.balanceNu.toFixed(0);
-      }
-
-      let amount_error;
-      if (amount >= 15000 || amount === null) {
-         amount_error = null;
-      } else {
-         amount_error = s.amount_error;
-      }
-
-      let duration_error;
-      if ((duration >= 30 && duration <= 365) || duration === null) {
-         duration_error = null;
-      } else {
-         duration_error = s.amount_error;
-      }
-
-      let disable = s.disable;
-      if (duration >= 30 && duration <= 365 && amount >= 15000) {
-         disable = null;
-      }
-
-      let ConfirmButtonContent = "Confirm";
-      if (this.state.confirmBtnLoading === true) {
-         ConfirmButtonContent = <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" />
-      }
-      // (this.state.amountError) ? amount_error = s.amount_error : amount_error = null;
-
-      if (this.state.clicked) {
-         return (
-            <div className={s.my_stake}>
-               <h4>add new stake</h4>
-               <div>
-                  <ConfirmationText
-                     account={this.props.account}
-                     amount={amount}
-                     duration={duration}
-                  />
-
-                  <div className={s.button_group_confirm}>
-                     <span
-                        className={s.back_button}
-                        onClick={() => {
-                           this.setState({ clicked: false });
-                        }}>
-                        Back
-                     </span>
-                     <span
-                        className={`${s.confirm_button}`}
-                        onClick={this.confirmationClick}>
-                        {ConfirmButtonContent}
-                     </span>
-                  </div>
-               </div>
-            </div>
-         );
-      }
-
-      return (
-         <div className={s.my_stake}>
-            <h4>Add New Stake</h4>
-            <div className={s.form_container}>
-               <div className={s.stake_info}>
-                  <span>Amount:</span>
-                  <span
-                     className={s.balance_click}
-                     onClick={e => this.props.handleAmount(balanceNu)}>
-                     Balance: <b>{balanceNu}</b> NU
-                  </span>
-               </div>
-
-               <form action="" className={s.my_form}>
-                  <div className={s.input_container}>
-                     <label htmlFor="NU">NU</label>
-                     <input
-                        onChange={e => this.props.handleAmount(e.target.value)}
-                        placeholder="15000"
-                        className={`${s.my_input} ${amount_error}`}
-                        autoComplete="off"
-                        type="text"
-                        name="nuAmount"
-                        value={amount || ""}
-                     />
-                  </div>
-                  <div className={s.stake_info}>
-                     <span>Duration:</span>
-                  </div>
-                  <div className={s.input_container}>
-                     <label htmlFor="days">days</label>
-                     <input
-                        onChange={e =>
-                           this.props.handleDurationState(e.target.value)
-                        }
-                        value={duration || ""}
-                        placeholder="30"
-                        className={`${s.my_input} ${duration_error}`}
-                        autoComplete="off"
-                        type="text"
-                        name="duration"
-                     />
-                  </div>
-                  <div className={s.slider}>
-                     <input
-                        type="range"
-                        min="30"
-                        step="1"
-                        value={duration || "30"}
-                        max="365"
-                        onChange={e =>
-                           this.props.handleDurationState(e.target.value)
-                        }
-                     />
-                     <div>
-                        <span>30</span>
-                        <span>365</span>
-                     </div>
-                  </div>
-
-                  {/* Button group */}
-                  <div className={s.button_group}>
-                     <span
-                        className={`${s.button_stake_it} ${disable}`}
-                        onClick={this.onButtonClick}>
-                        Stake It!
-                     </span>
-                     <span className={s.text_above_button}>
-                        Enter amount and duration to continue.
-                     </span>
-                  </div>
-               </form>
-            </div>
-         </div>
-      );
+   .balance_click {
+      font-weight: 700;
+      color: ${colors.whiteText};
+      letter-spacing: 0.5px;
    }
-}
+`;
 
+const Button = styled.div`
+   display: grid;
+   flex-direction: column;
+   margin-top: 20px;
+   span:last-child {
+      font-size: 11px;
+      text-align: center;
+      color: #888;
+   }
+   span:first-child {
+      padding: 10px 0;
+      font-size: 14px;
+      letter-spacing: 0.8px;
+      background-color: ${({ disable }) => (disable ? colors.darkGrey : colors.blue)};
+      color: ${({ disable }) => (disable ? colors.greyText : colors.whiteText)};
+      pointer-events: ${({ disable }) => (disable ? 'none' : 'auto')};
+      border: none;
+      width: 95%;
+      margin: 30px auto 15px auto;
+      border-radius: 10px;
+      font-family: Lato, sans-serif;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+      &:hover {
+         background-color: #006ae2;
+      }
+      &:focus {
+         outline: none;
+      }
+   }
+`;
+
+const Stake = ({
+   balanceNu,
+   amount,
+   duration,
+   amount_error,
+   duration_error,
+   disable,
+   handleAmount,
+   handleDuration,
+   onButtonClick,
+}) => {
+   return (
+      <StakeWrapper>
+         <h4>Add New Stake</h4>
+         <FormWrapper>
+            <InputTitle>
+               <span>Amount:</span>
+               <span onClick={() => handleAmount(balanceNu)}>
+                  Balance: <b className="balance_click">{balanceNu}</b> NU
+               </span>
+            </InputTitle>
+
+            <InputText
+               onChange={(e) => handleAmount(e.target.value)}
+               error={amount_error}
+               placeholder="0.0"
+               autoComplete="off"
+               type="text"
+               name="nuAmount"
+               value={amount}
+               label="NU"
+            />
+
+            <InputTitle>
+               <span>Duration:</span>
+            </InputTitle>
+
+            <InputText
+               onChange={(e) => handleDuration(e.target.value)}
+               placeholder="30"
+               error={duration_error}
+               handleDuration={handleDuration}
+               value={duration}
+               name="duration"
+               label="DAYS"
+            />
+
+            <Slider duration={duration} handleDuration={handleDuration} />
+
+            <Button disable={disable}>
+               <span onClick={onButtonClick}>Stake It!</span>
+               <span>Enter amount and duration to continue.</span>
+            </Button>
+         </FormWrapper>
+      </StakeWrapper>
+   );
+};
+
+export default Stake;
