@@ -26,7 +26,7 @@ export default class Header extends React.Component {
         addressButton = <WrongNetwork />;
         break;
       case "ok":
-        addressButton = <Address account={this.props.account} />;
+        addressButton = <Address />;
         break;
       case "connect":
         addressButton = <ConnectWallet onClick={this.props.onClick} />;
