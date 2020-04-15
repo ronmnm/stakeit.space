@@ -1,17 +1,10 @@
-// import Web3 from "web3";
-// import ReactGA from 'react-ga';
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../constants/colors';
 
-// import s from './Stake.module.css';
+import { colors } from '../../constants/colors';
 import Slider from './Slider';
 import InputText from './Input';
 
-// import StakeService from '../../services/stake-service';
-// import RoundSpinner from '../loader/7.svg';
-
-// const stakeService = new StakeService();
 
 export const StakeWrapper = styled.div`
    height: 500px;

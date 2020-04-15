@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { Escrow, Token } from '../ethereum/instances/instances';
+import { Escrow, Token, instancePolicy } from '../ethereum/instances/instances';
 
 const web3 = new Web3(window.ethereum);
 
@@ -14,7 +14,13 @@ export default class ServiceWeb3 {
       const nits = await Token.methods.balanceOf(stakerData.account).call();
       stakerData.balanceNu = parseFloat(nits) / 10 ** 18;
 
+      const policyFee = await instancePolicy.methods
+         .nodes(stakerData.account)
+         .call();
+
+      console.log(policyFee);
       return stakerData;
+      
    }
 
    getManageData = async () => {

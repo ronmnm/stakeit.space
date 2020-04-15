@@ -13,7 +13,7 @@ const stakeService = new StakeService();
 
 export default class StakeContainer extends React.Component {
    state = {
-      clicked: true,
+      clicked: false,
       confirmBtnLoading: false
    };
 
