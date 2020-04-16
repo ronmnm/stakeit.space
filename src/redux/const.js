@@ -1,0 +1,13 @@
+
+export const SET_CONNECTED_ADDRESS = 'SET_CONNECTED_ADDRESS';
+export const UPDATE_CONNECTED_ADDRESS = 'UPDATE_CONNECTED_ADDRESS';
+
+export const STATUS_LOADING = 'LOADING';
+export const STATUS_OK = 'OK';
+export const STATUS_WRONG = 'WRONG';
+export const STATUS_CONNECT = 'STATUS_CONNECT';
+export const STATUS_INSTALL = 'STATUS_INSTALL';
+
+
+
+
