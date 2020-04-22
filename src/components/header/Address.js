@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import Blockies from 'react-blockies';
 import { connect } from 'react-redux';
-import { colors } from '../../../constants/colors';
-import RoundSpinner from '../../loader/7.svg';
+import { dark } from '../../themes/theme';
+import RoundSpinner from '../loader/7.svg';
 
 const InstallButton = styled.div`
    width: 140px;
    height: 30px;
    border-radius: 8px;
-   background-color: #333;
+   background-color: ${({theme}) => theme.backgroundPale};
    display: flex;
    justify-content: center;
    align-items: center;
-   transition: 0.3s;
+   /* transition: 0.3s; */
    &:hover {
       background-color: #444;
       cursor: pointer;
@@ -22,6 +22,7 @@ const InstallButton = styled.div`
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.5px;
+      color: ${({theme}) => theme.textPrimary}
    }
 `;
 
@@ -52,21 +53,21 @@ const AddressButton = styled(InstallButton)`
       letter-spacing: 0.5px;
       display: flex;
       font-size: 13px;
-      color: ${colors.whiteText};
+      color: ${dark.whiteText};
       justify-content: flex-end;
       margin: 0 auto;
    }
 `;
 
 const ConnectButton = styled(InstallButton)`
-   background-color: ${colors.blue};
-   /* border: 1px solid ${colors.blue}; */
+   background-color: ${dark.blue};
+   /* border: 1px solid ${dark.blue}; */
    span {
-      color: ${colors.whiteText};
+      color: ${dark.whiteText};
       transition: .2s;
    }
    &:hover {
-      background-color: ${colors.hoverBlue};
+      background-color: ${dark.hoverBlue};
    }
 `;
 
@@ -121,10 +122,17 @@ const Address = ({ account, status, onClick }) => {
             </ConnectButton>
          );
       default:
-         return <div>hi</div>
+         return <div>hi</div>;
    }
 };
 
-const mapStateToProps = ({address, status}) => ({ account: address.address, status: status.status, onClick: status.onConnectClick });
+const mapStateToProps = ({user}) => ({
+   account: user.account,
+   status: user.accountStatus,
+   onClick: user.onConnectClick
+});
+// const mapDispatchToProps = (dispatch) => ({
+//    onClick: status.onConnectClick
+// })
 
 export default connect(mapStateToProps)(Address);
