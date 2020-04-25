@@ -61,31 +61,28 @@ const FooterItems = styled.div`
 `;
 const Footer = ({ percentLocked, lockedNu, activeStakers, currentPeriod, circulatingSupply, isFooterDataLoading }) => {
 
-   if(isFooterDataLoading){
-      return <FooterStyled />
-   }
    return (
       <FooterStyled>
          <FooterItems>
             <div className="footer_item">
                <span>Current Period</span>
-               <span>{currentPeriod}</span>
+               <span>{isFooterDataLoading ? '0' : currentPeriod}</span>
             </div>
             <div className="footer_item">
                <span>Total NU Staked</span>
-               <span>{lockedNu}</span>
+               <span>{isFooterDataLoading ? '0' : lockedNu}</span>
             </div>
             <div className="footer_item">
                <span>Circulating Supply</span>
-               <span>{circulatingSupply} Bn</span>
+               <span>{isFooterDataLoading ? '0' : circulatingSupply} Bn</span>
             </div>
             <div className="footer_item">
                <span>Staking Ratio</span>
-               <span>{percentLocked} %</span>
+               <span>{isFooterDataLoading ? '0' : percentLocked} %</span>
             </div>
             <div className="footer_item">
                <span>Active Stakers</span>
-               <span>{activeStakers}</span>
+               <span>{isFooterDataLoading ? '0' : activeStakers}</span>
             </div>
          </FooterItems>
          <ToggleButtonContainer />
