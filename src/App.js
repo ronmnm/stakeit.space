@@ -2,6 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import { Router, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -10,187 +11,128 @@ import Header from './components/header/Header';
 import StakeContainer from './components/stake/StakeContainer';
 import Manage from './components/manage/Manage';
 import Worklock from './components/worklock/worklock';
-import Rewards from './components/rewards/rewards';
-import FooterLoader from './components/loader/footer-loader';
-import MainSpinner from './components/loader/main-spinner';
+// import Rewards from './components/rewards/rewards';
 
-import ServiceWeb3 from './services/web3-service';
-import ServiceWeb3Setters from './services/web3-service-setters';
-import WorklockService from './services/worklock-service';
+import { store } from './redux/store';
+import { setAccount, setStatusThunk, getDataThunk, setManageData, setWorklockData } from './redux/reducers';
+import { LOADING, OK, WRONG, CONNECT, INSTALL } from './redux/reducers';
 
 const history = createBrowserHistory();
 const stakeit = 'UA-162529903-1';
-// const test = "UA-162797521-1";
+const test = 'UA-162797521-1';
+const ethereum = window.ethereum;
 
 ReactGA.initialize(stakeit);
 
-history.listen((location) => {
+history.listen(location => {
    ReactGA.set({ page: location.pathname }); // Update the user's current page
    ReactGA.pageview(location.pathname); // Record a pageview for the given page
 });
 
-const serviceWeb3 = new ServiceWeb3();
-const serviceSetters = new ServiceWeb3Setters();
-const worklockService = new WorklockService();
-
 class App extends React.Component {
    constructor(props) {
       super(props);
-      this.handleClick = this.handleClick.bind(this);
+      // this.handleClick = this.handleConnectClick.bind(this);
       this.setState = this.setState.bind(this);
-      this.handleAmountState = this.handleAmountState.bind(this);
-      this.handleDurationState = this.handleDurationState.bind(this);
+      // this.handleAmountState = this.handleAmountState.bind(this);
+      // this.handleDurationState = this.handleDurationState.bind(this);
+      // this.metamaskChecking = this.metamaskChecking.bind(this);
    }
    state = {
-      manageData: null,
-      stakeData: null,
-      footerData: null,
-      withdrawData: null, /////
       setters: null,
-      worklockData: null,
-      buttonStatus: 'loading',
-      footerStatus: 'loading',
-      isConnected: false,
       address: null,
       approveAndCall: null,
       amount: null,
       duration: null,
    };
-   handleAmountState(amount) {
-      this.setState({ amount: amount });
-   }
-   handleDurationState(duration) {
-      this.setState({ duration: duration });
-   }
 
-   async componentDidMount() {
+   componentDidMount() {
       this.metamaskChecking();
    }
-   componentDidUpdate() {}
+   handleAmountState = amount => {
+      this.setState({ amount: amount });
+   };
+   handleDurationState = duration => {
+      this.setState({ duration: duration });
+   };
 
-   metamaskChecking() {
+   metamaskChecking = () => {
       if (typeof window.ethereum !== 'undefined') {
-         if (window.ethereum.networkVersion === '5' || window.ethereum.networkVersion === undefined) {
-            if (window.ethereum.selectedAddress !== null || this.state.address !== null) {
-               serviceWeb3.getStakerBalAddr().then((res) => {
-                  this.setState({
-                     stakeData: res,
-                     buttonStatus: 'ok',
-                  });
+         const ethereum = window.ethereum;
+         if (ethereum.selectedAddress !== null || this.props.account !== '') {
+            if (ethereum.networkVersion === '5' || ethereum.networkVersion === undefined) {
+               this.props.getDataThunk();
+               ethereum.on('accountsChanged', () => {
+                  store.dispatch(setManageData({}, true))
+                  store.dispatch(setWorklockData({}, true))
+                  this.props.setStatusThunk(LOADING)
+                  this.props.getDataThunk();
                });
-               serviceWeb3.getFooterData().then((res) => this.setState({ footerData: res, footerStatus: 'done' }));
-               serviceWeb3.getManageData().then((res) => {
-                  this.setState({ manageData: res });
-               });
-               serviceSetters.getSetters().then((res) => this.setState({ setters: res }));
-               worklockService.getWorklockData().then((res) => this.setState({ worklockData: res }));
             } else {
-               this.setState({ buttonStatus: 'connect' });
+               this.props.setStatusThunk(WRONG);
             }
          } else {
-            this.setState({ buttonStatus: 'wrong' });
+            this.props.setStatusThunk(CONNECT, this.handleConnectClick);
          }
       } else {
-         this.setState({ buttonStatus: 'install' });
+         this.props.setStatusThunk(INSTALL);
       }
-   }
+   };
 
-   async handleClick() {
-      this.setState({ buttonStatus: 'loading' });
+   handleConnectClick = async () => {
+      this.props.setStatusThunk(LOADING);
       try {
-         await window.ethereum.enable().then((ob) => {
-            console.log(ob);
-            this.setState({ address: ob[0] });
+         await ethereum.enable().then(obj => {
+            this.metamaskChecking();
+            console.log('inside try');
          });
-         this.metamaskChecking();
+         console.log('out of try');
       } catch (error) {
-         this.setState({ buttonStatus: 'connect' });
-         console.log('user denied');
+         this.props.setStatusThunk(CONNECT, this.handleConnectClick);
       }
-   }
+   };
 
    render() {
-      const {
-         buttonStatus,
-         isConnected,
-         // objects
-         stakeData,
-         manageData,
-         footerData,
-         footerStatus,
-         worklockData,
-      } = this.state;
-
-      let manage = <MainSpinner />;
-      if (buttonStatus === 'install') {
-         manage = <div style={{ margin: 'auto' }}>Install metamask</div>;
-      } else if (buttonStatus === 'wrong') {
-         manage = <div style={{ margin: 'auto' }}>Please connect to goerli network.</div>;
-      } else if (buttonStatus === 'connect') {
-         manage = <div style={{ margin: 'auto' }}>Connect a wallet</div>;
-      } else if (manageData) {
-         manage = <Manage manageData={manageData} setters={this.state.setters} setWinddown={this.state.setWinddown} />;
-      }
-
-      let worklock = <MainSpinner />;
-      if (worklockData) {
-         worklock = <Worklock worklockData={worklockData} />;
-      } else if (buttonStatus === 'wrong') {
-         worklock = <div style={{ margin: 'auto' }}>Please connect to goerli network.</div>;
-      } else if (buttonStatus === 'connect') {
-         worklock = <div style={{ margin: 'auto' }}>Connect a wallet</div>;
-      } else if (buttonStatus === 'install') {
-         worklock = <div style={{ margin: 'auto' }}>Install metamask</div>;
-      }
-
-      let account;
-      if (stakeData) {
-         account = stakeData.account;
-      }
-
-      const stake = (
-         <StakeContainer
-            stakeData={stakeData}
-            account={account}
-            amount={this.state.amount}
-            duration={this.state.duration}
-            handleDuration={this.handleDurationState}
-            handleAmount={this.handleAmountState}
-         />
-      );
-      const rewards = (
-         <Rewards
-            fee={this.state.stakerData ? this.state.stakerData.policyFee : 'Loading'}
-            nu={this.state.manageData ? this.state.manageData.stakerNuUnlocked.toFixed(3) : 'Loading'}
-            eth={this.state.worklockData ? this.state.worklockData.аvailableRefund : 'Loading'}
-         />
-      );
-      const footer = <Footer footerData={footerData} />;
-
       return (
-            <Router history={history}>
-               <div className="my_wrapper">
-                  <Header account={account} isConnected={isConnected} network={this.state.network} buttonStatus={buttonStatus} onClick={this.handleClick} />
+         <Router history={history}>
+            <div className="my_wrapper">
+               <Header />
 
-                  <div className="my_content_wrapper">
-                     <Route path="/" exact>
-                        <Redirect to="/stake" />
-                     </Route>
+               <div className="my_content_wrapper">
+                  <Route path="/" exact>
+                     <Redirect to="/stake" />
+                  </Route>
 
-                     <Route path="/stake" render={() => stake} />
+                  <Route
+                     path="/stake"
+                     render={() => (
+                        <StakeContainer
+                           // stakeData={stakeData}
+                           // account={account}
+                           amount={this.state.amount}
+                           duration={this.state.duration}
+                           handleDuration={this.handleDurationState}
+                           handleAmount={this.handleAmountState}
+                        />
+                     )}
+                  />
 
-                     <Route path="/manage" render={() => manage} />
+                  <Route path="/manage" render={() => <Manage />} />
 
-                     <Route path="/rewards" render={() => rewards} />
+                  {/* <Route path="/rewards" render={() => rewards} /> */}
 
-                     <Route path="/worklock" render={() => worklock} />
-                  </div>
-
-                  {footerStatus === 'loading' ? <FooterLoader /> : footer}
+                  <Route path="/worklock" render={() => <Worklock />} />
                </div>
-            </Router>
+
+               <Footer />
+            </div>
+         </Router>
       );
    }
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+   account: user.account,
+});
+
+export default connect(mapStateToProps, { setStatusThunk, getDataThunk })(App);
