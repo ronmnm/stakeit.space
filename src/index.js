@@ -1,22 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import ReactGA from "react-ga";
-import { createGlobalStyle } from 'styled-components';
-
 import App from './App';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${(props) => (props.whiteColor ? 'white' : '#131313')};
-  }
-`;
+import { ThemeProvider } from 'styled-components';
+import { theme } from './themes/theme';
+import { GlobalStyles } from './themes/global';
 
-const root = document.getElementById('root');
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
-ReactDOM.render(
-   <React.Fragment>
-      <GlobalStyle />
-      <App />
-   </React.Fragment>,
-   root
-);
+window.store = store;
+
+
+const update = () => {
+   
+   const darkModeValue = JSON.parse(localStorage.getItem('darkmode'));
+
+   ReactDOM.render(
+      <Provider store={store}>
+         <ThemeProvider theme={theme(darkModeValue ? darkModeValue.darkMode : true)}>
+            <GlobalStyles />
+            <App />
+         </ThemeProvider>
+      </Provider>,
+      document.getElementById('root')
+   );
+};
+update();
+store.subscribe(update);
