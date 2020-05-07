@@ -5,7 +5,7 @@ import ToggleButtonContainer from './ToggleThemeButton';
 
 const FooterStyled = styled.div`
    background-color: ${({ theme }) => theme.footerBackground};
-   /* border-top: 1px solid ${({ theme }) => theme.footerBorder}; */
+   border-top: 1px solid ${({ theme }) => theme.footerBorder};
    height: 60px;
    margin-top: auto;
    position: fixed;
@@ -13,44 +13,20 @@ const FooterStyled = styled.div`
    width: 100%;
    font-size: 12px;
    display: grid;
-   grid-template-columns: 1fr 45px;
+   grid-template-columns: 1fr 50px;
    z-index: 1;
-
-   .switch_button {
-      display: grid;
-      align-content: center;
-      div {
-         width: 28px;
-         height: 28px;
-         padding: 7px;
-         border-radius: 8px;
-         cursor: pointer;
-         background-color: ${({ theme }) => theme.backgroundPale};
-         /* border: 1px solid ${({ theme }) => theme.footerBorder}; */
-         &:hover {
-            
-         }
-         svg {
-            fill: #ddd;
-            /* fill: ${({ theme }) => theme.svgFooter}; */
-         }
-      }
-      img {
-         color: white;
-      }
-   }
 `;
 
 const FooterItems = styled.div`
    display: flex;
-   margin-left: 45px;
+   margin-left: 50px;
    align-items: center;
    justify-self: center;
    .footer_item {
       color: ${({ theme }) => theme.textSecondary};
       margin: 0 10px;
       span:last-child {
-         background-color: ${({ theme }) => theme.backgroundPale};
+         background-color: ${({ theme }) => theme.background2};
          font-weight: 600;
          padding: 3px 8px;
          margin: 0px 5px;
