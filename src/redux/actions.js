@@ -1,4 +1,4 @@
-import * as _ from './const'
+import * as _ from './reducers'
 
 
 
@@ -7,10 +7,6 @@ export const setConnectedAddressAC = (connectedAddress) => ({
    connectedAddress,
 });
 
-export const updateConnectedAddressAC = (connectedAddress) => ({
-   type: _.UPDATE_CONNECTED_ADDRESS,
-   connectedAddress,
-});
 
 export const setStatusAC = (status, payload) => ({
    type: status,
