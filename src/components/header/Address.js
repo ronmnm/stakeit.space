@@ -2,27 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import Blockies from 'react-blockies';
 import { connect } from 'react-redux';
-import { dark } from '../../themes/theme';
 import RoundSpinner from '../loader/7.svg';
 
 const InstallButton = styled.div`
    width: 140px;
    height: 30px;
    border-radius: 8px;
-   background-color: ${({theme}) => theme.backgroundPale};
+   border: 1px solid ${({ theme }) => theme.background2};
+   background-color: ${({ theme }) => theme.addressBackground};
    display: flex;
    justify-content: center;
    align-items: center;
-   /* transition: 0.3s; */
    &:hover {
-      background-color: #444;
       cursor: pointer;
    }
    span {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.5px;
-      color: ${({theme}) => theme.textPrimary}
+      color: ${({ theme }) => theme.textPrimary};
    }
 `;
 
@@ -53,44 +51,49 @@ const AddressButton = styled(InstallButton)`
       letter-spacing: 0.5px;
       display: flex;
       font-size: 13px;
-      color: ${dark.whiteText};
+      color: ${({ theme }) => theme.whiteText};
       justify-content: flex-end;
       margin: 0 auto;
    }
 `;
 
 const ConnectButton = styled(InstallButton)`
-   background-color: ${dark.blue};
-   /* border: 1px solid ${dark.blue}; */
+   background-color: ${({ theme }) => theme.buttonPrimary};
+   border: 1px solid ${({ theme }) => theme.buttonPrimary};
    span {
-      color: ${dark.whiteText};
-      transition: .2s;
+      color: ${({ theme }) => theme.buttonBlueText};
+      font-weight: 600;
+      transition: 0.2s;
+      font-size: 12px;
    }
    &:hover {
-      background-color: ${dark.hoverBlue};
+      background-color: ${({ theme }) => theme.buttonBlueHover};
    }
 `;
 
 const WrongButton = styled(InstallButton)`
-   background-color: rgb(48, 7, 0);
-   border: 1px solid #cf3903;
+   /* background-color: rgb(48, 7, 0); */
+   background-color: #f05d5e;
+   border: 1px solid #f05d5e;
+
    &:hover {
       cursor: default;
       background-color: rgb(48, 7, 0);
+      background-color: #f05d5e;
    }
    span {
-      color: #ff5416;
+      color: #ffdbd8;
+      font-weight: 700;
    }
 `;
 
-const Address = ({ account, status, onClick }) => {
-   // let content;
+const Address = ({ account = '', status, onClick }) => {
    switch (status) {
       case 'OK':
          return (
             <AddressButton>
                <div className="ident_icon">
-                  <Blockies seed={account} size={7} scale={3} color="#B692BE" spotColor="#18335E" />
+                  <Blockies seed={account} size={5} scale={4} color="#B692BE" spotColor="#18335E" />
                </div>
                <span>
                   {account.slice(0, 6)}...{account.slice(38, 42)}
@@ -118,7 +121,7 @@ const Address = ({ account, status, onClick }) => {
       case 'CONNECT':
          return (
             <ConnectButton onClick={onClick}>
-               <span>Connect a wallet</span>
+               <span>Connect Wallet</span>
             </ConnectButton>
          );
       default:
@@ -126,10 +129,10 @@ const Address = ({ account, status, onClick }) => {
    }
 };
 
-const mapStateToProps = ({user}) => ({
+const mapStateToProps = ({ user, metamask }) => ({
    account: user.account,
-   status: user.accountStatus,
-   onClick: user.onConnectClick
+   status: metamask.accountStatus,
+   onClick: user.onConnectClick,
 });
 // const mapDispatchToProps = (dispatch) => ({
 //    onClick: status.onConnectClick

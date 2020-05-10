@@ -12,8 +12,6 @@ const SwitchThemeButton = styled.div`
       border-radius: 8px;
       cursor: pointer;
       &:hover {
-         background-color: ${({ theme }) => theme.background2};
-         /* border: 1px solid ${({ theme }) => theme.svgFooterHover}; */
          svg {
             fill: ${({ theme }) => theme.svgFooterHover};
          }

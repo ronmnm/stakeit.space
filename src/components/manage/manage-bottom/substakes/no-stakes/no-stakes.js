@@ -1,13 +1,24 @@
-import React from 'react'
-import s from './no-stakes.module.css'
+import React from 'react';
+import styled from 'styled-components'
+
+const NoStakesStyled = styled.div`
+   display: grid;
+   background-color: ${({theme}) => theme.independenceDark};
+   border-radius: 10px;
+   align-content: center;
+   justify-content: center;
+   height: 80px;
+   span{
+      color: grey;
+   }
+`;
 
 const NoStakes = () => {
-  return (
-    <div className={s.no_stakes}>
-      <span>You dont have any stakes yet.</span>
-    </div>
-  );
+   return (
+      <NoStakesStyled>
+         <span>You don't have any stakes yet.</span>
+      </NoStakesStyled>
+   );
 };
-
 
 export default NoStakes;
