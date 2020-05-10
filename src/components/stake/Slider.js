@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../constants/colors'
 
 const SliderInput = styled.div`
    width: 95%;
@@ -13,11 +12,9 @@ const SliderInput = styled.div`
       display: block;
       margin: 5px auto;
       height: 6px;
-      background: #444;
+      background: ${({theme}) => theme.background2};
       outline: none;
       opacity: 0.7;
-      -webkit-transition: 0.2s;
-      transition: 0.2s;
       border-radius: 10px;
       &:focus {
          outline: none;

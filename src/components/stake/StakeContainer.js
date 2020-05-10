@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import { connect } from 'react-redux';
 
 import Stake from './Stake';
 import { StakeWrapper } from './Stake';
 import { BlueButton, GreyButton } from './Buttons';
 
-
 import ConfirmationText from './ConfirmationText';
-import StakeService from '../../services/stake-service';
+import {addNewStake} from '../../services/stake-service';
+// const stakeService = new StakeService()
 
-const stakeService = new StakeService();
-
-export default class StakeContainer extends React.Component {
+class StakeContainer extends React.Component {
    state = {
       clicked: false,
-      confirmBtnLoading: false
+      confirmBtnLoading: false,
    };
 
    constructor(props) {
@@ -32,13 +31,14 @@ export default class StakeContainer extends React.Component {
          action: 'Confirm button click',
          label: 'stake_tab_label',
       });
-      const approveAndCall = stakeService.getApproveAndCall();
-      await approveAndCall(this.props.amount, this.props.duration);
+      
+      await addNewStake(this.props.amount, this.props.duration);
+
       this.setState({ confirmBtnLoading: false });
    }
 
-   backClick(){
-      this.setState({clicked: false})
+   backClick() {
+      this.setState({ clicked: false });
    }
 
    onButtonClick(e) {
@@ -51,14 +51,8 @@ export default class StakeContainer extends React.Component {
       this.setState({ clicked: true });
    }
 
-
    render() {
       const { amount, duration } = this.props;
-
-      let balanceNu = 0;
-      if (this.props.stakeData !== null) {
-         balanceNu = this.props.stakeData.balanceNu.toFixed(0);
-      }
 
       let amount_error;
       if (amount >= 15000 || amount === null) {
@@ -67,21 +61,22 @@ export default class StakeContainer extends React.Component {
          amount_error = true;
       }
 
+      const reg = /^([3-8][0-9]|9[0-9]|[12][0-9]{2}|3[0-5][0-9]|36[0-5])$/
       let duration_error;
-      if ((duration >= 30 && duration <= 365) || duration === null) {
+      if (reg.test(duration) || duration === null) {
          duration_error = false;
       } else {
          duration_error = true;
       }
 
       let disable = true;
-      if (duration >= 30 && duration <= 365 && amount >= 15000) {
+      if (reg.test(duration) && amount >= 15000) {
          disable = false;
       }
 
       let loading = false;
       if (this.state.confirmBtnLoading === true) {
-         loading = true
+         loading = true;
       }
 
       if (this.state.clicked) {
@@ -91,17 +86,11 @@ export default class StakeContainer extends React.Component {
                <div>
                   <ConfirmationText account={this.props.account} amount={amount} duration={duration} />
 
-                  <div className='button_group_confirm'>
-                     <GreyButton 
-                        onClick={this.backClick} 
-                        text="Back" />
+                  <div className="button_group_confirm">
+                     <GreyButton onClick={this.backClick} text="Back" />
 
-                     <BlueButton 
-                        onClick={this.confirmationClick}
-                        loading={loading}
-                        text="Confirm" />
+                     <BlueButton onClick={this.confirmationClick} loading={loading} text="Confirm" />
                   </div>
-
                </div>
             </StakeWrapper>
          );
@@ -109,7 +98,7 @@ export default class StakeContainer extends React.Component {
 
       return (
          <Stake
-            balanceNu={balanceNu}
+            balanceNu={this.props.balanceNu}
             amount={amount}
             duration={duration}
             amount_error={amount_error}
@@ -122,3 +111,9 @@ export default class StakeContainer extends React.Component {
       );
    }
 }
+
+const mapStateToProps = ({ user }) => ({
+   balanceNu: user.balanceNu,
+});
+
+export default connect(mapStateToProps)(StakeContainer);

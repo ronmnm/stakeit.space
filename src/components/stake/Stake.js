@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors } from '../../constants/colors';
+// import { dark as theme } from '../../themes/theme';
 import Slider from './Slider';
 import InputText from './Input';
 
@@ -16,7 +16,7 @@ export const StakeWrapper = styled.div`
       text-transform: uppercase;
       text-align: center;
       font-weight: 500;
-      color: ${colors.whiteText};
+      color: ${({ theme }) => theme.textSecondary};
       padding-bottom: 15px;
    }
    .button_group_confirm {
@@ -40,13 +40,15 @@ const InputTitle = styled.div`
    padding: 0 25px;
    span {
       font-size: 14px;
-      cursor: pointer;
-      color: ${colors.greyText};
+      color: ${({theme}) => theme.textPrimary};
+      /* cursor: pointer; */
+
    }
    .balance_click {
-      font-weight: 700;
-      color: ${colors.whiteText};
-      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: ${({theme}) => theme.textPrimary};
+      letter-spacing: 0.3px;
+      cursor: pointer;
    }
 `;
 
@@ -58,14 +60,15 @@ const Button = styled.div`
       font-size: 11px;
       text-align: center;
       color: #888;
+      
    }
    span:first-child {
       padding: 10px 0;
       font-size: 14px;
       letter-spacing: 0.8px;
-      background-color: ${({ disable }) => (disable ? colors.darkGrey : colors.blue)};
-      color: ${({ disable }) => (disable ? colors.greyText : colors.whiteText)};
-      pointer-events: ${({ disable }) => (disable ? 'none' : 'auto')};
+      background-color: ${({ disable, theme }) => (disable ? theme.independenceDark : theme.buttonPrimary)};
+      color: ${({ disable, theme }) => (disable ? theme.greyText : 'white')};
+      pointer-events: ${({ disable, theme }) => (disable ? 'none' : 'auto')};
       border: none;
       width: 95%;
       margin: 30px auto 15px auto;
@@ -74,8 +77,8 @@ const Button = styled.div`
       align-content: center;
       justify-content: center;
       text-align: center;
-      cursor: pointer;
-      transition: 0.3s;
+      
+      /* transition: 0.3s; */
       font-weight: 600;
       &:hover {
          background-color: #006ae2;
@@ -102,9 +105,9 @@ const Stake = ({
          <h4>Add New Stake</h4>
          <FormWrapper>
             <InputTitle>
-               <span>Amount:</span>
+               <span>Amount</span>
                <span onClick={() => handleAmount(balanceNu)}>
-                  Balance: <b className="balance_click">{balanceNu}</b> NU
+                  Balance <b className="balance_click">{balanceNu.toFixed(2)}</b> NU
                </span>
             </InputTitle>
 
@@ -120,12 +123,12 @@ const Stake = ({
             />
 
             <InputTitle>
-               <span>Duration:</span>
+               <span>Duration</span>
             </InputTitle>
 
             <InputText
                onChange={(e) => handleDuration(e.target.value)}
-               placeholder="30"
+               placeholder="0"
                error={duration_error}
                handleDuration={handleDuration}
                value={duration}

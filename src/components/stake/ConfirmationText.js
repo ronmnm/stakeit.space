@@ -1,7 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
-import {colors} from '../../constants/colors'
+// import {dark} from '../../themes/theme'
 
 
 const ContainerScrollable = styled.div`
@@ -19,7 +19,7 @@ const ContainerScrollable = styled.div`
       line-height: 2rem;
    }
    b {
-      color: ${colors.whiteText};
+      color: white;
       font-weight: 500;
    }
    .scrollable {
@@ -28,7 +28,7 @@ const ContainerScrollable = styled.div`
       padding-right: 40px;
       padding-left: 30px;
       border: 1px solid #333;
-      color: ${colors.greyText};
+      color: white;
       font-size: 14px;
       overflow-y: scroll;
       scrollbar-color: #444 #111;
