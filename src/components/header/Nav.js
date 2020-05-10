@@ -66,7 +66,7 @@ const Nav = ({ accountStatus }) => {
    );
 };
 
-const mapDispatchToProps = ({ user }) => ({
-   accountStatus: user.accountStatus,
+const mapDispatchToProps = ({ metamask }) => ({
+   accountStatus: metamask.accountStatus,
 });
 export default connect(mapDispatchToProps)(Nav);
