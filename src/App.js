@@ -14,12 +14,12 @@ import Worklock from './components/worklock/worklock';
 // import Rewards from './components/rewards/rewards';
 
 import { store } from './redux/store';
-import { setAccount, setStatusThunk, getDataThunk, setManageData, setWorklockData } from './redux/reducers';
-import { LOADING, OK, WRONG, CONNECT, INSTALL } from './redux/reducers';
+import { setStatusThunk, getDataThunk, setManageData, setWorklockData } from './redux/reducers';
+import * as t from './redux/actionTypes';
 
 const history = createBrowserHistory();
 const stakeit = 'UA-162529903-1';
-const test = 'UA-162797521-1';
+// const test = 'UA-162797521-1';
 const ethereum = window.ethereum;
 
 ReactGA.initialize(stakeit);
@@ -32,11 +32,7 @@ history.listen(location => {
 class App extends React.Component {
    constructor(props) {
       super(props);
-      // this.handleClick = this.handleConnectClick.bind(this);
       this.setState = this.setState.bind(this);
-      // this.handleAmountState = this.handleAmountState.bind(this);
-      // this.handleDurationState = this.handleDurationState.bind(this);
-      // this.metamaskChecking = this.metamaskChecking.bind(this);
    }
    state = {
       setters: null,
@@ -63,32 +59,32 @@ class App extends React.Component {
             if (ethereum.networkVersion === '5' || ethereum.networkVersion === undefined) {
                this.props.getDataThunk();
                ethereum.on('accountsChanged', () => {
-                  store.dispatch(setManageData({}, true))
+                  this.props.setStatusThunk(t.LOADING)
                   store.dispatch(setWorklockData({}, true))
-                  this.props.setStatusThunk(LOADING)
+                  store.dispatch(setManageData({}, true))
+                  
+                  
                   this.props.getDataThunk();
                });
             } else {
-               this.props.setStatusThunk(WRONG);
+               this.props.setStatusThunk(t.WRONG);
             }
          } else {
-            this.props.setStatusThunk(CONNECT, this.handleConnectClick);
+            this.props.setStatusThunk(t.CONNECT, this.handleConnectClick);
          }
       } else {
-         this.props.setStatusThunk(INSTALL);
+         this.props.setStatusThunk(t.INSTALL);
       }
    };
 
    handleConnectClick = async () => {
-      this.props.setStatusThunk(LOADING);
+      this.props.setStatusThunk(t.LOADING);
       try {
          await ethereum.enable().then(obj => {
             this.metamaskChecking();
-            console.log('inside try');
          });
-         console.log('out of try');
       } catch (error) {
-         this.props.setStatusThunk(CONNECT, this.handleConnectClick);
+         this.props.setStatusThunk(t.CONNECT, this.handleConnectClick);
       }
    };
 
@@ -107,8 +103,6 @@ class App extends React.Component {
                      path="/stake"
                      render={() => (
                         <StakeContainer
-                           // stakeData={stakeData}
-                           // account={account}
                            amount={this.state.amount}
                            duration={this.state.duration}
                            handleDuration={this.handleDurationState}
