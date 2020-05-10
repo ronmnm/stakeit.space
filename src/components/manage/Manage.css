@@ -39,7 +39,7 @@
    /* grid-gap: 2vh; */
    /* grid-template-columns: repeat(5, minmax(100px, 1fr)); */
 }
-.substake_items_titles {
+/* .substake_items_titles {
    display: grid;
    color: grey;
    grid-template-columns: 1fr 250px;
@@ -53,11 +53,11 @@
    grid-template-columns: 1.5fr 2fr 1.5fr 2fr 2fr;
    grid-auto-flow: column;
    margin: 0 12px;
-}
-.substake_items_titles span {
+} */
+/* .substake_items_titles span {
    text-align: center;
    font-size: 12px;
-}
+} */
 
 .substake_and_prdvd {
    display: grid;
@@ -149,35 +149,35 @@
 } */
 
 /* Navigation Start */
-.substake_list {
+/* .substake_list {
    display: grid;
    grid-area: list;
    grid-template-rows: 80px auto;
    margin-top: 20px;
-}
-.nav_manage_bottom {
-   display: grid;
+} */
+/* .nav_manage_bottom {
+   display: grid; */
    /* height: 50px; */
-   grid-template-columns: repeat(2, 150px);
+   /* grid-template-columns: repeat(2, 150px);
    justify-content: center;
    column-gap: 10px;
    align-items: center;
    transition: 0.4s;
-}
-.nav_manage_bottom .active {
+} */
+/* .nav_manage_bottom .active {
    color: #eee;
    background-color: #303030;
    transition: 0.2s;
-}
-.my_nav_item {
+} */
+/* .my_nav_item {
    cursor: pointer;
-}
+} */
 
-.worker_buttons {
+/* .worker_buttons {
    display: grid;
    grid-template-columns: 150px 1fr;
    column-gap: 20px;
-}
+} */
 
 /* Кнопка вместо адреса
 .set_worker_button {

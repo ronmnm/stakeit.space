@@ -10,7 +10,9 @@ const RewardsSection = styled.form`
       margin-top: 35px;
       margin-bottom: 5px;
       padding-bottom: 11px;
-      border-bottom: 1px solid ${({theme}) => theme.independenceDark};
+      border-bottom: 1px solid ${({theme}) => theme.background2};
+      color: ${({theme}) => theme.textPrimary};
+      font-weight: 600;
    }
    .rewards_items {
       padding-bottom: 5px;
@@ -35,10 +37,12 @@ const RewardItemWrapper = styled.div`
       grid-auto-flow: column;
       justify-content: flex-end;
       b {
-         font-weight: 500;
-         letter-spacing: .5px;
+         color: ${({ theme }) => theme.textPrimary};
+               font-weight: 700;
+               letter-spacing: 0.3px;
          span {
-            color: grey;
+            color: ${({ theme }) => theme.textSecondary};
+            font-weight: 500;
          }
       }
    }
@@ -52,6 +56,7 @@ const WithdrawButton = styled.span`
    padding: 1px 6px 8px 6px;
    svg {
       fill: ${({ theme }) => theme.textSecondary};
+      
    }
    &:hover {
       cursor: pointer;

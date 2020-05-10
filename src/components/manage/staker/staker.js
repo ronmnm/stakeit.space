@@ -1,30 +1,58 @@
-import React from "react";
-import ReactGA from "react-ga";
-import s from "./staker.module.css";
-import Icon from "../link-icon/link-icon";
+import React, { useState } from 'react';
+import ReactGA from 'react-ga';
+import styled from 'styled-components';
+import s from './staker.module.css';
+import { connect } from 'react-redux';
 
-const Staker = props => {
-   const {
-      staker,
-      stakerBalEth,
-      stakerNuBal,
-      stakerNuLocked,
-      stakerNuUnlocked,
-      status,
-      windDown,
-      reStakeDisabled
-   } = props.manageData;
-   const { setRestake, setWinddown } = props;
+import EthAccountContainer from '../eth-accont-container';
+import  StakerButtons  from './staker-buttons';
 
+const StakerContent = styled.div`
+   margin: 10px 0;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   border-top: 1px solid ${({ theme }) => theme.background2};
+   p {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: space-between;
+      margin: 0;
+      height: 30px;
+      line-height: 30px;
+      color: rgb(119, 119, 119);
+      font-size: 13px;
+      span {
+         color: ${({ theme }) => theme.textSecondary};
+         b {
+            color: ${({ theme }) => theme.textPrimary};
+            font-weight: 700;
+            letter-spacing: 0.3px;
+         }
+      }
+   }
+`;
+
+const Staker = ({
+   staker,
+   stakerBalEth,
+   stakerNuBal,
+   stakerNuLocked,
+   stakerNuUnlocked,
+   status,
+   windDown,
+   reStakeDisabled
+}) => {
+   const [copied, setCopied] = useState(false);
+
+   const onAddrClick = () => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000);
+   };
    return (
       <div className={s.staker_manage}>
-         <h4 className={s.address_title}>Staker Account</h4>
-         <h2 className={s.address_eth}>
-            {staker.slice(0, 6)}...{staker.slice(38, 42)}
-            <Icon address={staker} />
-         </h2>
+         <EthAccountContainer copied={copied} onAddrClick={onAddrClick} address={staker} title="Staker Account" />
 
-         <div className={s.staker_content}>
+         <StakerContent>
             <p>
                <span>Ether Balance:</span>
                <span>
@@ -35,13 +63,13 @@ const Staker = props => {
             <p>
                <span>Balance:</span>
                <span>
-                  <b>{stakerNuBal.toLocaleString("en-Us")}</b> NU
+                  <b>{stakerNuBal.toLocaleString('en-Us')}</b> NU
                </span>
             </p>
             <p>
                <span>Locked in stake:</span>
                <span>
-                  <b>{stakerNuLocked.toLocaleString("en-Us")}</b> NU
+                  <b>{stakerNuLocked.toLocaleString('en-Us')}</b> NU
                </span>
             </p>
             <p>
@@ -49,77 +77,29 @@ const Staker = props => {
                   Unlocked <i>(Available to withdraw):</i>
                </span>
                <span>
-                  <b>{stakerNuUnlocked.toLocaleString("en-Us")}</b> NU
+                  <b>{stakerNuUnlocked.toLocaleString('en-Us')}</b> NU
                </span>
             </p>
-         </div>
+         </StakerContent>
 
-         <div className={s.staker_buttons}>
-            <div>
-               <h4 className={s.restake_text}>
-                  Re-Stake<span className={s.restake_status}>{status}</span>
-               </h4>
-
-               <div className={s.btn_group}>
-                  <button
-                     className={!reStakeDisabled ? s.button_active : null}
-                     onClick={() => {
-                        ReactGA.event({
-                           category: "Manage tab",
-                           action: "Restake On",
-                           label: "manage_tab_label"
-                        });
-                        setRestake(true);
-                     }}>
-                     On
-                  </button>
-                  <button
-                     className={reStakeDisabled ? s.button_active : null}
-                     onClick={() => {
-                        ReactGA.event({
-                           category: "Manage tab",
-                           action: "Restake Off",
-                           label: "manage_tab_label"
-                        });
-                        setRestake(false);
-                     }}>
-                     Off
-                  </button>
-               </div>
-            </div>
-            <div className={s.winddown}>
-               <h4 className={s.winddown_text}>Wind-Down</h4>
-
-               <div className={s.btn_group}>
-                  <button
-                     className={windDown ? s.button_active : null}
-                     onClick={() => {
-                        ReactGA.event({
-                           category: "Manage tab",
-                           action: "Winddown On",
-                           label: "manage_tab_label"
-                        });
-                        setWinddown(true);
-                     }}>
-                     On
-                  </button>
-                  <button
-                     className={!windDown ? s.button_active : null}
-                     onClick={() => {
-                        ReactGA.event({
-                           category: "Manage tab",
-                           action: "Winddown Off",
-                           label: "manage_tab_label"
-                        });
-                        setWinddown(false);
-                     }}>
-                     Off
-                  </button>
-               </div>
-            </div>
-         </div>
+         <StakerButtons
+            
+            status={status}
+            windDown={windDown}
+            reStakeDisabled={reStakeDisabled}
+         />
       </div>
    );
 };
 
-export default Staker;
+const mapStateToProps = ({ user }) => ({
+   staker: user.manage.staker,
+   stakerBalEth: user.manage.stakerBalEth,
+   stakerNuBal: user.manage.stakerNuBal,
+   stakerNuLocked: user.manage.stakerNuLocked,
+   stakerNuUnlocked: user.manage.stakerNuUnlocked,
+   status: user.manage.status,
+   windDown: user.manage.windDown,
+   reStakeDisabled: user.manage.reStakeDisabled,
+});
+export default connect(mapStateToProps)(Staker);

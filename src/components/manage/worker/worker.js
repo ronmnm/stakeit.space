@@ -113,20 +113,21 @@ const WorkerWrapper = styled.div`
       padding-top: 5px;
       padding-bottom: 5px;
       /* border-bottom: 1px solid #333; */
-      border-top: 1px solid ${({ theme }) => theme.independenceDark};
+      border-top: 1px solid ${({ theme }) => theme.background2};
       p {
          display: grid;
          grid-auto-flow: column;
          justify-content: space-between;
          margin: 7px 0;
-         color: rgb(119, 119, 119);
+         color: ${({ theme }) => theme.textSecondary};
          font-size: 13px;
+         
          span {
-            color: grey;
+            color: ${({ theme }) => theme.textSecondary};
             b {
-               color: #eee;
-               font-weight: 500;
-               letter-spacing: 0.8px;
+               color: ${({ theme }) => theme.textPrimary};
+               font-weight: 700;
+               letter-spacing: 0.3px;
             }
          }
       }
