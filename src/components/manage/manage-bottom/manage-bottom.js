@@ -27,13 +27,16 @@ const ManageBottomWrapper = styled.div`
          padding: 5px 0;
          color: ${({ theme }) => theme.textPrimary};
          &:hover {
-            color: ${({ theme }) => theme.buttonPrimary};
+            color: ${({theme}) => theme.darkMode ? '#cccccc' : '#888'};
          }
       }
       .active {
          color: ${({ theme }) => theme.textWhiteBlue};
          background-color: ${({ theme }) => theme.backgroundPale};
          border-radius: 8px;
+         &:hover{
+            color: ${({ theme }) => theme.textWhiteBlue};
+         }
       }
    }
 `;

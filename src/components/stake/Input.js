@@ -8,7 +8,7 @@ const InputContainer = styled.div`
       position: absolute;
       font-size: 18px;
       text-transform: uppercase;
-      color: ${({theme}) => theme.darkMode ? '#a1a1a1' : '#a1a1a1'};
+      color: ${({theme}) => theme.darkMode ? '#a9b5c2' : '#a1a1a1'};
       font-weight: 700;
       letter-spacing: 0.5px;
       width: 60px;
@@ -45,7 +45,7 @@ const Input = styled.input`
       background-color: ${({ theme, error }) => !error ? theme.independenceDark : theme.backgroundError}; 
    }
    &::placeholder {
-      color: ${({theme}) => theme.darkMode ? '#a1a1a1' : '#a1a1a1'};
+      color: ${({theme}) => theme.darkMode ? '#a9b5c2' : '#a1a1a1'};
       letter-spacing: 0.5px;
       font-weight: 700;
       opacity: 1;

@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 // import {dark} from '../../themes/theme'
 
-
 const ContainerScrollable = styled.div`
    display: grid;
    grid-template-rows: 45vh;
@@ -19,32 +18,33 @@ const ContainerScrollable = styled.div`
       line-height: 2rem;
    }
    b {
-      color: white;
+      color: ${({ theme }) => theme.textPrimary};
       font-weight: 500;
    }
    .scrollable {
-      background-color: #111;
       border-radius: 5px;
       padding-right: 40px;
       padding-left: 30px;
       border: 1px solid #333;
-      color: white;
       font-size: 14px;
       overflow-y: scroll;
       scrollbar-color: #444 #111;
       scrollbar-width: auto;
       margin-bottom: 20px;
+      border: 1px solid ${({ theme }) => theme.footerBorder};
+      color: ${({ theme }) => theme.textSecondary};
+      background-color: ${({ theme }) => (theme.darkMode ? '#22232a' : theme.addressBackground)};
       &::-webkit-scrollbar-track {
-         background: #222;
+         background: ${({ theme }) => theme.footerBorder};
       }
       &::-webkit-scrollbar-thumb {
-         background: #444;
+         background: ${({ theme }) => theme.background4};
          /* border-radius: 6px; */
       }
    }
 `;
 
-const ConfirmationText = (props) => {
+const ConfirmationText = props => {
    const x = new BigNumber(props.amount);
    const y = x.multipliedBy(10 ** 18).toFixed();
 

@@ -166,7 +166,7 @@ export const ControlButton = styled.button`
 const SubstakeAndPrdvd = styled.div`
    display: grid;
    border: 1px solid ${({theme}) => theme.footerBorder};
-   background-color: ${({theme}) => theme.addressBackground};
+   background-color: ${({theme}) => theme.darkMode ? '#22232a' : theme.addressBackground};
    grid-template-columns: 1fr 275px;
    margin: 5px 0 15px 0;
    border-radius: 10px;
@@ -191,7 +191,7 @@ const SubstakeAndPrdvd = styled.div`
             font-size: 16px;
             text-align: center;
             letter-spacing: 0.3px;
-            font-weight: 600;
+            font-weight: 500;
             color: ${({theme}) => theme.textPrimary};
             padding-top: 3px;
          }

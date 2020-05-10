@@ -8,8 +8,8 @@ export const theme = (dark) => ({
    darkMode: dark,
    body: dark ? eerieBlack : 'white',
    // text
-   textPrimary: dark ? '#eef3ff' : '#111',
-   textSecondary: dark ? '#cccccc' : '#5A5A5A',
+   textPrimary: dark ? '#F6F9FF' : '#111',
+   textSecondary: dark ? '#9ea0a1' : '#5A5A5A',
    text3: dark ? '#b3b3b3' : '#C5C5C5',
    textPale: dark ? '#red' : 'grey',
    textWhiteBlue: dark ? 'white' : '#0065ff',

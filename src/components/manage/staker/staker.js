@@ -9,23 +9,24 @@ import  StakerButtons  from './staker-buttons';
 
 const StakerContent = styled.div`
    margin: 10px 0;
-   padding-top: 5px;
-   padding-bottom: 5px;
+   padding-top: 10px;
+   padding-bottom: 10px;
    border-top: 1px solid ${({ theme }) => theme.background2};
+   border-bottom: 1px solid ${({ theme }) => theme.background2};
    p {
       display: grid;
       grid-auto-flow: column;
       justify-content: space-between;
       margin: 0;
-      height: 30px;
-      line-height: 30px;
+      height: 26px;
+      line-height: 26px;
       color: rgb(119, 119, 119);
       font-size: 13px;
       span {
          color: ${({ theme }) => theme.textSecondary};
          b {
             color: ${({ theme }) => theme.textPrimary};
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.3px;
          }
       }

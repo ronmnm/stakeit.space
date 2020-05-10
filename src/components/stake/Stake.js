@@ -39,8 +39,8 @@ const InputTitle = styled.div`
    justify-content: space-between;
    padding: 0 25px;
    span {
-      font-size: 14px;
-      color: ${({theme}) => theme.textPrimary};
+      font-size: 13px;
+      color: ${({theme}) => theme.textSecondary};
       /* cursor: pointer; */
 
    }
