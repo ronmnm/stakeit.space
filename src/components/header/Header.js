@@ -1,36 +1,31 @@
 import React from 'react';
-// import Nav from "./Nav";
-import Address from './address/Address';
+import Nav from './Nav';
+import Address from './Address';
 import './Header.css';
+import styled from 'styled-components';
 
-import { NavLink } from 'react-router-dom';
+const HeaderWrapper = styled.div`
+   display: grid;
+   /* grid-template-columns: minmax(100px, 250px) minmax(480px, 600px) minmax(100px, 250px); */
+   /* grid-template-columns: minmax(250px 300px) minmax(480px, 600px) minmax(250px 300px); */
+   justify-items: center;
+   align-content: center;
+   align-items: center;
+   /* border-bottom: 1px solid #222; */
+   margin: 0 auto;
+`;
 
-
-export default class Header extends React.Component {
-
-   render() {
-
-      return (
-         <div className="my_header">
-            <div className="logo">
-               <span>stakeit.space</span>
-            </div>
-            <div className="my_nav">
-               <NavLink className="my_nav_item" to="/stake">
-                  Stake
-               </NavLink>
-               <NavLink className="my_nav_item" to="/manage">
-                  Manage
-               </NavLink>
-               {/* <NavLink className="my_nav_item disable" to="/rewards">
-            Rewards
-          </NavLink> */}
-               <NavLink className="my_nav_item" to="/worklock">
-                  Worklock
-               </NavLink>
-            </div>
-            <div className="my_address"><Address /></div>
+const Header = () => {
+   return (
+      <div className="my_header">
+         <div className="logo">
+            <span>stakeit.space</span>
          </div>
-      );
-   }
-}
+         <Nav />
+         <div className="my_address">
+            <Address />
+         </div>
+      </div>
+   );
+};
+export default Header;

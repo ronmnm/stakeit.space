@@ -10,29 +10,32 @@ const NavWrapper = styled.div`
    display: grid;
    grid-auto-flow: column;
    align-items: center;
-   grid-template-columns: repeat(3, minmax(120px, 150px));
+   grid-template-columns: repeat(3, minmax(120px, 140px));
    column-gap: 10px;
    .my_nav_item {
       text-align: center;
       padding: 6px 0;
       width: 100%;
       margin: 0 auto;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #888;
+      /* text-transform: uppercase; */
+      letter-spacing: 0.3px;
+      font-size: 13px;
+      font-weight: 600;
+      color: ${({theme}) => theme.textPrimary};
       
       &:hover {
          transition: 0.2s;
-         color: ${({theme}) => theme.textWhiteBlue};
+         color: ${({theme}) => theme.darkMode ? '#cccccc' : '#888'};
       }
    }
    .active {
       color: ${({theme}) => theme.textWhiteBlue};
-      background-color: ${({theme}) => theme.background2};
+      background-color: ${({theme}) => theme.backgroundPale};
+      &:hover{
+         color: ${({theme}) => theme.textWhiteBlue};
+      }
    }
    .disable {
       color: ${({theme}) => theme.background4};
