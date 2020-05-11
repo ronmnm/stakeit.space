@@ -1,71 +1,51 @@
-import Web3 from 'web3';
+import utils from 'web3-utils';
 import { Escrow } from '../ethereum/instances/instances';
-
-const web3 = new Web3(window.ethereum);
 
 export default class ServiceWeb3Setters {
 
-   static setRestake = async value => {
-      const account = window.ethereum.selectedAddress;
+   setRestake = async value => {
       try {
-         await Escrow.methods.setReStake(value).send({ from: account });
+         const account = window.ethereum.selectedAddress
+         return await Escrow.methods.setReStake(value).send({ from: account });
+      } catch (err) {
+         return console.error('Oh no', err);
+      }
+   };
+
+   setWinddown = async value => {
+      try {
+         const account = window.ethereum.selectedAddress
+         return await Escrow.methods.setWindDown(value).send({ from: account });
       } catch (err) {
          console.error('Oh no', err);
       }
    };
 
-   async getSetters() {
-      const setters = {};
-      setters.setRestake = async value => {
-         try {
-            const accounts = await web3.eth.getAccounts();
-            await Escrow.methods.setReStake(value).send({ from: accounts[0] });
-         } catch (err) {
-            console.error('Oh no', err);
-         }
-      };
+   setWorker = async address => {
+      try {
+         const account = window.ethereum.selectedAddress
+         return await Escrow.methods.setWorker(address).send({ from: account });
+      } catch (err) {
+         console.error('Oh no', err);
+      }
+   };
 
-      setters.setWinddown = async value => {
-         try {
-            const accounts = await web3.eth.getAccounts();
-            await Escrow.methods.setWindDown(value).send({ from: accounts[0] });
-         } catch (err) {
-            console.error('Oh no', err);
-         }
-      };
+   prolongStake = async (index, periods) => {
+      try {
+         const account = window.ethereum.selectedAddress
+         return await Escrow.methods.prolongStake(index, periods).send({ from: account });
+      } catch (err) {
+         console.error('Oh no', err);
+      }
+   };
 
-      setters.setWorker = async address => {
-         try {
-            const accounts = await web3.eth.getAccounts();
-            await Escrow.methods.setWorker(address).send({ from: accounts[0] });
-         } catch (err) {
-            console.error('Oh no', err);
-         }
-      };
-
-      setters.prolongStake = async (index, periods) => {
-         try {
-            const accounts = await web3.eth.getAccounts();
-            await Escrow.methods.prolongStake(index, periods).send({ from: accounts[0] });
-         } catch (err) {
-            console.error('Oh no', err);
-         }
-      };
-
-      setters.divideStake = async (index, value, periods) => {
-         try {
-            const accounts = await web3.eth.getAccounts();
-
-            const nits = web3.utils.toWei(value, 'ether');
-            // console.log(typeof nits);
-            // console.log(nits);
-
-            await Escrow.methods.divideStake(index, nits, periods).send({ from: accounts[0] });
-         } catch (err) {
-            console.error('Oh no', err);
-         }
-      };
-
-      return setters;
-   }
+   divideStake = async (index, value, periods) => {
+      try {
+         const account = window.ethereum.selectedAddress
+         const nits = utils.toWei(value, 'ether');
+         return await Escrow.methods.divideStake(index, nits, periods).send({ from: account });
+      } catch (err) {
+         console.error('Oh no', err);
+      }
+   };
 }
