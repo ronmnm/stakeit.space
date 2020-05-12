@@ -1,7 +1,6 @@
 import * as t from './actionTypes.js';
 import ServiceWeb3 from '../services/web3-service';
 
-
 const serviceWeb3 = new ServiceWeb3();
 
 const userState = {
@@ -50,7 +49,9 @@ export const mainReducer = (state = userState, action) => {
       case t.SET_RESTAKE_STATUS:
          return { ...state, manage: { ...state.manage, reStakeDisabled: !action.payload } };
       case t.SET_WINDDOWN_STATUS:
-         return { ...state, manage: { ...state.manage, windDown: action.payload}}
+         return { ...state, manage: { ...state.manage, windDown: action.payload } };
+      case t.SET_WORKER_ADDRESS:
+         return { ...state, manage: { ...state.manage, worker: action.payload } };
 
       case t.SET_WORKLOCK_DATA:
          return { ...state, worklock: action.payload, isWorklockDataLoading: action.bool };

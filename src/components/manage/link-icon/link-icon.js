@@ -9,21 +9,26 @@ const IconWrapper = styled.a`
    height: 29px;
    border-radius: 10px;
    margin: 0 10px;
+   cursor: ${({disable}) => disable ? 'default' : null};
    svg {
       height: 16px;
       margin-top: 8px;
-      fill: ${({ theme }) => theme.textPrimary};
+      fill: ${({ theme, disable }) => (disable ? theme.backgroundPale : theme.textSecondary)};
    }
    &:hover {
-      transition: 0.1s;
-      background-color: ${({ theme }) => theme.backgroundPaleHover};
+      
+      svg {
+         transition: 0.2s;
+         fill: ${({ theme, disable }) => (disable ? theme.backgroundPale : theme.textPrimary)};
+      }
    }
 `;
-const Icon = ({ address }) => {
+const Icon = ({ address, disable }) => {
    return (
       <IconWrapper
+         disable={disable}
          className="a_icon"
-         href={`https://goerli.etherscan.io/address/${address}`}
+         href={disable ? null : `https://goerli.etherscan.io/address/${address}`}
          target="_blank"
          rel="noopener noreferrer">
          <svg

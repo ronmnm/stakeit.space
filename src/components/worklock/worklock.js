@@ -3,8 +3,8 @@ import ReactGA from 'react-ga';
 import s from './worklock.module.css';
 import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal';
-import { ModalContent } from '../manage/worker/worker';
-import { ControlButton } from '../manage/manage-bottom/substakes/substakes';
+import { ModalContent } from '../manage/worker/set-worker-modal';
+import { ModalButton } from '../buttons/buttons';
 import { connect } from 'react-redux';
 import MainSpinner from '../loader/main-spinner';
 import { ParticipantPanel } from './ParticipantPanel';
@@ -69,6 +69,7 @@ const WorkLock = ({
    } else {
       isClaimed = 'No';
    }
+   
 
    let refund_disable;
    if (аvailableRefund > 0) {
@@ -155,17 +156,17 @@ const WorkLock = ({
                   />
                </div>
                <div className="button_wrapper">
-                  <ControlButton onClick={closeModal} background="#444" background_hover="#484848">
+                  <ModalButton onClick={closeModal} background="#444" background_hover="#484848">
                      Cancel
-                  </ControlButton>
-                  <ControlButton
+                  </ModalButton>
+                  <ModalButton
                      blue
                      // onClick={}
                      background="#0077ff"
                      style={{ pointerEvents: 'none' }}
                      background_hover="#1683ff">
                      {isLoading ? <img style={{ marginTop: '10px' }} src={RoundSpinner} alt="React Logo" /> : 'Confirm'}
-                  </ControlButton>
+                  </ModalButton>
                </div>
             </ModalContent>
          </Modal>

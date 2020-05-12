@@ -17,12 +17,9 @@ export default class ServiceWeb3Setters {
    };
 
    setWorker = async address => {
-      try {
-         const account = window.ethereum.selectedAddress;
-         return await Escrow.methods.setWorker(address).send({ from: account });
-      } catch (err) {
-         console.error('Oh no', err);
-      }
+      const account = window.ethereum.selectedAddress;
+      return await Escrow.methods.setWorker(address).send({ from: account });
+      
    };
 
    prolongStake = async (index, periods) => {

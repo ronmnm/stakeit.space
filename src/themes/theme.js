@@ -1,6 +1,6 @@
 
 let independence = '#4d5061';
-let independenceHover = '#525869';
+let independenceHover = '#4A4C5F';
 let independenceDark = '#2f333c';
 let eerieBlack = '#1a1c1e'
 
@@ -28,9 +28,10 @@ export const theme = (dark) => ({
    backgroundError: dark ? '#301414' : '#fff8f8',
 
    independenceDark: dark ? independenceDark : '#f8f8f8',
-   backgroundPaleHover: dark ? independenceHover : '#ddd',
+   independenceDarkHover: dark ? '#23252C' : '#f8f8f8',
+   backgroundPaleHover: dark ? independenceHover : '#E5E5E5',
    buttonPrimary: dark ? '#3A70FF' : '#2d80ff',
-   buttonBlueHover: dark ? '#4066d2' : '',
+   buttonBlueHover: dark ? '#386CF7' : '#2C7CF6',
    buttonBlueText: dark ? '#d2eafc' : 'white',
 
    blue: '#588cff',

@@ -45,8 +45,7 @@ export default class ServiceWeb3 {
       const StakerInfo = await Escrow.methods.stakerInfo(account).call();
       const currentPeriod = Math.floor(Date.now() / 86400000);
 
-      const confirmedPeriod1 =
-         +StakerInfo.confirmedPeriod1 === currentPeriod + 1 ? 'Next period confirmed' : 'Missing confirmation';
+      const confirmedPeriods = StakerInfo.confirmedPeriod1
 
       let workerBal;
       if (StakerInfo.worker !== '0x0000000000000000000000000000000000000000') {
@@ -100,7 +99,7 @@ export default class ServiceWeb3 {
          subStakesLength: getSubStakesLength,
          substakeList: getAllSubstakes,
          StakerInfo: StakerInfo,
-         confirmedPeriod1: confirmedPeriod1,
+         confirmedPeriods: confirmedPeriods,
          policyFee: policyFee[3],
       };
 

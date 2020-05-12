@@ -23,7 +23,7 @@ const ModalBackdrop = styled.div`
    left: 0;
    right: 0;
    z-index: 100;
-   background-color: rgba(44, 44, 44, 0.58);
+   background-color: ${({theme}) => theme.darkMode ? 'rgba(26, 26, 27, 0.58)' : 'rgba(26, 26, 27, 0.28)'};
 `;
 const ModalWindow = styled.div`
    position: relative;
@@ -32,9 +32,9 @@ const ModalWindow = styled.div`
    transform: translate(-50%, -50%);
    height: 350px;
    width: 450px;
-   background-color: #303030;
+   background-color: ${({theme}) => theme.independenceDark};
    z-index: 101;
-   box-shadow: 0 0 50px black;
+   box-shadow: 0 0 50px ${({theme}) => theme.darkMode ? '#111' : '#adadad'};
    border-radius: 15px;
 `;
 

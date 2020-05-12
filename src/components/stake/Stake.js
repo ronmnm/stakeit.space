@@ -16,7 +16,8 @@ export const StakeWrapper = styled.div`
       text-transform: uppercase;
       text-align: center;
       font-weight: 500;
-      color: ${({ theme }) => theme.textSecondary};
+      letter-spacing: .3px;
+      color: ${({ theme }) => theme.textPrimary};
       padding-bottom: 15px;
    }
    .button_group_confirm {

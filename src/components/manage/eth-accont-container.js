@@ -36,7 +36,7 @@ const AddressETH = styled.div`
       font-weight: 600;
       display: inline-block;
       font-size: 24px;
-      width: 200px;
+      width: 188px;
       color: ${({theme}) => theme.textSecondary}
    }
    .copied {
@@ -60,6 +60,7 @@ const EthAccountContainer = ({ address, title, children, copied, onAddrClick }) 
             <AddressTitle>{title}</AddressTitle>
             <AddressETH>
                <span className="worker_not_set">Worker not set</span>
+               <Icon disable={true} address={address} />
                {children}
             </AddressETH>
          </>

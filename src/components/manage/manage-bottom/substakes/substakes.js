@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import NoStakes from './no-stakes/no-stakes';
 import Modal from '../../../worklock/modal/modal';
 import RoundSpinner from '../../../loader/7.svg';
-import { Button } from '../../../buttons/buttons';
+import { Button, ModalButton } from '../../../buttons/buttons';
 
 const ModalContent = styled.div`
    display: grid;
@@ -143,25 +143,7 @@ const DivideControls = styled.form`
    }
 `;
 
-export const ControlButton = styled.button`
-   background-color: ${props => props.background};
-   color: ${props => (props.blue ? '#fff' : 'lightgrey')};
-   height: 40px;
-   width: 100%;
-   line-height: 40px;
-   font-size: 14px;
-   border: none;
-   border-radius: 8px;
-   cursor: pointer;
-   transition: 0.2s;
-   font-family: Lato, sans-serif;
-   &:hover {
-      background-color: ${props => props.background_hover};
-   }
-   &:focus {
-      outline: none;
-   }
-`;
+
 
 const SubstakeAndPrdvd = styled.div`
    display: grid;
@@ -352,16 +334,16 @@ const Substakes = ({ substakeList, prolongStake, divideStake }) => {
                         onChange={e => setProlongValue(e.target.value)}
                      />
                      <div>
-                        <ControlButton onClick={closeModal} background="#444" background_hover="#484848">
+                        <ModalButton onClick={closeModal} background="#444" background_hover="#484848">
                            Cancel
-                        </ControlButton>
-                        <ControlButton onClick={prolongConfirmClick} background="#594ab6" background_hover="#6152c2">
+                        </ModalButton>
+                        <ModalButton onClick={prolongConfirmClick} background="#594ab6" background_hover="#6152c2">
                            {isLoading ? (
                               <img style={{ marginTop: '10px' }} src={RoundSpinner} alt="React Logo" />
                            ) : (
                               'Confirm'
                            )}
-                        </ControlButton>
+                        </ModalButton>
                      </div>
                   </ProlongControls>
                </div>
@@ -398,10 +380,10 @@ const Substakes = ({ substakeList, prolongStake, divideStake }) => {
                         />
                      </div>
                      <div>
-                        <ControlButton type="button" background="#444" onClick={closeModal2} background_hover="#484848">
+                        <ModalButton type="button" background="#444" onClick={closeModal2} background_hover="#484848">
                            Cancel
-                        </ControlButton>
-                        <ControlButton
+                        </ModalButton>
+                        <ModalButton
                            type="submit"
                            form="divide"
                            // onClick={divideConfirmClick}
@@ -412,7 +394,7 @@ const Substakes = ({ substakeList, prolongStake, divideStake }) => {
                            ) : (
                               'Confirm'
                            )}
-                        </ControlButton>
+                        </ModalButton>
                      </div>
                   </DivideControls>
                </div>
