@@ -77,14 +77,9 @@ const Button = styled.div`
       align-content: center;
       justify-content: center;
       text-align: center;
-      
-      /* transition: 0.3s; */
       font-weight: 600;
       &:hover {
-         background-color: #006ae2;
-      }
-      &:focus {
-         outline: none;
+         cursor: pointer;
       }
    }
 `;

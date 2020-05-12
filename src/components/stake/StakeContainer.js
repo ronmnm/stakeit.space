@@ -114,6 +114,7 @@ class StakeContainer extends React.Component {
 
 const mapStateToProps = ({ user }) => ({
    balanceNu: user.balanceNu,
+   account: user.account,
 });
 
 export default connect(mapStateToProps)(StakeContainer);

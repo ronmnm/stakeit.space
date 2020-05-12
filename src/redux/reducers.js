@@ -1,6 +1,7 @@
 import * as t from './actionTypes.js';
 import ServiceWeb3 from '../services/web3-service';
 
+
 const serviceWeb3 = new ServiceWeb3();
 
 const userState = {
@@ -14,10 +15,11 @@ const userState = {
    isManageDataLoading: true,
    isWorklockDataLoading: true,
    worklock: {},
+   manage: {},
 };
 export const metamaskInitialState = {
-   accountStatus: 'LOADING'
-}
+   accountStatus: 'LOADING',
+};
 
 export const metamaskReducer = (state = metamaskInitialState, action) => {
    switch (action.type) {
@@ -44,6 +46,12 @@ export const mainReducer = (state = userState, action) => {
          return { ...state, footer: action.payload, isFooterDataLoading: action.bool };
       case t.SET_MANAGE_DATA:
          return { ...state, manage: action.payload, isManageDataLoading: action.bool };
+
+      case t.SET_RESTAKE_STATUS:
+         return { ...state, manage: { ...state.manage, reStakeDisabled: !action.payload } };
+      case t.SET_WINDDOWN_STATUS:
+         return { ...state, manage: { ...state.manage, windDown: action.payload}}
+
       case t.SET_WORKLOCK_DATA:
          return { ...state, worklock: action.payload, isWorklockDataLoading: action.bool };
       case 'SET_BLOCKCHAIN_SETTERS':
@@ -71,10 +79,12 @@ export const setManageData = (payload, bool) => ({ type: t.SET_MANAGE_DATA, payl
 export const setWorklockData = (payload, bool) => ({ type: t.SET_WORKLOCK_DATA, payload, bool: bool });
 
 export const getDataThunk = () => dispatch => {
-   dispatch(setStatus(t.OK));
-   dispatch(setAccount({ account: window.ethereum.selectedAddress, balanceNu: 0 }));
+   // dispatch(setAccount({ account: window.ethereum.selectedAddress, balanceNu: 0 }));
 
-   serviceWeb3.getStakeData().then(payload => dispatch(setAccount(payload)));
+   serviceWeb3.getStakeData().then(payload => {
+      dispatch(setAccount(payload));
+      dispatch(setStatus(t.OK));
+   });
    serviceWeb3.getFooterData().then(payload => dispatch(_setFooterData(payload)));
    serviceWeb3.getManageData().then(payload => dispatch(setManageData(payload, false)));
    serviceWeb3.getWorklockData().then(payload => dispatch(setWorklockData(payload, false)));

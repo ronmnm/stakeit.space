@@ -7,19 +7,12 @@ const BlueBut = styled.span`
    justify-content: center;
    text-align: center;
    cursor: pointer;
-   background-color: #0077ff;
+   background-color: ${({theme}) => theme.buttonPrimary};
    padding: 10px 20px;
-   border-radius: 5px;
+   border-radius: 10px;
    width: 120px;
-   transition: 0.2s;
-   height: 39px;
    font-family: 'Lato', sans-serif;
-   &:hover {
-      background-color: #006ae2;
-   }
-   &:active {
-      background-color: #0062d3;
-   }
+   color: #F6F9FF;
    .round_spinner {
       width: 19px;
       height: 19px;
@@ -27,13 +20,9 @@ const BlueBut = styled.span`
 `;
 
 const GreyBut = styled(BlueBut)`
-   background-color: rgb(59, 59, 59);
-   &:hover {
-      background-color: rgb(54, 54, 54);
-   }
-   &:active {
-      background-color: rgb(44, 44, 44);
-   }
+   background-color: ${({theme}) => theme.background2};
+   color: ${({theme}) => theme.textPrimary};
+
 `;
 
 export const BlueButton = ({text, loading, onClick}) => {

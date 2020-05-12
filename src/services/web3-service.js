@@ -18,14 +18,15 @@ export default class ServiceWeb3 {
          day: day,
          hour: hour,
          minute: minute,
-         seconds: seconds
+         seconds: seconds,
       };
    }
 
-   getStakeData = async () => {      let stakerData = {};
+   getStakeData = async () => {
+      let stakerData = {};
 
-      // stakerData.account = (await web3.eth.getAccounts())[0];
-      stakerData.account = window.ethereum.selectedAddress
+      stakerData.account = (await web3.eth.getAccounts())[0];
+      // stakerData.account = window.ethereum.selectedAddress;
 
       stakerData.network = window.ethereum.networkVersion;
 
@@ -33,7 +34,7 @@ export default class ServiceWeb3 {
       stakerData.balanceNu = parseFloat(nits) / 10 ** 18;
 
       return stakerData;
-   }
+   };
 
    getManageData = async () => {
       const stakerInfo = await this.getStakeData();
@@ -44,7 +45,8 @@ export default class ServiceWeb3 {
       const StakerInfo = await Escrow.methods.stakerInfo(account).call();
       const currentPeriod = Math.floor(Date.now() / 86400000);
 
-      const confirmedPeriod1 = +StakerInfo.confirmedPeriod1 === currentPeriod + 1 ? 'Next period confirmed' : 'Missing confirmation';
+      const confirmedPeriod1 =
+         +StakerInfo.confirmedPeriod1 === currentPeriod + 1 ? 'Next period confirmed' : 'Missing confirmation';
 
       let workerBal;
       if (StakerInfo.worker !== '0x0000000000000000000000000000000000000000') {
@@ -62,11 +64,10 @@ export default class ServiceWeb3 {
       const isReStakeLockedBool = await Escrow.methods.isReStakeLocked(account).call();
       const isRestakeLocked = isReStakeLockedBool ? 'Locked' : 'Unlocked';
 
-
       // get substake length by substake index
       const getSubStakesLength = await Escrow.methods.getSubStakesLength(account).call();
 
-      // getting an array with all substakes 
+      // getting an array with all substakes
       const getAllSubstakes = await (async () => {
          if (getSubStakesLength !== '0') {
             let substakeList = [];
@@ -82,9 +83,7 @@ export default class ServiceWeb3 {
          }
       })();
 
-      const policyFee = await instancePolicy.methods
-         .nodes(account)
-         .call();
+      const policyFee = await instancePolicy.methods.nodes(account).call();
 
       const res = {
          stakerBalEth: balanceEth,
@@ -102,7 +101,7 @@ export default class ServiceWeb3 {
          substakeList: getAllSubstakes,
          StakerInfo: StakerInfo,
          confirmedPeriod1: confirmedPeriod1,
-         policyFee: policyFee[3]
+         policyFee: policyFee[3],
       };
 
       return res;
@@ -113,32 +112,23 @@ export default class ServiceWeb3 {
 
       footer.currentPeriod = Math.floor(Date.now() / 86400000);
 
-      const totalNuSupply = await Token.methods
-         .totalSupply()
-         .call();
+      const totalNuSupply = await Token.methods.totalSupply().call();
 
       // footer.supplyInBln = (totalNuSupply / 10 ** 18 / 10 ** 9)
       //    .toFixed(2);
 
-      const getReservedReward = await Escrow.methods
-         .getReservedReward()
-         .call();
+      const getReservedReward = await Escrow.methods.getReservedReward().call();
 
       // Get number of active stakers and locked amount
-      const getStakersAndTokens = await Escrow.methods
-         .getActiveStakers(1, 0, 0)
-         .call();
+      const getStakersAndTokens = await Escrow.methods.getActiveStakers(1, 0, 0).call();
 
       footer.activeStakers = getStakersAndTokens[1].length;
 
-      footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18)
-         .toLocaleString('en-Us');
+      footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
 
-      footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100)
-         .toFixed(2);
+      footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
 
-      footer.circulatingSupply = ((totalNuSupply - getReservedReward) / 10 ** 18 / 10 ** 9)
-         .toFixed(3);
+      footer.circulatingSupply = ((totalNuSupply - getReservedReward) / 10 ** 18 / 10 ** 9).toFixed(3);
 
       return footer;
 
@@ -154,12 +144,12 @@ export default class ServiceWeb3 {
       // Start bid day
       const startBidDate = await Worklock.methods.startBidDate().call();
       // const biddingStartDateHuman = new Date(startBidDate * 1000).toUTCString();
-      const biddingStartDateHuman = 'Wed, 25 Mar 2020 00:00:00 GMT'
+      const biddingStartDateHuman = 'Wed, 25 Mar 2020 00:00:00 GMT';
 
       // End bid day
       const endBidDate = await Worklock.methods.endBidDate().call();
       // const biddingEndDateHuman = new Date(endBidDate * 1000).toUTCString();
-      const biddingEndDateHuman = 'Tue, 31 Mar 2020 23:59:59 GMT'
+      const biddingEndDateHuman = 'Tue, 31 Mar 2020 23:59:59 GMT';
       // const biddingDurationMs = (endBidDate - startBidDate) * 1000;
 
       // Calculate bidding duration
@@ -173,12 +163,8 @@ export default class ServiceWeb3 {
       const biddingTimeRemaining = `${objB.day} Days, ${objB.hour} Hours, ${objB.minute} Mins`;
 
       // Cancellation Window End Date
-      const cancellationEndDate = await Worklock.methods
-         .endCancellationDate()
-         .call();
-      const endCancellationDateHuman = new Date(
-         cancellationEndDate * 1000
-      ).toUTCString();
+      const cancellationEndDate = await Worklock.methods.endCancellationDate().call();
+      const endCancellationDateHuman = new Date(cancellationEndDate * 1000).toUTCString();
 
       // Calculate Cancellation Window Duration
       const cancellationTimeDuration = cancellationEndDate - startBidDate;
@@ -186,97 +172,63 @@ export default class ServiceWeb3 {
       const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
 
       // Calculate Cancellation Window Time Remaining
-      const remainingCancelationTime =
-         cancellationEndDate * 1000 - currentDateUnix;
+      const remainingCancelationTime = cancellationEndDate * 1000 - currentDateUnix;
       const objC = this._convertMS(remainingCancelationTime);
       const remainingCancelationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
 
-      const isClaimingAvailable = await Worklock.methods
-         .isClaimingAvailable()
-         .call();
+      const isClaimingAvailable = await Worklock.methods.isClaimingAvailable().call();
       let isClaimingAvailableHuman;
       if (isClaimingAvailable) {
-         isClaimingAvailableHuman = "Yes";
+         isClaimingAvailableHuman = 'Yes';
       } else {
-         isClaimingAvailableHuman = "No";
+         isClaimingAvailableHuman = 'No';
       }
 
-      const minAllowedBid = await Worklock.methods
-         .minAllowedBid()
-         .call();
-      const minAllowedBidETH = parseFloat(
-         web3.utils.fromWei(minAllowedBid, "ether")
-      ).toFixed(2);
+      const minAllowedBid = await Worklock.methods.minAllowedBid().call();
+      const minAllowedBidETH = parseFloat(web3.utils.fromWei(minAllowedBid, 'ether')).toFixed(2);
 
-      const getBiddersLength = await Worklock.methods
-         .getBiddersLength()
-         .call();
+      const getBiddersLength = await Worklock.methods.getBiddersLength().call();
 
       // get current bid
       const workInfo = await Worklock.methods.workInfo(account).call();
-      const currentBid = web3.utils.fromWei(workInfo[0], "ether");
+      const currentBid = web3.utils.fromWei(workInfo[0], 'ether');
       // get completedWork
       const refundedWork = workInfo[1];
       // is tokens claimed ?
       const claimed = workInfo[2];
 
-      const ethToTokensNits = await Worklock.methods
-         .ethToTokens(workInfo[0])
-         .call();
-      const ethToTokensNu = (ethToTokensNits / 10 ** 18);
+      const ethToTokensNits = await Worklock.methods.ethToTokens(workInfo[0]).call();
+      const ethToTokensNu = ethToTokensNits / 10 ** 18;
 
-      const boostingRefund = await Worklock.methods
-         .boostingRefund()
-         .call();
+      const boostingRefund = await Worklock.methods.boostingRefund().call();
 
-      const SLOWING_REFUND = await Worklock.methods
-         .SLOWING_REFUND()
-         .call();
+      const SLOWING_REFUND = await Worklock.methods.SLOWING_REFUND().call();
 
-      const getAvailableRefund = web3.utils.fromWei(
-         await Worklock.methods.getAvailableRefund(account).call(),
-         "ether"
-      );
-
+      const getAvailableRefund = web3.utils.fromWei(await Worklock.methods.getAvailableRefund(account).call(), 'ether');
 
       const getContractBal = parseFloat(
-         web3.utils.fromWei(
-            await web3.eth.getBalance(WORKLOCK_ADDRESS),
-            "ether"
-         )
+         web3.utils.fromWei(await web3.eth.getBalance(WORKLOCK_ADDRESS), 'ether')
       ).toFixed(2);
 
-      const bonusETHSupplyWei = await Worklock.methods
-         .bonusETHSupply()
-         .call();
+      const bonusETHSupplyWei = await Worklock.methods.bonusETHSupply().call();
 
-      const bonusETHSupply = parseFloat(
-         web3.utils.fromWei(bonusETHSupplyWei, "ether")
-      ).toFixed(2);
+      const bonusETHSupply = parseFloat(web3.utils.fromWei(bonusETHSupplyWei, 'ether')).toFixed(2);
 
       const tokenSupply = await Worklock.methods.tokenSupply().call();
 
       const tokenSupplyH = tokenSupply / 10 ** 18;
 
-      const getRemainingWork = await Worklock.methods
-         .getRemainingWork(account)
-         .call();
+      const getRemainingWork = await Worklock.methods.getRemainingWork(account).call();
 
       // minAllowableLockedTokens
-      const minAllowableLockedTokens = await Worklock.methods
-         .minAllowableLockedTokens()
-         .call();
+      const minAllowableLockedTokens = await Worklock.methods.minAllowableLockedTokens().call();
 
       // console.log(getRemainingWork);
-      const bonusTokenSupply =
-         tokenSupply - getBiddersLength * minAllowableLockedTokens;
+      const bonusTokenSupply = tokenSupply - getBiddersLength * minAllowableLockedTokens;
       const bonusDepositRate = bonusTokenSupply / bonusETHSupplyWei;
-      const bonusRefundRate =
-         (bonusDepositRate * SLOWING_REFUND) / boostingRefund;
+      const bonusRefundRate = (bonusDepositRate * SLOWING_REFUND) / boostingRefund;
 
-      const completedWork = (await Escrow.methods
-         .getCompletedWork(account)
-         .call()) - workInfo[1];
+      const completedWork = (await Escrow.methods.getCompletedWork(account).call()) - workInfo[1];
       // const completedWork = blabla - refundedWork;
       // Setters
       // Make Bid
@@ -285,14 +237,14 @@ export default class ServiceWeb3 {
 
          await Worklock.methods.bid().send({
             from: accounts[0],
-            value: web3.utils.toWei(toNum, "ether")
+            value: web3.utils.toWei(toNum, 'ether'),
          });
       };
 
       // Cancel Bid
       const cancelBid = async () => {
          await Worklock.methods.cancelBid().send({
-            from: account
+            from: account,
          });
       };
 
@@ -300,14 +252,14 @@ export default class ServiceWeb3 {
       const claimTokens = async () => {
          // alert('ho ho ho')
          await Worklock.methods.claim().send({
-            from: account
+            from: account,
          });
       };
       // Refund
       const refund = async () => {
          // alert('ho ho ho')
          await Worklock.methods.refund().send({
-            from: account
+            from: account,
          });
       };
 
@@ -335,7 +287,7 @@ export default class ServiceWeb3 {
          currentBid: parseFloat(currentBid).toFixed(4),
          tokensAllocated: ethToTokensNu,
          boostingRefund: boostingRefund,
-         SLOWING_REFUND: SLOWING_REFUND, 
+         SLOWING_REFUND: SLOWING_REFUND,
          аvailableRefund: parseFloat(getAvailableRefund).toFixed(4),
          getContractBal: getContractBal,
          bonusETHSupply: bonusETHSupply,
@@ -353,74 +305,63 @@ export default class ServiceWeb3 {
 
          methods: Worklock.methods,
 
-         completedWork: completedWork
-         
+         completedWork: completedWork,
       };
       return worklockData;
-   }
+   };
 
    getSetters = async () => {
       const setters = {};
-      setters.setRestake = async (value) => {
+      setters.setRestake = async value => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await Escrow.methods
-               .setReStake(value)
-               .send({ from: accounts[0] });
+            await Escrow.methods.setReStake(value).send({ from: accounts[0] });
          } catch (err) {
-            console.error("Oh no", err);
+            console.error('Oh no', err);
          }
       };
 
-      setters.setWinddown = async (value) => {
+      setters.setWinddown = async value => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await Escrow.methods
-               .setWindDown(value)
-               .send({ from: accounts[0] });
+            await Escrow.methods.setWindDown(value).send({ from: accounts[0] });
          } catch (err) {
-            console.error("Oh no", err);
+            console.error('Oh no', err);
          }
       };
 
-      setters.setWorker = async (address) => {
+      setters.setWorker = async address => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await Escrow.methods
-               .setWorker(address)
-               .send({ from: accounts[0] });
+            await Escrow.methods.setWorker(address).send({ from: accounts[0] });
          } catch (err) {
-            console.error("Oh no", err);
+            console.error('Oh no', err);
          }
       };
 
       setters.prolongStake = async (index, periods) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            await Escrow.methods
-               .prolongStake(index, periods)
-               .send({ from: accounts[0] });
+            await Escrow.methods.prolongStake(index, periods).send({ from: accounts[0] });
          } catch (err) {
-            console.error("Oh no", err);
+            console.error('Oh no', err);
          }
       };
 
       setters.divideStake = async (index, value, periods) => {
          try {
             const accounts = await web3.eth.getAccounts();
-            
-            const nits = web3.utils.toWei(value, 'ether')
+
+            const nits = web3.utils.toWei(value, 'ether');
             // console.log(typeof nits);
             // console.log(nits);
 
-            await Escrow.methods
-               .divideStake(index, nits, periods)
-               .send({ from: accounts[0] });
+            await Escrow.methods.divideStake(index, nits, periods).send({ from: accounts[0] });
          } catch (err) {
-            console.error("Oh no", err);
+            console.error('Oh no', err);
          }
       };
 
       return setters;
-   }
+   };
 }
