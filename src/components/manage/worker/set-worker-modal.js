@@ -66,23 +66,10 @@ export const ModalContent = styled.div`
          opacity: 0;
       }
    }
-   input[type='number']::-webkit-inner-spin-button,
-   input[type='number']::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-   }
-   input[type='number'] {
-      -moz-appearance: textfield;
-   }
    .button_wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 10px;
-      svg{
-         height: 22px;
-         width: 22px;
-         margin-top: 8px;
-      }
    }
 `;
 

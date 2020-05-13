@@ -1,34 +1,36 @@
 import utils from 'web3-utils';
-import { Escrow } from '../ethereum/instances/instances';
+import { Escrow, instancePolicy } from '../ethereum/instances/instances';
 
 export default class ServiceWeb3Setters {
+   constructor() {
+      this.account = window.ethereum.selectedAddress;
+   }
    setRestake = async value => {
-      // try {
-      const account = window.ethereum.selectedAddress;
-      return await Escrow.methods.setReStake(value).send({ from: account });
-      // } catch (err) {
-      //    return console.error('Oh no', err);
-      // }
+      return await Escrow.methods.setReStake(value).send({ from: this.account });
    };
 
    setWinddown = async value => {
-      const account = window.ethereum.selectedAddress;
-      return await Escrow.methods.setWindDown(value).send({ from: account });
+      return await Escrow.methods.setWindDown(value).send({ from: this.account });
    };
 
    setWorker = async address => {
-      const account = window.ethereum.selectedAddress;
-      return await Escrow.methods.setWorker(address).send({ from: account });
+      return await Escrow.methods.setWorker(address).send({ from: this.account });
    };
 
    prolongStake = async (index, periods) => {
-      const account = window.ethereum.selectedAddress;
-      return await Escrow.methods.prolongStake(index, periods).send({ from: account });
+      return await Escrow.methods.prolongStake(index, periods).send({ from: this.account });
    };
 
    divideStake = async (index, value, periods) => {
-      const account = window.ethereum.selectedAddress;
       const nits = utils.toWei(value, 'ether');
-      return await Escrow.methods.divideStake(index, nits, periods).send({ from: account });
+      return await Escrow.methods.divideStake(index, nits, periods).send({ from: this.account });
+   };
+
+   withdrawNu = async amount => {
+      const nits = utils.toWei(String(amount), 'ether');
+      return await Escrow.methods.withdraw(nits).send({ from: this.account });
+   };
+   withdrawPolicy = async () => {
+      return await instancePolicy.methods.withdraw().send({ from: this.account });
    };
 }

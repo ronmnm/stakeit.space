@@ -13,6 +13,8 @@ const userSettersState = {
    showWorkerLoader: false,
    showDivideLoader: false,
    showProlongLoader: false,
+   showWithdrawNuLoader: false,
+   showWithdrawPolicyLoader: false,
 };
 
 export const settersButtonsStateReducer = (state = userSettersState, action) => {
@@ -27,6 +29,10 @@ export const settersButtonsStateReducer = (state = userSettersState, action) => 
          return { ...state, showDivideLoader: action.payload };
       case t.SET_PROLONG_LOADER:
          return { ...state, showProlongLoader: action.payload };
+      case t.SET_WITHDRAW_NU_LOADER:
+         return { ...state, showWithdrawNuLoader: action.payload };
+      case t.SET_WITHDRAW_POLICY_LOADER:
+         return { ...state, showWithdrawPolicyLoader: action.payload };
       default:
          return state;
    }
@@ -48,7 +54,8 @@ export const setRestakeThunk = bool => dispatch => {
          dispatch({ type: t.SET_RESTAKE_STATUS, payload: bool });
          dispatch({ type: t.SET_SHOW_RESTAKE_LOADER, payload: false });
       })
-      .catch(() => {
+      .catch(err => {
+         console.error(err);
          dispatch({ type: t.SET_SHOW_RESTAKE_LOADER, payload: false });
       });
 };
@@ -61,7 +68,8 @@ export const setWindDownThunk = bool => dispatch => {
          dispatch({ type: t.SET_WINDDOWN_STATUS, payload: bool });
          dispatch({ type: t.SET_SHOW_WINDDOWN_LOADER, payload: false });
       })
-      .catch(() => {
+      .catch(err => {
+         console.error(err);
          dispatch({ type: t.SET_SHOW_WINDDOWN_LOADER, payload: false });
       });
 };
@@ -95,7 +103,6 @@ export const divideStakeThunk = (index, value, periods) => dispatch => {
 
 export const prolongStakeThunk = (index, periods) => dispatch => {
    dispatch({ type: t.SET_PROLONG_LOADER, payload: true });
-
    serviceWeb3Setters
       .prolongStake(index, periods)
       .then(() => {
@@ -104,5 +111,31 @@ export const prolongStakeThunk = (index, periods) => dispatch => {
       .catch(err => {
          console.error(err);
          dispatch({ type: t.SET_PROLONG_LOADER, payload: false });
+      });
+};
+
+export const withdrawNuThunk = value => dispatch => {
+   dispatch({ type: t.SET_WITHDRAW_NU_LOADER, payload: true });
+   serviceWeb3Setters
+      .withdrawNu(value)
+      .then(() => {
+         _updateDataHelper(t.SET_WITHDRAW_NU_LOADER, dispatch);
+      })
+      .catch(err => {
+         console.error(err);
+         dispatch({ type: t.SET_WITHDRAW_NU_LOADER, payload: false });
+      });
+};
+
+export const withdrawPolicyThunk = () => dispatch => {
+   dispatch({ type: t.SET_WITHDRAW_POLICY_LOADER, payload: true });
+   serviceWeb3Setters
+      .withdrawPolicy()
+      .then(() => {
+         _updateDataHelper(t.SET_WITHDRAW_POLICY_LOADER, dispatch);
+      })
+      .catch(err => {
+         console.error(err);
+         dispatch({ type: t.SET_WITHDRAW_POLICY_LOADER, payload: false });
       });
 };

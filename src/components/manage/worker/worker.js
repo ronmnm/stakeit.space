@@ -20,6 +20,7 @@ const WorkerWrapper = styled.div`
       padding-bottom: 10px;
       /* border-bottom: 1px solid #333; */
       border-top: 1px solid ${({ theme }) => theme.background2};
+      border-bottom: 1px solid ${({ theme }) => theme.background2};
       p {
          display: grid;
          grid-auto-flow: column;
