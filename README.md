@@ -1,5 +1,5 @@
 # www.stakeit.space
-
+![](./src/static/screenshot.png)
 User Interface for staking NU tokens.
 
 
