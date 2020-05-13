@@ -27,7 +27,7 @@
       "web3-utils": "^1.2.6"
    },
    "scripts": {
-      "start": "react-scripts start",
+      "start": "react-scripts start  --no-cache",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject",
