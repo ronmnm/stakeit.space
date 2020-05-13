@@ -20,7 +20,7 @@ const ManageBottomWrapper = styled.div`
       .my_nav_item {
          cursor: pointer;
          text-align: center;
-         text-transform: uppercase;
+         /* text-transform: uppercase; */
          letter-spacing: 0.5px;
          font-size: 12px;
          font-weight: 600;
@@ -38,6 +38,11 @@ const ManageBottomWrapper = styled.div`
             color: ${({ theme }) => theme.textWhiteBlue};
          }
       }
+      .disable{
+         color: ${({ theme }) => theme.background4};
+         pointer-events: none;
+         cursor: default;
+      }
    }
 `;
 
@@ -45,13 +50,11 @@ const ManageBottom = ({ substakeList, prolongStake, divideStake }) => {
    const [listState, setListState] = useState('active');
    const [historyState, setHistoryState] = useState('');
 
-   const substakeClick = e => {
-      e.preventDefault();
+   const substakeClick = () => {
       setListState('active');
       setHistoryState('');
    };
-   const historyClick = e => {
-      e.preventDefault();
+   const historyClick = () => {
       setHistoryState('active');
       setListState('');
    };
@@ -61,7 +64,7 @@ const ManageBottom = ({ substakeList, prolongStake, divideStake }) => {
             <span onClick={substakeClick} className={`my_nav_item ${listState}`}>
                Substake List
             </span>
-            <span onClick={historyClick} className={`my_nav_item ${historyState}`}>
+            <span onClick={historyClick} className={`my_nav_item ${historyState} disable`}>
                Action History
             </span>
          </div>

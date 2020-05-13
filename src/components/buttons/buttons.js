@@ -35,8 +35,13 @@ export const Button = styled.div`
 const blueButton = css`
    background-color: ${({ theme }) => theme.buttonPrimary};
    color: white;
-   &:hover{
+   &:hover {
       background-color: ${({ theme }) => theme.buttonBlueHover};
+   }
+   svg {
+      height: 22px;
+      width: 22px;
+      margin-top: 8px;
    }
 `;
 

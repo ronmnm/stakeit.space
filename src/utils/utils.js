@@ -10,7 +10,7 @@ export const hexToBytes = hex => {
    return bytes;
 };
 
-export const convertMS = (milliseconds) => {
+export const convertMS = milliseconds => {
    var day, hour, minute, seconds;
    seconds = Math.floor(milliseconds / 1000);
    minute = Math.floor(seconds / 60);
@@ -23,6 +23,18 @@ export const convertMS = (milliseconds) => {
       day: day,
       hour: hour,
       minute: minute,
-      seconds: seconds
+      seconds: seconds,
    };
-}
+};
+
+export const substakeObjectCreator = object => {
+   let currentDate = Date.now() / 86400000;
+   return {
+      value: (object.lockedValue / 10 ** 18).toLocaleString('en-Us'),
+      startDay: new Date(object.firstPeriod * 86400000).toUTCString().slice(0, 11),
+      startYear: new Date(object.firstPeriod * 86400000).toDateString().slice(-4),
+      currentDate: currentDate,
+      endDay: new Date((currentDate + +object.periods + 1) * 86400000).toUTCString().slice(0, 11),
+      endYear: new Date((currentDate + +object.periods) * 86400000).toDateString().slice(-4),
+   };
+};
