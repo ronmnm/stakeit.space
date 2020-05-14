@@ -45,7 +45,7 @@ const NavWrapper = styled.div`
 
 const Nav = ({ accountStatus }) => {
    let disable = null;
-   if (accountStatus === 'INSTALL' || accountStatus === 'WRONG' || accountStatus === 'CONNECT') {
+   if (accountStatus !== 'OK') {
       disable = 'disable';
    }
 

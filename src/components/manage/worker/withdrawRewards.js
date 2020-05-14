@@ -61,9 +61,14 @@ const WithdrawButton = styled.div`
    }
    .button_text {
       padding: 0 5px;
+      .button_text_bold{
+         color: ${({theme}) => theme.textPrimary};
+         font-weight: 600;
+      }
       span {
          margin-left: 3px;
       }
+      
    }
    .button_logo {
       display: grid;
@@ -108,7 +113,7 @@ const WithdrawRewards = ({
                loading={showWithdrawNuLoader}
                callback={handleWithdrawNu}
                text="Staking Rewards:"
-               value={stakingRewards.toLocaleString('en-Us')}
+               value={(+stakingRewards.toLocaleString('en-Us')).toFixed(3)}
                label="NU"
             />
             <RewardItem
@@ -130,7 +135,7 @@ const RewardItem = ({ text, value, label, callback, loading }) => {
          <div className="withdraw_button">
             <WithdrawButton onClick={callback}>
                <div className="button_text">
-                  <span>{value}</span>
+                  <span className='button_text_bold'>{value}</span>
                   <span>{label}</span>
                </div>
                <div className="button_logo">

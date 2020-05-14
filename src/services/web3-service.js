@@ -58,7 +58,7 @@ export default class ServiceWeb3 {
       const lockedStakerNu = lockedStakerNits / 10 ** 18;
       // Calculate Stakers unlocked NU
       const stakerUnlockedNits = StakerInfo.value - lockedStakerNits;
-      const stakerNuUnlocked = stakerUnlockedNits / 10 ** 18;
+      const stakerNuUnlocked = web3.utils.fromWei(String(stakerUnlockedNits), 'ether');
 
       const isReStakeLockedBool = await Escrow.methods.isReStakeLocked(account).call();
       const isRestakeLocked = isReStakeLockedBool ? 'Locked' : 'Unlocked';
@@ -137,7 +137,8 @@ export default class ServiceWeb3 {
 
    getWorklockData = async () => {
       const accounts = await web3.eth.getAccounts();
-      const account = window.ethereum.selectedAddress;
+      // const account = window.ethereum.selectedAddress;
+      const account = (await web3.eth.getAccounts())[0];
 
       // TIME START
       // Start bid day

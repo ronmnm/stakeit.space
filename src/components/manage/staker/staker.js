@@ -78,7 +78,7 @@ const Staker = ({
                   Unlocked <i>(Available to withdraw):</i>
                </span>
                <span>
-                  <b>{stakerNuUnlocked.toLocaleString('en-Us')}</b> NU
+                  <b>{(+stakerNuUnlocked.toLocaleString('en-Us')).toFixed(3)}</b> NU
                </span>
             </p>
          </StakerContent>

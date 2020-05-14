@@ -34,8 +34,8 @@ const AddStakeButton = styled.div`
    }
    svg {
       fill: ${({ theme }) => theme.darkMode ? theme.textSecondary : theme.background3};
-      border: 1px solid ${({ theme }) => theme.background2};
-      border-radius: 17px;
+      /* border: 1px solid ${({ theme }) => theme.background2}; */
+      /* border-radius: 17px; */
       padding: 4px;
       height: 24px;
       width: 24px;

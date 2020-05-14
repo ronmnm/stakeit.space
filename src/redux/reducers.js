@@ -4,7 +4,7 @@ import ServiceWeb3 from '../services/web3-service';
 const serviceWeb3 = new ServiceWeb3();
 
 const userState = {
-   onConnectClick: null,
+   
    darkMode: true,
    account: '',
    balETH: '',
@@ -18,6 +18,7 @@ const userState = {
 };
 export const metamaskInitialState = {
    accountStatus: 'LOADING',
+   onConnectClick: null,
 };
 
 export const metamaskReducer = (state = metamaskInitialState, action) => {
@@ -69,6 +70,10 @@ export const mainReducer = (state = userState, action) => {
          return state;
    }
 };
+
+
+
+
 
 const setStatus = (value, handleClick) => ({ type: value, payload: handleClick });
 

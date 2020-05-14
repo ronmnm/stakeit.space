@@ -61,7 +61,7 @@ const ConnectButton = styled(InstallButton)`
    background-color: ${({ theme }) => theme.buttonPrimary};
    border: 1px solid ${({ theme }) => theme.buttonPrimary};
    span {
-      color: ${({ theme }) => theme.buttonBlueText};
+      color: white;
       font-weight: 600;
       transition: 0.2s;
       font-size: 12px;
@@ -132,7 +132,7 @@ const Address = ({ account = '', status, onClick }) => {
 const mapStateToProps = ({ user, metamask }) => ({
    account: user.account,
    status: metamask.accountStatus,
-   onClick: user.onConnectClick,
+   onClick: metamask.onConnectClick,
 });
 // const mapDispatchToProps = (dispatch) => ({
 //    onClick: status.onConnectClick

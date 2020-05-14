@@ -23,7 +23,8 @@ const Input = styled.input`
    background-color: ${({ theme, error }) => !error ? theme.backgroundPale : theme.backgroundError}; 
    border-radius: 15px;
    height: 55px;
-   line-height: 55px;
+   padding: 15px 0;
+   line-height: normal;
    width: 100%;
    margin: 10px auto 20px auto;
    
@@ -47,6 +48,7 @@ const Input = styled.input`
    &::placeholder {
       color: ${({theme}) => theme.darkMode ? '#a9b5c2' : '#a1a1a1'};
       letter-spacing: 0.5px;
+      /* padding: 15px 0; */
       font-weight: 700;
       opacity: 1;
    }
