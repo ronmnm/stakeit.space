@@ -33,6 +33,8 @@ export default class GetActionHistory {
       ...(await _getEventList("ReStakeSet", startBlock)),
       ...(await _getEventList("Withdrawn", startBlock)),
       ...(await _getEventList("Divided", startBlock)),
+      ...(await _getEventList("WorkerSet", startBlock)),
+      ...(await _getEventList("Deposited", startBlock)),
     ].sort((a, b) => b.timestamp - a.timestamp)
 
   }

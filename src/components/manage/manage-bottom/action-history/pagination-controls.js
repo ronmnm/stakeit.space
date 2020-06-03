@@ -9,6 +9,11 @@ const PaginationControlsStyled = styled.div`
   width: min-content;
   margin: 0 auto;
   height: ${sizze};
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select:none;
+  user-select:none;
+  -o-user-select:none;
   .rotate {
     padding-left: 0;
     svg {
@@ -23,12 +28,12 @@ const PaginationControlsStyled = styled.div`
     border-radius: 8px;
     padding-left: 1px;
     width: ${sizze};
+    
     svg {
       fill: ${({ theme }) => theme.textSecondary};
     }
     &:hover {
       background-color: ${({ theme }) => theme.backgroundPale};
-      /* color: ${({ theme }) => theme.textPrimary}; */
       cursor: pointer;
       svg{
         fill: ${({ theme }) => theme.textPrimary};
@@ -49,6 +54,7 @@ const PaginationControlsStyled = styled.div`
       text-align: center;
       width: ${sizze};
       color: ${({ theme }) => theme.textSecondary};
+      font-weight: 600;
       &:hover {
         cursor: pointer;
         color: ${({ theme }) => theme.textPrimary};
@@ -68,7 +74,7 @@ const PaginationControlsStyled = styled.div`
 export default function PaginationControls({ pagesCount, currentPage, setCurrentPage }) {
   return (
     <PaginationControlsStyled>
-      <div className="pagination_controls_button rotate" onClick={() => setCurrentPage(currentPage - 1)}>
+      <div className="pagination_controls_button rotate" onClick={currentPage > 1 ? () => setCurrentPage(currentPage - 1) : null}>
         <SvgArrow />
       </div>
       <div className="pagination_controls_item_wrapper">
@@ -83,7 +89,7 @@ export default function PaginationControls({ pagesCount, currentPage, setCurrent
           )
         })}
       </div>
-      <div className="pagination_controls_button" onClick={() => setCurrentPage(currentPage + 1)}>
+      <div className="pagination_controls_button" onClick={pagesCount > currentPage ? () => setCurrentPage(currentPage + 1) : null}>
         <SvgArrow />
       </div>
     </PaginationControlsStyled>
