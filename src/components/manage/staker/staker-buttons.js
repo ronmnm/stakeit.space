@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Svg7 } from '../../loader/7';

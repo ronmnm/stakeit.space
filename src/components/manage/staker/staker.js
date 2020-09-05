@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import s from './staker.module.css';
 import { connect } from 'react-redux';

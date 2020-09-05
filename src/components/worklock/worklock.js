@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import ReactGA from 'react-ga';
 import s from './worklock.module.css';
 import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal';
