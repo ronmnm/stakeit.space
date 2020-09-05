@@ -231,15 +231,13 @@ export default class ServiceWeb3 {
       const completedWork = (await Escrow.methods.getCompletedWork(account).call()) - workInfo[1];
       // const completedWork = blabla - refundedWork;
       // Setters
-      // Make Bid
+      
       const makeBid = async value => {
-         const toNum = +this.state.inputAmount;
-
-         await Worklock.methods.bid().send({
-            from: accounts[0],
-            value: web3.utils.toWei(toNum, 'ether'),
-         });
-      };
+        await Worklock.methods.bid().send({
+          from: accounts[0],
+          value: web3.utils.toWei(String(value), "ether"),
+        })
+      }
 
       // Cancel Bid
       const cancelBid = async () => {
