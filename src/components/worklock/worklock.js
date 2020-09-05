@@ -143,7 +143,7 @@ const WorkLock = ({
                   <span>Place new escrow</span>
                   <div>
                   <b>Minimum escrow is 5ETH.</b>
-                  <label htmlFor="">Enter bid amount (ETH):</label>
+                  <label htmlFor="">Enter escrow amount (ETH):</label>
                   <input
                     placeholder="0.0"
                     value={bidValue}
@@ -215,19 +215,19 @@ const WorkLock = ({
             <h3>TIMELINE</h3>
             <div className={s.timeline_container}>
                <div>
-                  <span>Bidding Start Date</span>
+                  <span>Escrow Start Date</span>
                   <h4>{biddingStartDate}</h4>
                </div>
                <div>
-                  <span>Bidding End Date</span>
+                  <span>Escrow End Date</span>
                   <h4>{biddingEndDate}</h4>
                </div>
                <div>
-                  <span>Bidding Ends In</span>
+                  <span>Escrow Ends In</span>
                   <h4>{biddingTimeRemaining}</h4>
                </div>
                <div>
-                  <span>Bid Cancel Time Remaining</span>
+                  <span>Escrow Cancel Time Remaining</span>
                   <h4>{remainingCancellationTimeHuman}</h4>
                </div>
             </div>
@@ -238,7 +238,7 @@ const WorkLock = ({
             <div className={s.economics_container}>
                <div className={s.economics_top_row}>
                   <div>
-                     <span>Minimal allowed bid</span>
+                     <span>Minimal allowed escrow</span>
                      <h4>{minAllowedBid} ETH</h4>
                   </div>
                   <div>
@@ -323,7 +323,7 @@ class Bid extends React.Component {
       // console.log(this.state.value)
       return (
          <form className={s.bid_form} onSubmit={this.handleSubmit}>
-            <span>Enter bid amount:</span>
+            <span>Enter escrow amount:</span>
             <input value={this.state.value} onChange={this.onChange} placeholder="ETH Amount" type="text" />
             <button className={s.button_disabled}>Place Bid!</button>
          </form>
