@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import ReactGA from 'react-ga';
 import s from './worklock.module.css';
 import RoundSpinner from '../loader/7.svg';
@@ -82,11 +82,6 @@ const WorkLock = ({
 
    const onRefundClick = async e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Refund ETH button',
-         label: 'worklock_tab_label',
-      });
       setRefundSpin(true);
       refund()
          .then(() => {
@@ -99,11 +94,6 @@ const WorkLock = ({
 
    const onClaimClick = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Claim NU button',
-         label: 'worklock_tab_label',
-      });
       setClaimSpin(true);
       claimTokens()
          .then(() => {
@@ -116,11 +106,6 @@ const WorkLock = ({
 
    const onCancelBidClick = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Cancel Bid button',
-         label: 'worklock_tab_label',
-      });
       setCancelSpin(true);
       cancelBid()
          .then(() => {
@@ -133,11 +118,6 @@ const WorkLock = ({
 
    const openModal = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Open Bid Modal',
-         label: 'worklock_tab_label',
-      });
       modalRef.current.openMod();
    };
    const closeModal = () => {
