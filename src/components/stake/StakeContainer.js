@@ -26,14 +26,7 @@ class StakeContainer extends React.Component {
    async confirmationClick() {
       this.setState({ confirmBtnLoading: true });
       console.log(this.state.confirmBtnLoading);
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Confirm button click',
-         label: 'stake_tab_label',
-      });
-      
       await addNewStake(this.props.amount, this.props.duration);
-
       this.setState({ confirmBtnLoading: false });
    }
 
@@ -43,11 +36,6 @@ class StakeContainer extends React.Component {
 
    onButtonClick(e) {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Click Stake It button',
-         label: 'stake_tab_label',
-      });
       this.setState({ clicked: true });
    }
 

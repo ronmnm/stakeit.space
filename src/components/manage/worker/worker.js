@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import utils from 'web3-utils';
-import ReactGA from 'react-ga';
 import Modal from '../../worklock/modal/modal';
 import SetWorkerModal from './set-worker-modal';
 import RoundSpinner from '../../loader/7.svg';
@@ -50,7 +49,7 @@ const Worker = ({ worker, workerEthBal, setWorker, confirmedPeriods, currentPeri
 
    let buttonContent;
    if (worker === '0x0000000000000000000000000000000000000000') {
-      buttonContent = 'Set worker';
+      buttonContent = 'Bond worker';
    } else {
       buttonContent = 'Change worker';
    }
@@ -76,12 +75,6 @@ const Worker = ({ worker, workerEthBal, setWorker, confirmedPeriods, currentPeri
    };
 
    const handleClick = () => {
-      ReactGA.event({
-         category: 'Manage tab',
-         action: 'Open Set Worker Modal',
-         label: 'manage_tab_label',
-      });
-
       if (isValid && inputAddress !== '') {
          setWorkerThunk(inputAddress);
       } else {

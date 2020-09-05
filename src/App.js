@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactGA from 'react-ga';
 import { Router, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
@@ -17,16 +16,7 @@ import { setStatusThunk, getDataThunk, setManageData, setWorklockData } from './
 import * as t from './redux/actionTypes';
 
 const history = createBrowserHistory();
-const stakeit = 'UA-162529903-1';
-// const test = 'UA-162797521-1';
 const ethereum = window.ethereum;
-
-ReactGA.initialize(stakeit);
-
-history.listen(location => {
-   ReactGA.set({ page: location.pathname });
-   ReactGA.pageview(location.pathname);
-});
 
 const App = props => {
    const [amount, setAmount] = useState(null);
