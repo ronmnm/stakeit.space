@@ -131,6 +131,6 @@ const mapStateToProps = ({ user }) => ({
    workerEthBal: user.manage.workerEthBal,
    setWorker: user.manage.setWorker,
    confirmedPeriods: user.manage.confirmedPeriods,
-   currentPeriod: user.footer.currentPeriod,
+   currentPeriod: user.manage.currentPeriod,
 });
 export default connect(mapStateToProps, { setWorkerThunk })(Worker);
