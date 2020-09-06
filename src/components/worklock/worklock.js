@@ -160,7 +160,7 @@ const WorkLock = ({
             <ModalContent isValid={isValid}>
                   <span>Place new bid</span>
                   <div>
-                  <b>Minimum bid is 5ETH.</b>
+                  <b>Minimum escrow is 5ETH.</b>
                   <label htmlFor="">Enter bid amount (ETH):</label>
                   <input
                     placeholder="0.0"
