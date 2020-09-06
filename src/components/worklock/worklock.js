@@ -38,12 +38,14 @@ const WorkLock = ({
    // refundedWork,
    refund,
    cancelBid,
+   makeBid,
 }) => {
    const [refundSpin, setRefundSpin] = useState(false);
    const [claimSpin, setClaimSpin] = useState(false);
    const [cancelSpin, setCancelSpin] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
    const [isValid, setIsValid] = useState(true);
+   const [bidValue, setBidValue] = useState('')
 
    const modalRef = useRef();
 
@@ -140,19 +142,30 @@ const WorkLock = ({
       modalRef.current.closeMod();
    };
 
+  function handleBid() {
+    setIsLoading(true)
+    makeBid(bidValue)
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch(() => {
+        setIsLoading(false)
+      })
+  }
+
    // console.log(props.worklockData);
    return (
       <div className={s.worklock_wrapper}>
          <Modal ref={modalRef}>
             <ModalContent isValid={isValid}>
-               <span>Place new bid</span>
-               <div>
-                  <b>Bidding period ended.</b>
+                  <span>Place new bid</span>
+                  <div>
+                  <b>Minimum escrow is 5ETH.</b>
                   <label htmlFor="">Enter bid amount (ETH):</label>
                   <input
-                     placeholder="0.0"
-                     // value={inputAddress}
-                     // onChange={(e) => setInputAddress(e.target.value)}
+                    placeholder="0.0"
+                    value={bidValue}
+                    onChange={(e) => setBidValue(e.target.value)}
                   />
                </div>
                <div className="button_wrapper">
@@ -160,12 +173,16 @@ const WorkLock = ({
                      Cancel
                   </ModalButton>
                   <ModalButton
-                     blue
-                     // onClick={}
-                     background="#0077ff"
-                     style={{ pointerEvents: 'none' }}
-                     background_hover="#1683ff">
-                     {isLoading ? <img style={{ marginTop: '10px' }} src={RoundSpinner} alt="React Logo" /> : 'Confirm'}
+                      blue
+                      onClick={handleBid}
+                      background="#0077ff"
+                      style={isLoading || +bidValue < 5 ? {pointerEvents: 'none'} : null}
+                      background_hover="#1683ff">
+                      {isLoading ? (
+                        <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="React Logo" />
+                      ) : (
+                        "Confirm"
+                      )}
                   </ModalButton>
                </div>
             </ModalContent>
