@@ -119,13 +119,22 @@ export default class ServiceWeb3 {
       const getReservedReward = await Escrow.methods.getReservedReward().call();
 
       // Get number of active stakers and locked amount
-      const getStakersAndTokens = await Escrow.methods.getActiveStakers(1, 0, 0).call();
+      let getStakersAndTokens
+      try {
+        getStakersAndTokens = await Escrow.methods.getActiveStakers(1, 0, 0).call();
+      } catch (error) {
+        console.error(error);
+      }
 
-      footer.activeStakers = getStakersAndTokens[1].length;
-
-      footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
-
-      footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
+      if(getStakersAndTokens){
+        footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
+        footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
+        footer.activeStakers = getStakersAndTokens[1].length;
+      } else {
+        footer.percentLocked = 0
+        footer.lockedNu = 0
+        footer.activeStakers = 0
+      }
 
       footer.circulatingSupply = ((totalNuSupply - getReservedReward) / 10 ** 18 / 10 ** 9).toFixed(3);
 
@@ -163,6 +172,7 @@ export default class ServiceWeb3 {
       const cancellationTimeDuration = cancellationEndDate - startBidDate;
       const objD = this._convertMS(cancellationTimeDuration * 1000);
       const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
+      
 
       // Calculate Cancellation Window Time Remaining
       const remainingCancelationTime = cancellationEndDate * 1000 - currentDateUnix;
