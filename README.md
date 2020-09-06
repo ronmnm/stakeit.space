@@ -1,5 +1,3 @@
-# www.stakeit.space
-
 User Interface for staking NU tokens.
 
 ## Run project locally
