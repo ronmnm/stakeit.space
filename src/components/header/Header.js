@@ -19,7 +19,7 @@ const Header = () => {
    return (
       <div className="my_header">
          <div className="logo">
-            <span>stakeit.space</span>
+            <span><a href="https://github.com/nucypher/stakeit.space" target="_blank">GitHub</a></span>
          </div>
          <Nav />
          <div className="my_address">
