@@ -13,7 +13,7 @@ const WorkLock = ({
    account,
    biddingStartDate,
    biddingEndDate, 
-   remainingCancellationTimeHuman,
+   cancellationTimeRemaining,
    biddingTimeRemaining,
 
    //
@@ -227,7 +227,7 @@ const WorkLock = ({
                </div>
                <div>
                   <span>Escrow Cancel Time Remaining</span>
-                  <h4>{remainingCancellationTimeHuman}</h4>
+                  <h4>{cancellationTimeRemaining}</h4>
                </div>
             </div>
          </div>
