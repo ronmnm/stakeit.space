@@ -7,8 +7,7 @@ const providerURI = "https://etherscan.io/tx/"
 export default class GetActionHistory {
   async getActionHistory() {
     let account = (await web3.eth.getAccounts())[0]
-    let startBlock = 2404577  // TODO - Why this start block?
-
+    let startBlock = 10763456  // Token deployment block
 
     async function _getEventList(eventName, block) {
       let historyArray = await Escrow.getPastEvents(

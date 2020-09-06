@@ -15,6 +15,13 @@ you're doing and report it to security@nucypher.com and to our Discord.
 
 ~ NuCypher Team ~
 
+###### NuCypher Mainnet Contracts
+
+* [NuCypher Token - 0x4fE83213D56308330EC302a8BD641f1d0113A4Cc](https://etherscan.io/address/0x4fE83213D56308330EC302a8BD641f1d0113A4Cc)
+* [WorkLock - 0xe9778e69a961e64d3cdbb34cf6778281d34667c2](https://etherscan.io/address/0xe9778e69a961e64d3cdbb34cf6778281d34667c2)
+* [StakingEscrow (Dispatcher) - 0xbbD3C0C794F40c4f993B03F65343aCC6fcfCb2e2](https://etherscan.io/address/0xbbD3C0C794F40c4f993B03F65343aCC6fcfCb2e2)
+* [PolicyManager (Dispatcher) - 0x67E4A942c067Ff25cE7705B69C318cA2Dfa54D64](https://etherscan.io/address/0x67E4A942c067Ff25cE7705B69C318cA2Dfa54D64)
+
 User Interface for staking NU tokens.
 
 ## Run project locally
@@ -22,7 +29,7 @@ User Interface for staking NU tokens.
 1. Clone repository and install dependencies:
 
 ```bash
-$ git clone https://github.com/ronmnm/stakeit.space.git
+$ git clone https://github.com/nucypher/stakeit.space.git
 $ cd stakeit.space
 $ npm install
 ```
