@@ -28,7 +28,7 @@ const Icon = ({ address, disable }) => {
       <IconWrapper
          disable={disable}
          className="a_icon"
-         href={disable ? null : `https://goerli.etherscan.io/address/${address}`}
+         href={disable ? null : `https://etherscan.io/address/${address}`}
          target="_blank"
          rel="noopener noreferrer">
          <svg
