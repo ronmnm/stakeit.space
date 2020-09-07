@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ModalButton } from '../../buttons/buttons';
-import { Svg7 } from '../../loader/7';
+import {ModalButton} from '../../buttons/buttons';
+import {Svg7} from '../../loader/7';
 import {connect} from 'react-redux'
 
 export const ModalContent = styled.div`

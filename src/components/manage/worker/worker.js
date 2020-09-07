@@ -1,15 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 import utils from 'web3-utils';
 import Modal from '../../worklock/modal/modal';
 import SetWorkerModal from './set-worker-modal';
-import RoundSpinner from '../../loader/7.svg';
 import EthAccountContainer from '../eth-accont-container';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import WithdrawRewards from './withdrawRewards';
-import { Button } from '../../buttons/buttons';
-import { setWorkerThunk } from '../../../redux/settersReducer';
+import {Button} from '../../buttons/buttons';
+import {setWorkerThunk} from '../../../redux/settersReducer';
 
 const WorkerWrapper = styled.div`
    grid-area: worker;

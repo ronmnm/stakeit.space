@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { Svg7 } from '../../loader/7';
+import {connect} from 'react-redux';
+import {Svg7} from '../../loader/7';
 
-import { setRestakeThunk, setWindDownThunk } from '../../../redux/settersReducer';
+import {setRestakeThunk, setWindDownThunk} from '../../../redux/settersReducer';
 
 const StakerButtonsWrapper = styled.div`
    margin-top: 30px;

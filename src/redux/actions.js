@@ -1,7 +1,6 @@
 import * as _ from './reducers'
 
 
-
 export const setConnectedAddressAC = (connectedAddress) => ({
    type: _.SET_CONNECTED_ADDRESS,
    connectedAddress,

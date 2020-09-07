@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import Stake from './Stake';
-import { StakeWrapper } from './Stake';
-import { BlueButton, GreyButton } from './Buttons';
+import Stake, {StakeWrapper} from './Stake';
+import {BlueButton, GreyButton} from './Buttons';
 
 import ConfirmationText from './ConfirmationText';
 import {addNewStake} from '../../services/stake-service';
+
 // const stakeService = new StakeService()
 
 class StakeContainer extends React.Component {

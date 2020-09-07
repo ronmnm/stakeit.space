@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, {useState} from "react"
 import Substakes from "./substakes/substakes"
 import ActionHistory from "./action-history/action-history"
-import { connect } from "react-redux"
+import {connect} from "react-redux"
 import styled from "styled-components"
 
 const ManageBottomWrapper = styled.div`

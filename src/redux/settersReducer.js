@@ -1,6 +1,6 @@
 import ServiceWeb3Setters from "../services/web3-service-setters"
 import ServiceWeb3 from "../services/web3-service"
-import { setManageData } from "./reducers"
+import {setManageData} from "./reducers"
 
 import * as t from "./actionTypes.js"
 

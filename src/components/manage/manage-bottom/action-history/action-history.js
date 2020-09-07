@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
-import { connect } from "react-redux"
+import React, {useEffect, useState} from "react"
+import {connect} from "react-redux"
 import styled from "styled-components"
 import BigNumber from "bignumber.js"
 import PaginationControls from "./pagination-controls"
-import { convertMSMod } from "../../../../utils/utils"
+import {convertMSMod} from "../../../../utils/utils"
 
 let ActionHistoryStyled = styled.div`
   /* background-color: darkkhaki; */

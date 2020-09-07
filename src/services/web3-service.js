@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { Escrow, Token, instancePolicy, Worklock, WORKLOCK_ADDRESS } from '../ethereum/instances/instances';
+import {Escrow, instancePolicy, Token, Worklock, WORKLOCK_ADDRESS} from '../ethereum/instances/instances';
 // import { convertMS } from '../utils/utils';
 
 const web3 = new Web3(window.ethereum);

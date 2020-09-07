@@ -2,11 +2,11 @@ import React, {useRef, useState} from 'react';
 import s from './worklock.module.css';
 import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal';
-import { ModalContent } from '../manage/worker/set-worker-modal';
-import { ModalButton } from '../buttons/buttons';
-import { connect } from 'react-redux';
+import {ModalContent} from '../manage/worker/set-worker-modal';
+import {ModalButton} from '../buttons/buttons';
+import {connect} from 'react-redux';
 import MainSpinner from '../loader/main-spinner';
-import { ParticipantPanel } from './ParticipantPanel';
+import {ParticipantPanel} from './ParticipantPanel';
 
 const WorkLock = ({
    isWorklockDataLoading,

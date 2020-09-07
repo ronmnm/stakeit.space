@@ -1,4 +1,5 @@
 import ServiceWeb3Setters from './web3-service-setters';
+
 const serviceWeb3Setters = new ServiceWeb3Setters();
 
 jest.mock('../ethereum/instances/instances', () => ({

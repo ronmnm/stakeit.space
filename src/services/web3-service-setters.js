@@ -1,5 +1,5 @@
 import utils from 'web3-utils';
-import { Escrow, instancePolicy } from '../ethereum/instances/instances';
+import {Escrow, instancePolicy} from '../ethereum/instances/instances';
 
 export default class ServiceWeb3Setters {
    _getAccount() {

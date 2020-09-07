@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {Redirect, Route, Router} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -11,8 +11,8 @@ import StakeContainer from './components/stake/StakeContainer';
 import Manage from './components/manage/Manage';
 import Worklock from './components/worklock/worklock';
 
-import { store } from './redux/store';
-import { setStatusThunk, getDataThunk, setManageData, setWorklockData } from './redux/reducers';
+import {store} from './redux/store';
+import {getDataThunk, setManageData, setStatusThunk, setWorklockData} from './redux/reducers';
 import * as t from './redux/actionTypes';
 
 const history = createBrowserHistory();

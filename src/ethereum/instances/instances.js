@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import {abiManager, abiEscrow, abiToken, abiWorklock} from './contract-abis'
+import {abiEscrow, abiManager, abiToken, abiWorklock} from './contract-abis'
 
 const abiIndex = 3;  // registry index of ABI
 const providerUri = process.env.WEB3_PROVIDER_URI

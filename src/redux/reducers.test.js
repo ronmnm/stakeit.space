@@ -1,4 +1,4 @@
-import { metamaskReducer, metamaskInitialState } from './reducers';
+import {metamaskInitialState, metamaskReducer} from './reducers';
 import * as t from './actionTypes';
 
 // Metamask reducer testing
