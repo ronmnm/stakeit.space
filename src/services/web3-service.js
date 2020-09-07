@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { Escrow, Token, instancePolicy, Worklock, WORKLOCK_ADDRESS } from '../ethereum/instances/instances';
+import {Escrow, instancePolicy, Token, Worklock, WORKLOCK_ADDRESS} from '../ethereum/instances/instances';
 // import { convertMS } from '../utils/utils';
 
 const web3 = new Web3(window.ethereum);
@@ -43,7 +43,6 @@ export default class ServiceWeb3 {
       const balanceEth = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account), 'ether')).toFixed(2);
 
       const StakerInfo = await Escrow.methods.stakerInfo(account).call();
-      const currentPeriod = Math.floor(Date.now() / 86400000);
 
       const confirmedPeriods = StakerInfo.confirmedPeriod1
 
@@ -119,13 +118,22 @@ export default class ServiceWeb3 {
       const getReservedReward = await Escrow.methods.getReservedReward().call();
 
       // Get number of active stakers and locked amount
-      const getStakersAndTokens = await Escrow.methods.getActiveStakers(1, 0, 0).call();
+      let getStakersAndTokens
+      try {
+        getStakersAndTokens = await Escrow.methods.getActiveStakers(1, 0, 0).call();
+      } catch (error) {
+        console.error(error);
+      }
 
-      footer.activeStakers = getStakersAndTokens[1].length;
-
-      footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
-
-      footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
+      if(getStakersAndTokens){
+        footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
+        footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
+        footer.activeStakers = getStakersAndTokens[1].length;
+      } else {
+        footer.percentLocked = 0
+        footer.lockedNu = 0
+        footer.activeStakers = 0
+      }
 
       footer.circulatingSupply = ((totalNuSupply - getReservedReward) / 10 ** 18 / 10 ** 9).toFixed(3);
 
@@ -143,18 +151,11 @@ export default class ServiceWeb3 {
       // TIME START
       // Start bid day
       const startBidDate = await Worklock.methods.startBidDate().call();
-      // const biddingStartDateHuman = new Date(startBidDate * 1000).toUTCString();
-      const biddingStartDateHuman = 'Wed, 25 Mar 2020 00:00:00 GMT';
+      const biddingStartDateHuman = new Date(startBidDate * 1000).toUTCString();
 
       // End bid day
       const endBidDate = await Worklock.methods.endBidDate().call();
-      // const biddingEndDateHuman = new Date(endBidDate * 1000).toUTCString();
-      const biddingEndDateHuman = 'Tue, 31 Mar 2020 23:59:59 GMT';
-      // const biddingDurationMs = (endBidDate - startBidDate) * 1000;
-
-      // Calculate bidding duration
-      // const objA = this._convertMS(biddingDurationMs);
-      // const biddingDuration = `${objA.day} days, ${objA.hour} hour, ${objA.minute} min`;
+      const biddingEndDateHuman = new Date(endBidDate * 1000).toUTCString();
 
       // Calculate bidding remaining
       const currentDateUnix = Date.now();
@@ -170,11 +171,12 @@ export default class ServiceWeb3 {
       const cancellationTimeDuration = cancellationEndDate - startBidDate;
       const objD = this._convertMS(cancellationTimeDuration * 1000);
       const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
+      
 
       // Calculate Cancellation Window Time Remaining
       const remainingCancelationTime = cancellationEndDate * 1000 - currentDateUnix;
       const objC = this._convertMS(remainingCancelationTime);
-      const remainingCancelationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
+      const remainingCancellationTimeHuman = `${objC.day} Days, ${objC.hour} Hours, ${objC.minute} Mins`;
 
       const isClaimingAvailable = await Worklock.methods.isClaimingAvailable().call();
       let isClaimingAvailableHuman;
@@ -271,8 +273,9 @@ export default class ServiceWeb3 {
          biddingTimeRemaining: biddingTimeRemaining,
          cancellationEndDate: endCancellationDateHuman,
          cancellationTimeDuration: cancellationTimeDurationHuman,
-         cancellationTimeRemaining: remainingCancelationTimeHuman,
+         cancellationTimeRemaining: remainingCancellationTimeHuman,
          CancelationTime: remainingCancelationTime,
+
          // time end
          claimingBool: isClaimingAvailable,
          claimingYesNo: isClaimingAvailableHuman,
@@ -286,7 +289,7 @@ export default class ServiceWeb3 {
          tokensAllocated: ethToTokensNu,
          boostingRefund: boostingRefund,
          SLOWING_REFUND: SLOWING_REFUND,
-         аvailableRefund: parseFloat(getAvailableRefund).toFixed(4),
+         availableRefund: parseFloat(getAvailableRefund).toFixed(4),
          getContractBal: getContractBal,
          bonusETHSupply: bonusETHSupply,
          bonusDepositRate: bonusDepositRate.toFixed(2),
@@ -315,7 +318,7 @@ export default class ServiceWeb3 {
             const accounts = await web3.eth.getAccounts();
             await Escrow.methods.setReStake(value).send({ from: accounts[0] });
          } catch (err) {
-            console.error('Oh no', err);
+            console.error('Error', err);
          }
       };
 
@@ -324,7 +327,7 @@ export default class ServiceWeb3 {
             const accounts = await web3.eth.getAccounts();
             await Escrow.methods.setWindDown(value).send({ from: accounts[0] });
          } catch (err) {
-            console.error('Oh no', err);
+            console.error('Error', err);
          }
       };
 
@@ -333,7 +336,7 @@ export default class ServiceWeb3 {
             const accounts = await web3.eth.getAccounts();
             await Escrow.methods.setWorker(address).send({ from: accounts[0] });
          } catch (err) {
-            console.error('Oh no', err);
+            console.error('Error', err);
          }
       };
 
@@ -342,7 +345,7 @@ export default class ServiceWeb3 {
             const accounts = await web3.eth.getAccounts();
             await Escrow.methods.prolongStake(index, periods).send({ from: accounts[0] });
          } catch (err) {
-            console.error('Oh no', err);
+            console.error('Error', err);
          }
       };
 
@@ -356,7 +359,7 @@ export default class ServiceWeb3 {
 
             await Escrow.methods.divideStake(index, nits, periods).send({ from: accounts[0] });
          } catch (err) {
-            console.error('Oh no', err);
+            console.error('Error', err);
          }
       };
 

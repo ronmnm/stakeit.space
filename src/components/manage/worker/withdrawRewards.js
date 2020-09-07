@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { withdrawNuThunk, withdrawPolicyThunk } from '../../../redux/settersReducer';
-import { Svg7 } from '../../loader/7';
+import {connect} from 'react-redux';
+import {withdrawNuThunk, withdrawPolicyThunk} from '../../../redux/settersReducer';
+import {Svg7} from '../../loader/7';
 
 const RewardsSection = styled.form`
    .rewards_title {

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import ReactGA from 'react-ga';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import s from './staker.module.css';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import EthAccountContainer from '../eth-accont-container';
-import  StakerButtons  from './staker-buttons';
+import StakerButtons from './staker-buttons';
 
 const StakerContent = styled.div`
    margin: 10px 0;

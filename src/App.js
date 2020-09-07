@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ReactGA from 'react-ga';
-import { Router, Route, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { connect } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {Redirect, Route, Router} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -12,21 +11,12 @@ import StakeContainer from './components/stake/StakeContainer';
 import Manage from './components/manage/Manage';
 import Worklock from './components/worklock/worklock';
 
-import { store } from './redux/store';
-import { setStatusThunk, getDataThunk, setManageData, setWorklockData } from './redux/reducers';
+import {store} from './redux/store';
+import {getDataThunk, setManageData, setStatusThunk, setWorklockData} from './redux/reducers';
 import * as t from './redux/actionTypes';
 
 const history = createBrowserHistory();
-const stakeit = 'UA-162529903-1';
-// const test = 'UA-162797521-1';
 const ethereum = window.ethereum;
-
-ReactGA.initialize(stakeit);
-
-history.listen(location => {
-   ReactGA.set({ page: location.pathname });
-   ReactGA.pageview(location.pathname);
-});
 
 const App = props => {
    const [amount, setAmount] = useState(null);
@@ -43,7 +33,7 @@ const App = props => {
       if (typeof window.ethereum !== 'undefined') {
          const ethereum = window.ethereum;
          if (ethereum.selectedAddress !== null || address) {
-            if (ethereum.networkVersion === '5' || ethereum.networkVersion === undefined) {
+            if (ethereum.networkVersion === '1' || ethereum.networkVersion === undefined) {
                props.getDataThunk();
                ethereum.on('accountsChanged', () => {
                   metamaskChecking();

@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactGA from 'react-ga';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import Stake from './Stake';
-import { StakeWrapper } from './Stake';
-import { BlueButton, GreyButton } from './Buttons';
+import Stake, {StakeWrapper} from './Stake';
+import {BlueButton, GreyButton} from './Buttons';
 
 import ConfirmationText from './ConfirmationText';
 import {addNewStake} from '../../services/stake-service';
+
 // const stakeService = new StakeService()
 
 class StakeContainer extends React.Component {
@@ -26,14 +25,7 @@ class StakeContainer extends React.Component {
    async confirmationClick() {
       this.setState({ confirmBtnLoading: true });
       console.log(this.state.confirmBtnLoading);
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Confirm button click',
-         label: 'stake_tab_label',
-      });
-      
       await addNewStake(this.props.amount, this.props.duration);
-
       this.setState({ confirmBtnLoading: false });
    }
 
@@ -43,11 +35,6 @@ class StakeContainer extends React.Component {
 
    onButtonClick(e) {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Stake tab',
-         action: 'Click Stake It button',
-         label: 'stake_tab_label',
-      });
       this.setState({ clicked: true });
    }
 

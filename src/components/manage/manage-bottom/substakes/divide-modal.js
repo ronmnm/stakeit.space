@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import { ModalButton } from '../../../buttons/buttons';
-import { connect } from 'react-redux';
-import { divideStakeThunk } from '../../../../redux/settersReducer';
-import { Svg7 } from '../../../loader/7';
+import {ModalButton} from '../../../buttons/buttons';
+import {connect} from 'react-redux';
+import {divideStakeThunk} from '../../../../redux/settersReducer';
+import {Svg7} from '../../../loader/7';
 // import ModalContent from '../../worker/set-worker-modal'
 
 export const ModalContent = styled.div`

@@ -1,19 +1,20 @@
-import React, { useState, useRef } from 'react';
-import ReactGA from 'react-ga';
+import React, {useRef, useState} from 'react';
 import s from './worklock.module.css';
 import RoundSpinner from '../loader/7.svg';
 import Modal from './modal/modal';
-import { ModalContent } from '../manage/worker/set-worker-modal';
-import { ModalButton } from '../buttons/buttons';
-import { connect } from 'react-redux';
+import {ModalContent} from '../manage/worker/set-worker-modal';
+import {ModalButton} from '../buttons/buttons';
+import {connect} from 'react-redux';
 import MainSpinner from '../loader/main-spinner';
-import { ParticipantPanel } from './ParticipantPanel';
+import {ParticipantPanel} from './ParticipantPanel';
 
 const WorkLock = ({
    isWorklockDataLoading,
    account,
    biddingStartDate,
-   biddingEndDate,
+   biddingEndDate, 
+   cancellationTimeRemaining,
+   biddingTimeRemaining,
 
    //
    minAllowedBid,
@@ -30,7 +31,7 @@ const WorkLock = ({
    tokensAllocated,
    claimingBool,
    // completedWork,
-   аvailableRefund,
+   availableRefund,
    // getRemainingWork,
    tokenSupply,
    bonusTokenSupply,
@@ -74,17 +75,12 @@ const WorkLock = ({
    
 
    let refund_disable;
-   if (аvailableRefund > 0) {
+   if (availableRefund > 0) {
       refund_disable = false;
    } else refund_disable = true;
 
    const onRefundClick = async e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Refund ETH button',
-         label: 'worklock_tab_label',
-      });
       setRefundSpin(true);
       refund()
          .then(() => {
@@ -97,11 +93,6 @@ const WorkLock = ({
 
    const onClaimClick = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Claim NU button',
-         label: 'worklock_tab_label',
-      });
       setClaimSpin(true);
       claimTokens()
          .then(() => {
@@ -114,11 +105,6 @@ const WorkLock = ({
 
    const onCancelBidClick = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Click Cancel Bid button',
-         label: 'worklock_tab_label',
-      });
       setCancelSpin(true);
       cancelBid()
          .then(() => {
@@ -131,11 +117,6 @@ const WorkLock = ({
 
    const openModal = e => {
       e.preventDefault();
-      ReactGA.event({
-         category: 'Worklock tab',
-         action: 'Open Bid Modal',
-         label: 'worklock_tab_label',
-      });
       modalRef.current.openMod();
    };
    const closeModal = () => {
@@ -158,10 +139,10 @@ const WorkLock = ({
       <div className={s.worklock_wrapper}>
          <Modal ref={modalRef}>
             <ModalContent isValid={isValid}>
-                  <span>Place new bid</span>
+                  <span>Place new escrow</span>
                   <div>
                   <b>Minimum escrow is 5ETH.</b>
-                  <label htmlFor="">Enter bid amount (ETH):</label>
+                  <label htmlFor="">Enter escrow amount (ETH):</label>
                   <input
                     placeholder="0.0"
                     value={bidValue}
@@ -179,7 +160,7 @@ const WorkLock = ({
                       style={isLoading || +bidValue < 5 ? {pointerEvents: 'none'} : null}
                       background_hover="#1683ff">
                       {isLoading ? (
-                        <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="React Logo" />
+                        <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="Placing Escrow" />
                       ) : (
                         "Confirm"
                       )}
@@ -194,34 +175,34 @@ const WorkLock = ({
                   <br />
                   <b>{account}</b>
                </span>
-               <div onClick={openModal}>Place new bid</div>
+               <div onClick={openModal}>Place Escrow</div>
             </div>
             <div className={s.participant_panels}>
                <ParticipantPanel
-                  title="Your current bid:"
+                  title="Your current escrow:"
                   value={currentBid}
                   currency="ETH"
                   button={
-                     cancelSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Cancel Bid'
+                     cancelSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Cancelling" /> : 'Cancel Escrow'
                   }
                   disabled={disableCanBtn}
                   onClick={onCancelBidClick}
                />
                <ParticipantPanel
-                  title="Nu tokens allocation:"
+                  title="NU tokens allocation:"
                   value={tokensAllocated.toLocaleString('en-Us')}
                   currency="NU"
-                  button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Claim'}
+                  button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Claiming" /> : 'Claim'}
                   // disableClaimBtn
                   disabled={disableClaimBtn}
                   onClick={onClaimClick}
                />
                <ParticipantPanel
                   title="Available ETH refund:"
-                  value={аvailableRefund}
+                  value={availableRefund}
                   currency="ETH"
                   button={
-                     refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Refund'
+                     refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Refunding" /> : 'Refund'
                   }
                   disabled={refund_disable}
                   onClick={onRefundClick}
@@ -233,20 +214,20 @@ const WorkLock = ({
             <h3>TIMELINE</h3>
             <div className={s.timeline_container}>
                <div>
-                  <span>Bidding Start Date</span>
+                  <span>Escrow Start Date</span>
                   <h4>{biddingStartDate}</h4>
                </div>
                <div>
-                  <span>Bidding End Date</span>
+                  <span>Escrow End Date</span>
                   <h4>{biddingEndDate}</h4>
                </div>
                <div>
-                  <span>Bidding Ends In</span>
-                  <h4>Ended</h4>
+                  <span>Escrow Ends In</span>
+                  <h4>{biddingTimeRemaining}</h4>
                </div>
                <div>
-                  <span>Bid Cancel Time Remaining</span>
-                  <h4>0</h4>
+                  <span>Cancellation Time Remaining</span>
+                  <h4>{cancellationTimeRemaining}</h4>
                </div>
             </div>
          </div>
@@ -256,7 +237,7 @@ const WorkLock = ({
             <div className={s.economics_container}>
                <div className={s.economics_top_row}>
                   <div>
-                     <span>Minimal allowed bid</span>
+                     <span>Minimum allowed escrow</span>
                      <h4>{minAllowedBid} ETH</h4>
                   </div>
                   <div>
@@ -274,7 +255,7 @@ const WorkLock = ({
                </div>
                <div className={s.economics_middle_row}>
                   <div>
-                     <span>Number of bidders</span>
+                     <span>Direct participants</span>
                      <h4>{biddersLength}</h4>
                   </div>
                   <div>
@@ -320,31 +301,5 @@ const mapDispatchToProps = ({ user }) => ({
    account: user.account,
    ...user.worklock,
 });
+
 export default connect(mapDispatchToProps)(WorkLock);
-
-class Bid extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = { value: '' };
-
-      this.onChange = this.onChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-   }
-   onChange(e) {
-      this.setState({ value: e.target.value });
-   }
-   handleSubmit(e) {
-      e.preventDefault();
-   }
-
-   render() {
-      // console.log(this.state.value)
-      return (
-         <form className={s.bid_form} onSubmit={this.handleSubmit}>
-            <span>Enter bid amount:</span>
-            <input value={this.state.value} onChange={this.onChange} placeholder="ETH Amount" type="text" />
-            <button className={s.button_disabled}>Place Bid!</button>
-         </form>
-      );
-   }
-}

@@ -1,4 +1,4 @@
-import { addNewStake } from './stake-service';
+import {addNewStake} from './stake-service';
 
 /**
  * mocking the Token contract instance

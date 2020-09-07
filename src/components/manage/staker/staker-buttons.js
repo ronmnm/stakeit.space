@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactGA from 'react-ga';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { Svg7 } from '../../loader/7';
+import {connect} from 'react-redux';
+import {Svg7} from '../../loader/7';
 
-import { setRestakeThunk, setWindDownThunk } from '../../../redux/settersReducer';
+import {setRestakeThunk, setWindDownThunk} from '../../../redux/settersReducer';
 
 const StakerButtonsWrapper = styled.div`
    margin-top: 30px;
@@ -65,22 +64,11 @@ const StakerButtonsWrapper = styled.div`
 
 const StakerButtons = ({ status, reStakeDisabled, windDown, setRestakeThunk, showRestakeLoader, showWindDownLoader, setWindDownThunk }) => {
    const handleRestake = bool => {
-      ReactGA.event({
-         category: 'Manage tab',
-         action: `Restake ${bool ? 'On' : 'Off'}`,
-         label: 'manage_tab_label',
-      });
       setRestakeThunk(bool);
    };
 
    const handleWinddown = bool => {
-      ReactGA.event({
-         category: 'Manage tab',
-         action: `Winddown ${bool ? 'On' : 'Off'}`,
-         label: 'manage_tab_label',
-      });
       setWindDownThunk(bool);
-      
    };
 
    return (

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import { ThemeProvider } from 'styled-components';
-import { theme } from './themes/theme';
-import { GlobalStyles } from './themes/global';
+import {ThemeProvider} from 'styled-components';
+import {theme} from './themes/theme';
+import {GlobalStyles} from './themes/global';
 
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import {Provider} from 'react-redux';
+import {store} from './redux/store';
 
 window.store = store;
 

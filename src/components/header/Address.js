@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Blockies from 'react-blockies';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import RoundSpinner from '../loader/7.svg';
 
 const InstallButton = styled.div`

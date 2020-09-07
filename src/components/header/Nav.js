@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {NavLink, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`

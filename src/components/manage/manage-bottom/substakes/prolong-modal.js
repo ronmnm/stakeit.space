@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import { ModalButton } from '../../../buttons/buttons';
-import { ModalContent } from './divide-modal';
-import { Svg7 } from '../../../loader/7';
-import { connect } from 'react-redux';
-import { prolongStakeThunk } from '../../../../redux/settersReducer';
+import {ModalButton} from '../../../buttons/buttons';
+import {ModalContent} from './divide-modal';
+import {Svg7} from '../../../loader/7';
+import {connect} from 'react-redux';
+import {prolongStakeThunk} from '../../../../redux/settersReducer';
 
 const ProlongControls = styled.div`
    display: grid;

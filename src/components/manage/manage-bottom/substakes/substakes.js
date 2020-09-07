@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 
 import NoStakes from './no-stakes/no-stakes';
 import Modal from '../../../worklock/modal/modal';
-import { Button } from '../../../buttons/buttons';
+import {Button} from '../../../buttons/buttons';
 import DivideModal from './divide-modal';
 import ProlongModal from './prolong-modal';
 
-import { substakeObjectCreator } from '../../../../utils/utils';
+import {substakeObjectCreator} from '../../../../utils/utils';
 
 const SubstakePanel = styled.div`
    display: grid;

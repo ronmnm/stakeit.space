@@ -1,5 +1,5 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
-import styled, { keyframes } from 'styled-components'
+import React, {forwardRef, useImperativeHandle, useState} from "react";
+import styled, {keyframes} from 'styled-components'
 
 import ReactDOM from "react-dom";
 
