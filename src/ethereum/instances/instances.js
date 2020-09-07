@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import {abiManager, abiEscrow, abiToken, abiWorklock} from './contract-abis'
 
 const abiIndex = 3;  // registry index of ABI
-const providerUri = 'https://mainnet.infura.io/v3/d596a1f7aec940cab578b15d864781db'
+const providerUri = process.env.WEB3_PROVIDER_URI
 const web3 = new Web3(window.ethereum || providerUri);
 
 // PolicyManager

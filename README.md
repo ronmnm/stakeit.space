@@ -22,6 +22,8 @@ you're doing and report it to security@nucypher.com and to our Discord.
 * [StakingEscrow (Dispatcher) - 0xbbD3C0C794F40c4f993B03F65343aCC6fcfCb2e2](https://etherscan.io/address/0xbbD3C0C794F40c4f993B03F65343aCC6fcfCb2e2)
 * [PolicyManager (Dispatcher) - 0x67E4A942c067Ff25cE7705B69C318cA2Dfa54D64](https://etherscan.io/address/0x67E4A942c067Ff25cE7705B69C318cA2Dfa54D64)
 
+## stakeit.space
+
 User Interface for staking NU tokens.
 
 ## Run project locally
@@ -40,5 +42,13 @@ $ npm install
 $ npm start
 and navigate to http://localhost:3000/
 ```
+
+## Production
+
+```bash
+npm build
+```
+
+Set `process.env.WEB3_PROVIDER_URI` on the host server as a fallback provider.
 
 [![license](https://img.shields.io/pypi/l/nucypher.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
