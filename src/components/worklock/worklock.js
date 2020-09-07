@@ -31,7 +31,7 @@ const WorkLock = ({
    tokensAllocated,
    claimingBool,
    // completedWork,
-   аvailableRefund,
+   availableRefund,
    // getRemainingWork,
    tokenSupply,
    bonusTokenSupply,
@@ -75,7 +75,7 @@ const WorkLock = ({
    
 
    let refund_disable;
-   if (аvailableRefund > 0) {
+   if (availableRefund > 0) {
       refund_disable = false;
    } else refund_disable = true;
 
@@ -189,7 +189,7 @@ const WorkLock = ({
                   onClick={onCancelBidClick}
                />
                <ParticipantPanel
-                  title="Nu tokens allocation:"
+                  title="NU tokens allocation:"
                   value={tokensAllocated.toLocaleString('en-Us')}
                   currency="NU"
                   button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Claiming" /> : 'Claim'}
@@ -199,7 +199,7 @@ const WorkLock = ({
                />
                <ParticipantPanel
                   title="Available ETH refund:"
-                  value={аvailableRefund}
+                  value={availableRefund}
                   currency="ETH"
                   button={
                      refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Refunding" /> : 'Refund'
@@ -255,7 +255,7 @@ const WorkLock = ({
                </div>
                <div className={s.economics_middle_row}>
                   <div>
-                     <span>Number of bidders</span>
+                     <span>Direct participants</span>
                      <h4>{biddersLength}</h4>
                   </div>
                   <div>
