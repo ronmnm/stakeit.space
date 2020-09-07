@@ -43,7 +43,6 @@ export default class ServiceWeb3 {
       const balanceEth = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account), 'ether')).toFixed(2);
 
       const StakerInfo = await Escrow.methods.stakerInfo(account).call();
-      const currentPeriod = Math.floor(Date.now() / 86400000);
 
       const confirmedPeriods = StakerInfo.confirmedPeriod1
 

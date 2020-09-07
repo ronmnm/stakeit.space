@@ -160,7 +160,7 @@ const WorkLock = ({
                       style={isLoading || +bidValue < 5 ? {pointerEvents: 'none'} : null}
                       background_hover="#1683ff">
                       {isLoading ? (
-                        <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="React Logo" />
+                        <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="Placing Escrow" />
                       ) : (
                         "Confirm"
                       )}
@@ -183,7 +183,7 @@ const WorkLock = ({
                   value={currentBid}
                   currency="ETH"
                   button={
-                     cancelSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Cancel Bid'
+                     cancelSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Cancelling" /> : 'Cancel Escrow'
                   }
                   disabled={disableCanBtn}
                   onClick={onCancelBidClick}
@@ -192,7 +192,7 @@ const WorkLock = ({
                   title="Nu tokens allocation:"
                   value={tokensAllocated.toLocaleString('en-Us')}
                   currency="NU"
-                  button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Claim'}
+                  button={claimSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Claiming" /> : 'Claim'}
                   // disableClaimBtn
                   disabled={disableClaimBtn}
                   onClick={onClaimClick}
@@ -202,7 +202,7 @@ const WorkLock = ({
                   value={аvailableRefund}
                   currency="ETH"
                   button={
-                     refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="React Logo" /> : 'Refund'
+                     refundSpin ? <img className={s.round_spinner} src={RoundSpinner} alt="Refunding" /> : 'Refund'
                   }
                   disabled={refund_disable}
                   onClick={onRefundClick}
@@ -226,7 +226,7 @@ const WorkLock = ({
                   <h4>{biddingTimeRemaining}</h4>
                </div>
                <div>
-                  <span>Escrow Cancel Time Remaining</span>
+                  <span>Cancellation Time Remaining</span>
                   <h4>{cancellationTimeRemaining}</h4>
                </div>
             </div>
@@ -237,7 +237,7 @@ const WorkLock = ({
             <div className={s.economics_container}>
                <div className={s.economics_top_row}>
                   <div>
-                     <span>Minimal allowed escrow</span>
+                     <span>Minimum allowed escrow</span>
                      <h4>{minAllowedBid} ETH</h4>
                   </div>
                   <div>
@@ -301,31 +301,5 @@ const mapDispatchToProps = ({ user }) => ({
    account: user.account,
    ...user.worklock,
 });
+
 export default connect(mapDispatchToProps)(WorkLock);
-
-class Bid extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = { value: '' };
-
-      this.onChange = this.onChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-   }
-   onChange(e) {
-      this.setState({ value: e.target.value });
-   }
-   handleSubmit(e) {
-      e.preventDefault();
-   }
-
-   render() {
-      // console.log(this.state.value)
-      return (
-         <form className={s.bid_form} onSubmit={this.handleSubmit}>
-            <span>Enter escrow amount:</span>
-            <input value={this.state.value} onChange={this.onChange} placeholder="ETH Amount" type="text" />
-            <button className={s.button_disabled}>Place Bid!</button>
-         </form>
-      );
-   }
-}
