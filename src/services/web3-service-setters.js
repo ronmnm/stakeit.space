@@ -16,7 +16,7 @@ export default class ServiceWeb3Setters {
    };
 
    setWorker = async address => {
-      return await Escrow.methods.setWorker(address).send({ from: this._getAccount() });
+      return await Escrow.methods.bondWorker(address).send({ from: this._getAccount() });
    };
 
    prolongStake = async (index, periods) => {
