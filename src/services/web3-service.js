@@ -54,10 +54,10 @@ export default class ServiceWeb3 {
       }
       // Get users locked tokens
       const lockedStakerNits = await Escrow.methods.getLockedTokens(account, 0).call();
-      const lockedStakerNu = lockedStakerNits / 10 ** 18;
+      const lockedStakerNu = web3.utils.fromWei(lockedStakerNits, 'ether');
       // Calculate Stakers unlocked NU
-      const stakerUnlockedNits = StakerInfo.value - lockedStakerNits;
-      const stakerNuUnlocked = web3.utils.fromWei(String(stakerUnlockedNits), 'ether');
+      const stakerUnlockedNits = web3.utils.toBN(StakerInfo.value).sub(web3.utils.toBN(lockedStakerNits));
+      const stakerNuUnlocked = web3.utils.fromWei(stakerUnlockedNits, 'ether');
 
       const isReStakeLockedBool = await Escrow.methods.isReStakeLocked(account).call();
       const isRestakeLocked = isReStakeLockedBool ? 'Locked' : 'Unlocked';
@@ -171,7 +171,7 @@ export default class ServiceWeb3 {
       const cancellationTimeDuration = cancellationEndDate - startBidDate;
       const objD = this._convertMS(cancellationTimeDuration * 1000);
       const cancellationTimeDurationHuman = `${objD.day} D, ${objD.hour} H, ${objD.minute} M`;
-      
+
 
       // Calculate Cancellation Window Time Remaining
       const remainingCancelationTime = cancellationEndDate * 1000 - currentDateUnix;
@@ -233,7 +233,7 @@ export default class ServiceWeb3 {
       const completedWork = (await Escrow.methods.getCompletedWork(account).call()) - workInfo[1];
       // const completedWork = blabla - refundedWork;
       // Setters
-      
+
       const makeBid = async value => {
         await Worklock.methods.bid().send({
           from: accounts[0],
