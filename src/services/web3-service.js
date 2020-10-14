@@ -43,6 +43,8 @@ export default class ServiceWeb3 {
       const balanceEth = parseFloat(web3.utils.fromWei(await web3.eth.getBalance(account), 'ether')).toFixed(2);
 
       const StakerInfo = await Escrow.methods.stakerInfo(account).call();
+      
+      let stakerFlags = await Escrow.methods.getFlags(account).call()
 
       const confirmedPeriods = StakerInfo.confirmedPeriod1
 
@@ -93,8 +95,8 @@ export default class ServiceWeb3 {
          staker: account,
          worker: StakerInfo.worker,
          status: isRestakeLocked,
-         windDown: StakerInfo.windDown,
-         reStakeDisabled: StakerInfo.reStakeDisabled,
+         windDown: stakerFlags.windDown,
+         reStakeDisabled: !stakerFlags.reStake,
          subStakesLength: getSubStakesLength,
          substakeList: getAllSubstakes,
          StakerInfo: StakerInfo,
