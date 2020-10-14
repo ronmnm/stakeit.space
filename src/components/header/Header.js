@@ -7,7 +7,9 @@ const Header = () => {
    return (
       <div className="my_header">
          <div className="logo">
-            <span><a href="https://github.com/nucypher/stakeit.space" target="_blank">GitHub</a></span>
+            <span>
+               <a href="https://github.com/nucypher/stakeit.space" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </span>
          </div>
          <Nav />
          <div className="my_address">

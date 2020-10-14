@@ -119,7 +119,7 @@ const ActionHistory = ({ loading, actionHistoryList }) => {
             <div>Set worker</div>
             <div>Worker address: {item.returnValues.worker}</div>
           </>
-        ) 
+        )
       case "Deposited":
         return (
           <>
@@ -153,7 +153,7 @@ const ActionHistory = ({ loading, actionHistoryList }) => {
             <div className="event_column">{pickEventTitle(item)}</div>
             <span>{item.blockNumber}</span>
             <span>
-              <a className="txn_hash_link" href={item.link} target="_blank">
+              <a className="txn_hash_link" href={item.link} target="_blank" rel="noopener noreferrer">
                 {item.transactionHash.slice(0, 15)}...
               </a>
             </span>
