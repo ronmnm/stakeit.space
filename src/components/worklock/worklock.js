@@ -139,11 +139,12 @@ const WorkLock = ({
       <div className={s.worklock_wrapper}>
          <Modal ref={modalRef}>
             <ModalContent isValid={isValid}>
-                  <span>Place new escrow</span>
+                  <span>Escrow period ended</span>
                   <div>
                   <b>Minimum escrow is 5ETH.</b>
                   <label htmlFor="">Enter escrow amount (ETH):</label>
                   <input
+                    style={{pointerEvents: "none"}}
                     placeholder="0.0"
                     value={bidValue}
                     onChange={(e) => setBidValue(e.target.value)}
@@ -157,7 +158,8 @@ const WorkLock = ({
                       blue
                       onClick={handleBid}
                       background="#0077ff"
-                      style={isLoading || +bidValue < 5 ? {pointerEvents: 'none'} : null}
+                      style={{pointerEvents: 'none'}}
+                      // style={isLoading || +bidValue < 5 ? {pointerEvents: 'none'} : null}
                       background_hover="#1683ff">
                       {isLoading ? (
                         <img style={{ marginTop: "10px" }} src={RoundSpinner} alt="Placing Escrow" />
@@ -223,11 +225,11 @@ const WorkLock = ({
                </div>
                <div>
                   <span>Escrow Ends In</span>
-                  <h4>{biddingTimeRemaining}</h4>
+                  <h4>Ended</h4>
                </div>
                <div>
                   <span>Cancellation Time Remaining</span>
-                  <h4>{cancellationTimeRemaining}</h4>
+                  <h4>0 Days, 0 Hours, 0 Mins</h4>
                </div>
             </div>
          </div>
