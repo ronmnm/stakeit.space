@@ -131,6 +131,7 @@ export default class ServiceWeb3 {
         footer.lockedNu = (parseFloat(getStakersAndTokens[0]) / 10 ** 18).toLocaleString('en-Us');
         footer.percentLocked = ((getStakersAndTokens[0] / (totalNuSupply - getReservedReward)) * 100).toFixed(2);
         footer.activeStakers = getStakersAndTokens[1].length;
+        // console.log(getStakersAndTokens);
       } else {
         footer.percentLocked = 0
         footer.lockedNu = 0

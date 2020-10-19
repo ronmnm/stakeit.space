@@ -50,7 +50,7 @@ export const mainReducer = (state = userState, action) => {
     case t.SET_MANAGE_DATA:
       return { ...state, manage: action.payload, isManageDataLoading: action.bool }
     case t.SET_ACTION_HISTORY_DATA:
-      console.log(action.payload);
+      // console.log(action.payload);
       return { ...state, actionHistory: action.payload, isActionHistoryDataLoading: action.bool }
 
     case t.SET_RESTAKE_STATUS:
