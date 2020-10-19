@@ -33,7 +33,7 @@ const App = props => {
       if (typeof window.ethereum !== 'undefined') {
          const ethereum = window.ethereum;
          if (ethereum.selectedAddress !== null || address) {
-            if (ethereum.networkVersion === '1' || ethereum.networkVersion === undefined) {
+            if (ethereum.networkVersion === '4' || ethereum.networkVersion === undefined) {
                props.getDataThunk();
                ethereum.on('accountsChanged', () => {
                   metamaskChecking();
